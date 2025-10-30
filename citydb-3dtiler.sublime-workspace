@@ -1,0 +1,664 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"advise_",
+				"advise_file"
+			],
+			[
+				"strip",
+				"strip_namespace"
+			],
+			[
+				"file_",
+				"file_extension"
+			],
+			[
+				"list_",
+				"list_toplevel_entities"
+			],
+			[
+				"replace",
+				"replacement_string"
+			],
+			[
+				"full",
+				"full_path"
+			],
+			[
+				"X",
+				"XChildEntity"
+			],
+			[
+				"chil",
+				"child_entity"
+			],
+			[
+				"filte",
+				"filtered_file_list"
+			],
+			[
+				"get",
+				"get_configuration"
+			],
+			[
+				"POSTGRES",
+				"POSTGRES_PASSWORD"
+			],
+			[
+				"a",
+				"assertTrue"
+			],
+			[
+				"assert",
+				"assertTrue"
+			],
+			[
+				"con",
+				"buildingConstructiveElement"
+			],
+			[
+				"Buil",
+				"BuildingConstructiveElement"
+			],
+			[
+				"TE",
+				"textarea"
+			],
+			[
+				"ac",
+				"action"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "advise_main.py",
+			"settings":
+			{
+				"buffer_size": 2052,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+				[
+					3,
+					1,
+					"left_delete",
+					null,
+					"AQAAAK4AAAAAAAAArgAAAAAAAAABAAAACg",
+					"AQAAAAAAAAABAAAArwAAAAAAAACvAAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "citydb-3dtiler.py",
+			"settings":
+			{
+				"buffer_size": 2073,
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+			]
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"previ",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"plant",
+				"PlantUmlDiagrams: Generate Diagrams for Active View"
+			],
+			[
+				"format",
+				"ST: Format SQL"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"postgre",
+				"Set Syntax: PostgreSQL"
+			],
+			[
+				"previe",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"sql",
+				"Set Syntax: SQL"
+			],
+			[
+				"forma",
+				"Format: Javascript"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"pre",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"i",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"li",
+				"Linearize XML"
+			],
+			[
+				"ind",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"xml",
+				"Set Syntax: XML"
+			],
+			[
+				"plan",
+				"PlantUmlDiagrams: Generate Diagrams for Active View"
+			],
+			[
+				"uml",
+				"PlantUmlDiagrams: Continually Generate Diagram"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"jso",
+				"Pretty JSON: Format JSON"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"javas",
+				"Format: Javascript"
+			],
+			[
+				"raw",
+				"Raw Line Edit: Toggle Line Edit Mode"
+			],
+			[
+				"json",
+				"Pretty JSON: Format JSON"
+			],
+			[
+				"markdown",
+				"MarkdownEditing: Select Color scheme"
+			],
+			[
+				"markd",
+				"MarkdownEditing: Select Color scheme"
+			],
+			[
+				"preview",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"rei",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"for",
+				"Pretty JSON: Format JSON"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"js",
+				"Pretty JSON: Format JSON"
+			],
+			[
+				"inden",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"prev",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"linear",
+				"Linearize XML"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"re",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"yaml",
+				"Set Syntax: YAML"
+			],
+			[
+				"reinden",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"indent",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"view",
+				"View In Browser"
+			],
+			[
+				"brow",
+				"View In Browser"
+			],
+			[
+				"browser",
+				"View In Browser"
+			],
+			[
+				"markdow",
+				"Set Syntax: Markdown"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/murat/gitpot/citydb-3dtiler",
+		"/home/murat/gitpot/citydb-3dtiler/docs",
+		"/home/murat/gitpot/citydb-3dtiler/sources",
+		"/home/murat/gitpot/citydb-3dtiler/sources/plantuml"
+	],
+	"file_history":
+	[
+		"/home/murat/gitpot/citydb-3dtiler/readme.md",
+		"/home/murat/gitpot/citydb-3dtiler/sources/plantuml/app_mapp.puml",
+		"/tmp/svg-viewer/abc9172557a9de1c4f391fe0d87495d9/app_mapp.png",
+		"/home/murat/gitpot/citydb-3dtiler/sources/plantuml/app_mapp.svg",
+		"/home/murat/gitpot/citydb-3dtiler/citydb-3dtiler.py",
+		"/home/murat/gitpot/citydb-3dtiler/advise_main.py",
+		"/home/murat/gitpot/citydb-3dtiler/.gitignore",
+		"/home/murat/gitpot/citydb-3dtiler/advise_sql/calculate_recommended_max_features_per_tile.sql",
+		"/home/murat/gitpot/citydb-3dtiler/tile_main.py",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/leipzig_2025_donaubauer_transportation_query.sql",
+		"/home/murat/gitpot/x-razor/main.py",
+		"/home/murat/gitpot/x-razor-2/main.py",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/ingolstadt_nav_felix_2025.sql",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/kirchenanschoering_2025_knezevic_buildings.sql",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/ingolstadt_intensity_2025_schwab_.sql",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/choose_materials_from_opendrive_lane_type_or_objectclass.sql",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/default_query_backup4.sql",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/1100_create_geoms_w_transparency_a_realistic-colors.sql",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/choose_existing_material_from_surfacedata_or_by_specific_property_or_by_objectclass.sql",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/calculate_recommended_max_features_per_tile.sql",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/view_material_data_only_by_objectclass.sql",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/material_data_by_properties_and_classes.sql",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/default_query.sql",
+		"/run/user/1000/gvfs/smb-share:server=gifs.gis.lrg.tum.de,share=intern/LHM Schulen (Donaubauer)/copc_files_yeltekin/info_GE009.json",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/12_Richmond Baidoo_12077708_assignsubmission_file/Web Map service (RichElsa_group12)/Web Map service (Rich&Elsa_group12)/Get map Requests.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/11_Rexford Boafo Asiedu_12077727_assignsubmission_file/Deliverable 3_Web Map Service/3_getmap_requests.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/04_Yun Bao_12077718_assignsubmission_file/group4_wms_deliverables/getmap_requests.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/03_Gökay Çelik_12077715_assignsubmission_file/Group3_Task5/GetMap_Links.txt",
+		"/home/murat/Downloads/HH_WFS_Grundwasserschutz.gml",
+		"/home/murat/Downloads/newww/1",
+		"/home/murat/Documents/0080_grading_project_work_in_GI/implementation/suse25-group-1-main/_downloaded_data/munich_subway.graphml",
+		"/home/murat/Documents/0080_grading_project_work_in_GI/implementation/suse25-group-1-main/README.md",
+		"/home/murat/Documents/0080_grading_project_work_in_GI/implementation/suse25-group-1-main/_downloaded_data/munich_rail.graphml",
+		"/home/murat/Documents/0080_grading_project_work_in_GI/implementation/suse25-group-1-main/_input_files/investor_locations.geojson",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/09_Yuqi Jiang_12077711_assignsubmission_file/Task_5_Group9/MyWebGISClient.js",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/09_Yuqi Jiang_12077711_assignsubmission_file/Task_5_Group9/Request_GetMap.rtf",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Rupal Srivastava_12077728_assignsubmission_file/TASK 5/TASK 5/COST_SLD/buildings_cost.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Rupal Srivastava_12077728_assignsubmission_file/grading_Kendir/topo_detail_errors.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Rupal Srivastava_12077728_assignsubmission_file/grading_Kendir/topo_errors.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Rupal Srivastava_12077728_assignsubmission_file/grading_Kendir/cost_errors.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Rachit Yadav_12077726_assignsubmission_file/Web Map Service/cost_style.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Richmond Baidoo_12077708_assignsubmission_file/Web Map service (RichElsa_group12)/Web Map service (Rich&Elsa_group12)/Cost Development Map (SLD)/Building_cost_style.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Richmond Baidoo_12077708_assignsubmission_file/Web Map service (RichElsa_group12)/Web Map service (Rich&Elsa_group12)/Cost Development Map (SLD)/landparcel_cost_style.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Rexford Boafo Asiedu_12077727_assignsubmission_file/Deliverable 3_Web Map Service/5. SLD Files/Topograpghy_Style/building_style2.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Rexford Boafo Asiedu_12077727_assignsubmission_file/Deliverable 3_Web Map Service/5. SLD Files/Cost_Style/building_cost_style.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Rexford Boafo Asiedu_12077727_assignsubmission_file/Deliverable 3_Web Map Service/5. SLD Files/Cost_Style/cost_style_errors.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Rexford Boafo Asiedu_12077727_assignsubmission_file/Deliverable 3_Web Map Service/5. SLD Files/Topograpghy_Style/Traffic_area_topo_style_new2.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Jookyung Lee_12077713_assignsubmission_file/Task5_group10_Jookyung Lee (03798379), Ludwig Agholm (03801405)/Task 5/building_cost.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Mir Enamul Karim_12077732_assignsubmission_file/group7_task5 final/group7_task5/Cost_common.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Mir Enamul Karim_12077732_assignsubmission_file/group7_task5 final/group7_task5/topo_traffic.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Evgeniia Lappo_12077724_assignsubmission_file/task 5/task 5/traffic_area.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Evgeniia Lappo_12077724_assignsubmission_file/task 5/task 5/buildings.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Evgeniia Lappo_12077724_assignsubmission_file/task 5/task 5/cost_b.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Evgeniia Lappo_12077724_assignsubmission_file/task 5/task 5/buildings.sld_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Yun Bao_12077718_assignsubmission_file/group4_wms_deliverables/cost_map_style.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Gökay Çelik_12077715_assignsubmission_file/Group3_Task5/roads_style.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Gökay Çelik_12077715_assignsubmission_file/Group3_Task5/building_cost.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Gökay Çelik_12077715_assignsubmission_file/Group3_Task5/green_spaces_style.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Gökay Çelik_12077715_assignsubmission_file/Group3_Task5/roads_cost.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Gökay Çelik_12077715_assignsubmission_file/Group3_Task5/parcel_cost.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Gökay Çelik_12077715_assignsubmission_file/Group3_Task5/greenspace_cost.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/_Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/zone_style.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/_Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/utility.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/_Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/greenarea.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/_Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/renewable_energy.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Samaneh Mohammadisharmeh_12077730_assignsubmission_file/Web Map Service/SLD/developmentcost_style.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/_Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/greenarea_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Samaneh Mohammadisharmeh_12077730_assignsubmission_file/Web Map Service/SLD/renewableenergyproductionfacility_topo_style_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Samaneh Mohammadisharmeh_12077730_assignsubmission_file/Web Map Service/SLD/landparcel_topo_style_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Samaneh Mohammadisharmeh_12077730_assignsubmission_file/Web Map Service/SLD/greenspacearea_topo_style_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Samaneh Mohammadisharmeh_12077730_assignsubmission_file/Web Map Service/SLD/developmentcost_style_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Samaneh Mohammadisharmeh_12077730_assignsubmission_file/Web Map Service/SLD/building_topo_style_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/greenarea.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/renewable_energy.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/zone_style.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/greenarea_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/reneable_energy_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/zone_style_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/utility_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/road_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/buildings_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/utility.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Victor Tutu-Biaw_12077737_assignsubmission_file/GeoServer SLDs/GeoServer SLDs/buildings.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Chih-Chi Wang_12077725_assignsubmission_file/Task_5_Group9/CostMap.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Chih-Chi Wang_12077725_assignsubmission_file/Task_5_Group9/Topography.sld",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Chih-Chi Wang_12077725_assignsubmission_file/Task_5_Group9/costmap_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Chih-Chi Wang_12077725_assignsubmission_file/Task_5_Group9/greenspace_topography_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Chih-Chi Wang_12077725_assignsubmission_file/Task_5_Group9/parcel_topography_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Chih-Chi Wang_12077725_assignsubmission_file/Task_5_Group9/renewableenergy_topography_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Chih-Chi Wang_12077725_assignsubmission_file/Task_5_Group9/topography_error.txt",
+		"/home/murat/Downloads/Foundations of SDI (S25)-Upload Deliverables Web Map Service-3379851/Chih-Chi Wang_12077725_assignsubmission_file/Task_5_Group9/traffic_area_topography_error.txt",
+		"/run/user/1000/gvfs/smb-share:server=129.187.38.127,share=public/kendir/index.html",
+		"/home/murat/gitpot/citydb-visualizer/tiling_commands/alternative_commands/ingolstadt_nav_2025_felix.sh",
+		"/home/murat/gitpot/citydb-visualizer/Dockerfile",
+		"/home/murat/gitpot/citydb-visualizer/tilesets/tileset.json",
+		"/home/murat/gitpot/citydb-visualizer/tilesets/tileset_6_62_5.json",
+		"/home/murat/Downloads/pc_01164_alpha_shape2_202508191521.csv",
+		"/home/murat/gitpot/citydb-visualizer/tilesets/subtrees/0_0_0.subtree",
+		"/home/murat/gitpot/citydb-visualizer/README.md",
+		"/home/murat/Documents/0072_dist_gis_exam_suse2425/latex_template/exam/datamatrix.sty",
+		"/home/murat/gitpot/citydb-visualizer/tiling_commands/default_tiling_command.sh",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/leipzig_opt1_2025_transportation_opaque_areas.sql",
+		"/home/murat/gitpot/citydb-visualizer/tiling_commands/alternative_commands/leipzig_opt_1_2025_transportation_opaque_areas.sh",
+		"/home/murat/Downloads/data-1753199571490.csv",
+		"/home/murat/Documents/0076_leipzig_tileset_optimization/citygml_model.gml",
+		"/home/murat/.cache/.fr-8KKO92/citygml_model.gml",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/leipzig_opt1_2025_transportation_opaque_objects.sql",
+		"/home/murat/gitpot/citydb-visualizer/tiling_commands/alternative_commands/leipzig_opt_1_2025_transportation_opaque_objects.sh",
+		"/home/murat/.cache/.fr-BV1P92/Bäume/leipzig_citygml_baum.gml",
+		"/home/murat/.cache/.fr-79ZQ92/citygml_model.gml",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/leipzig_opt1_2025_trees.sql",
+		"/home/murat/gitpot/citydb-visualizer/tiling_commands/alternative_commands/leipzig_opt_1_2025_trees.sh",
+		"/home/murat/.cache/.fr-0JQN92/citygml_model.gml",
+		"/home/murat/.cache/.fr-08FN92/Bäume/leipzig_citygml_baum.gml",
+		"/run/user/1000/gvfs/smb-share:server=gifs.gis.lrg.tum.de,share=intern/Leipzig (Donaubauer, Schwab)/Ergebnisse/AP08/3D Tiles/trees/trees.sql",
+		"/home/murat/gitpot/citydb-visualizer/tiling_commands/alternative_commands/leipzig_opt_1_2025_transmission_towers.sh",
+		"/home/murat/gitpot/citydb-visualizer/tiling_commands/alternative_commands/leipzig_opt_1_2025_city_information_systems.sh",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/leipzig_opt1_2025_city_information_systems.sql",
+		"/home/murat/.cache/.fr-497N92/Stadtinformationsanlage/leipzig_citygml_Stadtinformationsanlage.gml",
+		"/home/murat/gitpot/citydb-visualizer/tiling_commands/alternative_commands/leipzig_opt_1_2025_windmills.sh",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/leipzig_opt1_2025_windmills.sql",
+		"/home/murat/.cache/.fr-KLDI92/Windkraftanlagen/leipzig_citygml_windkraftanlagen.gml",
+		"/home/murat/gitpot/citydb-visualizer/sql_queries/alternative_queries/leipzig_opt1_2025_transmission_towers.sql",
+		"/run/user/1000/gvfs/smb-share:server=gifs.gis.lrg.tum.de,share=intern/Leipzig (Donaubauer, Schwab)/Ergebnisse/AP08/3D Tiles/transmission_towers/transmission_towers.sql",
+		"/run/user/1000/gvfs/smb-share:server=gifs.gis.lrg.tum.de,share=intern/Leipzig (Donaubauer, Schwab)/Ergebnisse/AP08/3D Tiles/transmission_towers/transmission_tower_tiling_command.sh",
+		"/home/murat/.cache/.fr-1HPM92/Freileitungsmasten/leipzig_citygml_freileitungsmast.gml",
+		"/run/user/1000/gvfs/smb-share:server=gifs.gis.lrg.tum.de,share=intern/Leipzig (Donaubauer, Schwab)/Ergebnisse/AP08/3D Tiles/streetlight_poles/streetlight_poles_tiling_command.sh",
+		"/home/murat/gitpot/citydb-visualizer/tiling_commands/alternative_commands/leipzig_opt_1_2025_streetlight_poles.sh"
+	],
+	"find":
+	{
+		"height": 41.0
+	},
+	"find_in_files":
+	{
+		"height": 226.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "advise_main.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2052,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 288.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "citydb-3dtiler.py",
+					"selected": true,
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 2073,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								153,
+								153
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 41.0
+	},
+	"input":
+	{
+		"height": 75.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.Terminus":
+	{
+		"height": 471.0,
+		"history":
+		[
+		]
+	},
+	"output.diff_views":
+	{
+		"height": 508.0
+	},
+	"output.exec":
+	{
+		"height": 156.0,
+		"history":
+		[
+		]
+	},
+	"output.find_results":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"pinned_build_system": "",
+	"project": "citydb-3dtiler.sublime-project",
+	"replace":
+	{
+		"height": 78.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/gitpot/plant_4_all/plant_4_all.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 327.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
