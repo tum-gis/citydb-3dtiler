@@ -1,6 +1,8 @@
 # Ignore Files
 *.*~
 output/*
+citydb-3dtiler.sublime-project
+citydb-3dtiler.sublime-workspace
 # Do NOT Ignore Files
 !.gitignore
 !output/.gitkeep
