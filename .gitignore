@@ -1,7 +1,7 @@
 # Ignore Files
 *.*~
 output/*
-# Do Not Ignore Files
+# Do NOT Ignore Files
 !.gitignore
 !output/.gitkeep
 # Ignore Folders
@@ -9,5 +9,4 @@ output/*
 env
 sources
 __pycache__
-# Do note Ignore Folders
-output
+# Do NOT Ignore Folders
