@@ -1,0 +1,12 @@
+# Include Files
+*.*~
+output/*
+# Exclude Files
+!.gitignore
+!output/.gitkeep
+# Include Folders
+.*
+env
+sources
+__pycache__
+# Exclude Folders
