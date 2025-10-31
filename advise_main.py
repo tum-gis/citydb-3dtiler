@@ -1,59 +1,46 @@
-import psycopg2
-import os
-import yaml
+#External libraries
+import os, sys
 
+# Insert the folders to the SYS Environment
+sys.path.insert(0, "./io")
+sys.path.insert(0, "./database/postgresql")
+sys.path.insert(0, "./classes")
+
+# Internal Libraries
+from yaml_io import write_yaml
+from sql_io import read_sql_query
+from pg_connection import *
+from advisement import Advisement
+
+# Create the advisement dictionary to store the calculations
 advisement = {
-    'Advises' : {
-        'Given Command Arguments' : None,
-        'Maximum Feature Number per Tile' : None
+    "Advises" : {
+        "Given Command Arguments" : None,
+        "Maximum Feature Number per Tile" : None
         }
 }
 
-def write_yaml(folder, file_name, content):
-    relative_file_path = os.path.join(folder, file_name)
-    try:
-        with open(relative_file_path, "w") as advise_file:
-            yaml.dump(content, advise_file, width=150, indent=4)
-        print(f'(i)--> File has been created as {relative_file_path}.')
-    except OSError as err:
-        print(f'(e)--> File writing error :\n {err}')
-
-def read_sql_query(folder, file_name):
-    relative_file_path = os.path.join(folder, file_name)
-    try:
-        with open(relative_file_path,"r") as advise_query:
-            query = advise_query.read()
-        return query
-    except Error as err:
-        print('File reading error:\n {err}')
-
 def advise(args):
-    # print(dir(args))
-    print(f"(i)--> Connection: {args.db_host}, {args.db_name}, {args.db_port}, {args.db_schema}, {args.db_username}, ***")
-    try: 
-        conn = psycopg2.connect(
-            host=args.db_host, 
-            dbname=args.db_name, 
-            port=args.db_port, 
-            user=args.db_username, 
-            password=args.db_password)
-        conn.autocommit = True
-        #print(f"Autocommit: {conn.autocommit} and Isolation Level: {conn.isolation_level}")
-    except psycopg2.Error as err:
-        print(f'Error:\n{err}')
+    #pg_show_details(args)
+    
+    conn = pg_establish(args)
 
-    query = read_sql_query('advise_sql', 'calculate_recommended_max_features_per_tile.sql')
-    #print(query)
+    if args.consider_thematic_features == True:
+        query = read_sql_query("advise_sql", "calculate_recommended_max_features_per_tile.sql")
+    elif args.consider_thematic_features == False:
+        query = read_sql_query("advise_sql", "calculate_recommended_max_features_per_tile_only_for_toplevel_features.sql")
 
     try:
-        cur = conn.cursor()
-        print(f"(i)--> Connection Status: {cur.connection.status}")
-        cur.execute(query)
+        cur = pg_create_session(conn)
+        if pg_check_session(cur):
+            cur.execute(query)
+        else:
+            print("Something went wrong with the database.")
         result = cur.fetchone()
         conn.commit()
         conn.close()
-        advisement['Advises']['Given Command Arguments'] = str(args._get_kwargs())
-        advisement['Advises']['Maximum Feature Number per Tile'] = round(result[3])
-        write_yaml('output', args.output, advisement)
-    except psycopg2.DatabaseError as err:
-        print(f'Database error:\n{err}')
+        commandset = dict(args._get_kwargs())
+        adv = Advisement(commandset, round(result[3]))
+        write_yaml("output", args.output, adv.to_yaml())
+    except Error as err:
+        print(f"Database error:\n{err}")
