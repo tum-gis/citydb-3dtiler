@@ -12,4 +12,13 @@
   - [✔] Change the "ignore" arguments in the usage diagram to reflect the changes in args.
 
 - 31.10.2025
-  - [ ] try to project simpliest SQL query on the classes.
+  - [✔] try to project simpliest SQL query on the classes.
+
+- 03.11.2025
+  - [ ] check the diagrams.
+  - [ ] implement the "separate-tilesets" argument.
+  - [ ] query the available objectclasses.
+  - [ ] query the available namespaces.
+
+- 05.11.2025
+  - [ ] implement run_query func in the advise_main.py

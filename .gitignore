@@ -1,9 +1,11 @@
 # Ignore Files
 *.*~
 output/*
+tiler_app/*
 citydb-3dtiler.sublime-project
 citydb-3dtiler.sublime-workspace
 # Do NOT Ignore Files
+!tiler_app/about_tiler_app.md
 !.gitignore
 !output/.gitkeep
 # Ignore Folders

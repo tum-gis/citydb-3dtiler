@@ -37,41 +37,49 @@ class QueryBlock:
     def __repr__(self):
         # Change here, it is too primitive
         selection_part, from_part, join_part, where_part = ("",)*4
-        for e in self.select_elements:
-            selection_part+= str(e) + " "
+        for idx, e in enumerate(self.select_elements):
+            if idx == 0:
+                selection_part+= str(e)+"\n"
+            else:
+                selection_part+= ", "+str(e)+" \n"
         for f in self.from_elements:
             from_part+= str(f)
         for j in self.join_elements:
-            join_part+= "JOIN" + j 
+            join_part+= str(j)
         for w in self.where_elements:
             where_part+= w
         if self.where_elements == []:
-            query = "SELECT " + selection_part + "FROM " + from_part + join_part
+            query = "SELECT \n" + selection_part + "FROM " +from_part + join_part
             return query
         elif self.where_elements != []:
-            query = "SELECT " + selection_part + "FROM " + from_part + join_part + "WHERE " + where_part
+            query = "SELECT \n" + selection_part + "FROM " + from_part + join_part + "WHERE " + where_part
             return query
 
 class SelectElement:
     '''
     A SelectElement can be a CASE-WHEN statement or a simple field.
     '''
-    def __init__(self, select_type, field=None, case=None, alias=None):
+    def __init__(self, select_type, field=None, case=None, domain_alias=None, range_alias=None):
         self.select_type = select_type
         
         if self.select_type == "field":
             self.field = field
-            self.alias = alias
+            self.domain_alias = domain_alias
+            self.range_alias = range_alias
             self.case = None
         elif self.select_type == "case":
             self.case = case
-            self.alias = alias
+            self.domain_alias = domain_alias
+            self.range_alias = range_alias
             self.field = None
         else:
             raise ValueError("Select Type must be a field or case.")
     def __repr__(self):
         if self.select_type == "field":
-            return self.alias+"."+self.field
+            if self.domain_alias is None:
+                return str(self.field+" as "+ self.range_alias)
+            elif self.domain_alias is not None:
+                return str(self.domain_alias+"."+self.field+" as " + self.range_alias)
         elif self.select_type == "case":
             return "case_text"
 
@@ -86,10 +94,17 @@ class JoinElement:
             self.domain_alias = domain_alias
             self.range_alias = range_alias
             self.condition = condition
+            self.inner_query_block = []
         elif table is None:
             self.inner_query_block = inner_query_block
         else: 
             raise ValueError("Join Type can only accept inner query block or table.")
+    def __repr__(self):
+        if self.inner_query_block == []:
+            if (self.join_type).upper() == "LEFT":
+                return str("LEFT JOIN \n"+self.table+" as "+self.range_alias+" ON\n"+self.condition+"\n")
+        elif self.inner_query_block is not None:
+            return "inner_query_block_text"
 class FromElement:
     '''
     A FromElement can have another inner query or a simple table.
@@ -107,6 +122,6 @@ class FromElement:
             raise ValueError("FromElement can only be a table or a SQL statement reference.")
     def __repr__(self):
         if self.inner_query_blocks == []:
-            return self.table+" as "+self.alias
+            return str(self.table+" as "+self.alias+" \n")
         elif self.inner_query_blocks is not None:
-            return "inner_query_block_text"
+            return str("inner_query_block_text \n")

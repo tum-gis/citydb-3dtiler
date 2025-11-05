@@ -32,3 +32,51 @@ def pg_check_session(cur):
     print(f"(i)--> Connection Status: {cur.connection.status}")
     return cur.connection.status
 
+def create_materialized_view(name, query):
+    mv = '''
+    DROP MATERIALIZED VIEW IF EXISTS citydb."
+    ''' + name + \
+    '''
+    ";
+    CREATE MATERIALIZED VIEW IF NOT EXISTS citydb.
+    '''+ name +'''
+     TABLESPACE pg_default
+    AS 
+    ''' + query + \
+    '''
+    WITH DATA;
+    '''
+    return mv
+
+def index_materialized_view(name, geom_column):
+    iq = '''
+    CREATE INDEX IF NOT EXISTS 
+    ''' + name + "_" + geom_column + \
+    '''
+    _gist ON
+    ON 
+    ''' + name + \
+    '''
+     USING gist
+    (st_centroid(st_envelope(
+    ''' + geom_column + \
+    '''
+    geom)));
+    '''
+    return iq
+
+def run_query(args, query):
+    conn = pg_establish(args)
+    try:
+        cur = pg_create_session(conn)
+        if pg_check_session(cur):
+            cur.execute(query)
+        else:
+            print("Something went wrong with the database.")
+        conn.commit()
+        conn.close()
+    except OSError as err:
+        print(f"Database error:\n{err}")
+    finally:
+        print("SQL Query executed.")
+
