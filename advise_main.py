@@ -2,13 +2,13 @@
 import os, sys
 
 # Insert the folders to the SYS Environment
-sys.path.insert(0, "./io")
-sys.path.insert(0, "./database/postgresql")
-sys.path.insert(0, "./classes")
+sys.path.insert(0, "./io") # >io_yaml, io_sql
+sys.path.insert(0, "./database") # >pg_connection
+sys.path.insert(0, "./classes") # >advisement
 
 # Internal Libraries
-from yaml_io import write_yaml
-from sql_io import read_sql_query
+from io_yaml import write_yaml
+from io_sql import read_sql_query
 from pg_connection import *
 from advisement import Advisement
 

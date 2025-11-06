@@ -12,7 +12,7 @@ Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the p
 <hr>
 
 <figure style="width:%100;text-align: center;">
-  <img src="docs/images/app_mapp.png" alt="Structure" style="border:3px solid #005293">
+  <img src="docs/images/app_mapp.svg" alt="Structure" style="border:3px solid #005293">
   <figcaption>Current Structure of Files & Objects (2025-10-30)</figcaption>
 </figure>
 

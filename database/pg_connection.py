@@ -32,37 +32,18 @@ def pg_check_session(cur):
     print(f"(i)--> Connection Status: {cur.connection.status}")
     return cur.connection.status
 
-def create_materialized_view(name, query):
-    mv = '''
-    DROP MATERIALIZED VIEW IF EXISTS citydb."
-    ''' + name + \
-    '''
-    ";
-    CREATE MATERIALIZED VIEW IF NOT EXISTS citydb.
-    '''+ name +'''
-     TABLESPACE pg_default
-    AS 
-    ''' + query + \
-    '''
-    WITH DATA;
-    '''
+def create_materialized_view(mv_name, query):
+    mv=f"DROP MATERIALIZED VIEW IF EXISTS citydb.{mv_name}; \
+    CREATE MATERIALIZED VIEW IF NOT EXISTS citydb.{mv_name} \
+    TABLESPACE pg_default AS \
+    {query} \
+    WITH DATA;"
     return mv
 
-def index_materialized_view(name, geom_column):
-    iq = '''
-    CREATE INDEX IF NOT EXISTS 
-    ''' + name + "_" + geom_column + \
-    '''
-    _gist ON
-    ON 
-    ''' + name + \
-    '''
-     USING gist
-    (st_centroid(st_envelope(
-    ''' + geom_column + \
-    '''
-    geom)));
-    '''
+def index_materialized_view(table_name, geom_column):
+    iq = f"CREATE INDEX IF NOT EXISTS {table_name}_{geom_column}_idx \
+    ON {table_name} \
+    USING gist(st_centroid(st_envelope({geom_column})))"
     return iq
 
 def run_query(args, query):
