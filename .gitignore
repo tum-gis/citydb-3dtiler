@@ -1,6 +1,7 @@
 # Ignore Files
 *.*~
 output/*
+output/**/*
 tiler_app/*
 citydb-3dtiler.sublime-project
 citydb-3dtiler.sublime-workspace
@@ -14,4 +15,3 @@ env
 sources
 __pycache__
 # Do NOT Ignore Folders
-!output
