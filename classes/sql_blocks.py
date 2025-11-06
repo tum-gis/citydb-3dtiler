@@ -2,7 +2,7 @@ db_types = ("postgresql", "oracledb")
 
 type_of_effects = ("Ontological", "Spatial", "Semantic", "Temporal", "Visual", "Topological")
 
-class CombinedQueryBlock:
+class CombinedQueryBlocks:
     '''
     A "Combined Query Block" is designed to combine the query blocks in a correct order,
     and the result must be an executable SQL query.
@@ -21,12 +21,12 @@ class QueryBlock:
     In other words, a regular SQL Query atomized into pieces as fields or subqueries, and
     a query block is a category/bundle of these pieces. It is not a standalone SQL query.
     '''
-    def __init__(self, name, generic_alias, type_of_effect, order_number, description=None, aliases=[], inner_query_blocks=[], select_elements=[], from_elements=[], join_elements=[], where_elements=[], group_elements=[]):
+    def __init__(self, name, range_alias, type_of_effect, order_number, description=None, domain_aliases=[], inner_query_blocks=[], select_elements=[], from_elements=[], join_elements=[], where_elements=[], group_elements=[]):
         self.name = name
-        self.generic_alias = generic_alias
+        self.range_alias = range_alias
         self.type_of_effect = type_of_effect
         self.order_number = order_number
-        self.aliases = aliases
+        self.domain_aliases = domain_aliases
         self.inner_query_blocks = inner_query_blocks
         self.select_elements = select_elements
         self.from_elements = from_elements

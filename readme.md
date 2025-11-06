@@ -13,12 +13,12 @@ Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the p
 
 <figure style="width:%100;text-align: center;">
   <img src="docs/images/app_mapp.svg" alt="Structure" style="border:3px solid #005293">
-  <figcaption>Current Structure of Files & Objects (2025-10-30)</figcaption>
+  <figcaption>Current Structure of Files & Folders</figcaption>
 </figure>
 
 <hr>
 
 <figure style="width:%100;text-align: center;">
   <img src="docs/images/classes.svg" alt="UML Class Diagram" style="border:3px solid #005293">
-  <figcaption>UML Class Diagram of the app (2025-10-31)</figcaption>
+  <figcaption>UML Class Diagram of the app</figcaption>
 </figure>
