@@ -54,8 +54,27 @@ def run_query(args, query):
             cur.execute(query)
         else:
             print("Something went wrong with the database.")
+        result = cur.fetchone()
         conn.commit()
         conn.close()
+        
+    except OSError as err:
+        print(f"Database error:\n{err}")
+    finally:
+        print("SQL Query executed and result returned.")
+    return result
+
+def run_sql(args, query):
+    conn = pg_establish(args)
+    try:
+        cur = pg_create_session(conn)
+        if pg_check_session(cur):
+            cur.execute(query)
+        else:
+            print("Something went wrong with the database.")
+        conn.commit()
+        conn.close()
+        
     except OSError as err:
         print(f"Database error:\n{err}")
     finally:

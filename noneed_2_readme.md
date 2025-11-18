@@ -15,10 +15,13 @@
   - [✔] try to project simpliest SQL query on the classes.
 
 - 03.11.2025
-  - [ ] check the diagrams.
-  - [ ] implement the "separate-tilesets" argument.
-  - [ ] query the available objectclasses.
+  - [✔] check the diagrams.
+  - [✔] implement the "separate-tilesets" argument.
+  - [✔] query the available objectclasses.
   - [ ] query the available namespaces.
 
 - 05.11.2025
-  - [ ] implement run_query func in the advise_main.py
+  - [✔] implement run_query func in the advise_main.py
+    - run_sql and run_query stored as separate functions. (returns nothing and returns results)
+- 10.11.2025
+  - [ ] implement filter for the set_kernel()

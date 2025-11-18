@@ -1,18 +1,53 @@
+# Extenral Libraries
+import operator
+#sorted_x = sorted(x, key=operator.attrgetter('score'))
+
 db_types = ("postgresql", "oracledb")
 
 type_of_effects = ("Ontological", "Spatial", "Semantic", "Temporal", "Visual", "Topological")
 
-class CombinedQueryBlocks:
+class CompositeQueryBlock:
     '''
     A "Combined Query Block" is designed to combine the query blocks in a correct order,
     and the result must be an executable SQL query.
     '''
-    def __init__(self, name, db_type, query_blocks=[]):
+    def __init__(self, name, db_type, query_blocks):
         self.name = name
         self.db_type = db_type
         self.query_blocks = query_blocks
     def __repr__(self):
-        return str(self.name) + " @" + str(self.db_type) + ':\n' + str(self.query_blocks)
+        qbs = self.query_blocks
+        slct_part = "SELECT"
+        frm_part = "FROM"
+        join_part = ""
+        where_part = ""
+        group_part = ""
+        for qb in qbs.query_blocks:
+            if qb.select_elements != None:
+                slct_part += f" {str(qb.select_elements)},"
+            else:
+                pass
+            if qb.from_elements != None:
+                frm_part += f" {str(qb.from_elements)},"
+            else:
+                pass
+            if qb.join_elements != None:
+                join_part += f" {str(qb.join_elements)}"
+            else:
+                pass
+            if qb.where_elements != None:
+                where_part += f" {str(qb.where_elements)}"
+            else:
+                pass
+            if qb.group_elements != None:
+                group_part += f" {str(qb.group_elements)}"
+            else:
+                pass
+        slct_part = slct_part[:-1]
+        frm_part = frm_part[:-1]
+
+        return f"{slct_part} {frm_part} {join_part} {where_part}"
+
 
 class QueryBlock:
     '''
@@ -21,7 +56,7 @@ class QueryBlock:
     In other words, a regular SQL Query atomized into pieces as fields or subqueries, and
     a query block is a category/bundle of these pieces. It is not a standalone SQL query.
     '''
-    def __init__(self, name, range_alias, type_of_effect, order_number, description=None, domain_aliases=[], inner_query_blocks=[], select_elements=[], from_elements=[], join_elements=[], where_elements=[], group_elements=[]):
+    def __init__(self, name, type_of_effect, order_number, range_alias=None, description=None, domain_aliases=[], inner_query_blocks=[], select_elements=None, from_elements=None, join_elements=None, where_elements=None, group_elements=None):
         self.name = name
         self.range_alias = range_alias
         self.type_of_effect = type_of_effect
@@ -37,23 +72,45 @@ class QueryBlock:
     def __repr__(self):
         # Change here, it is too primitive
         selection_part, from_part, join_part, where_part = ("",)*4
-        for idx, e in enumerate(self.select_elements):
-            if idx == 0:
-                selection_part+= str(e)+"\n"
-            else:
-                selection_part+= ", "+str(e)+" \n"
-        for f in self.from_elements:
-            from_part+= str(f)
-        for j in self.join_elements:
-            join_part+= str(j)
-        for w in self.where_elements:
-            where_part+= w
-        if self.where_elements == []:
-            query = "SELECT \n" + selection_part + "FROM " +from_part + join_part
-            return query
-        elif self.where_elements != []:
-            query = "SELECT \n" + selection_part + "FROM " + from_part + join_part + "WHERE " + where_part
-            return query
+        
+        if self.select_elements != None:
+            selection_part = f"SELECT {self.select_elements} "
+        else:
+            selection_part = ""
+        if self.from_elements != None:
+            from_part = f"FROM {self.from_elements} "
+        else:
+            from_part = ""
+        if self.join_elements != None:
+            join_part = f"{self.join_elements} "
+        else:
+            join_part = ""
+        if self.where_elements != None:
+            where_part = f"WHERE {self.where_elements} "
+        else:
+            where_part = ""
+        if self.group_elements != None:
+            group_part = f"{self.group_elements} "
+        else:
+            group_part = ""
+        query = selection_part + from_part + join_part + where_part + group_part
+        return query
+
+class QueryBlocks:
+    '''
+    QueryBlocks is a series of QueryBlock class. It used to store multiple QueryBlock and print the series of SELECT, FROM, JOIN, WHERE statements within the order stored as ORDER_NUMBER.
+    '''
+    def __init__(self, *query_blocks):
+        self.query_blocks = []
+        for qb in query_blocks:
+            self.query_blocks.append(qb)
+    def __repr__(self):
+        # First sort the query blocks by using the order_number attribute
+        sorted_query_blocks = sorted(self.query_blocks, key=operator.attrgetter('order_number'))
+        series_of_query_blocks = ""
+        for qb in sorted_query_blocks:
+            series_of_query_blocks = series_of_query_blocks + str(qb) + "\n"
+        return series_of_query_blocks
 
 class SelectElement:
     '''
@@ -77,11 +134,77 @@ class SelectElement:
     def __repr__(self):
         if self.select_type == "field":
             if self.domain_alias is None:
-                return str(self.field+" as "+ self.range_alias)
+                if self.range_alias is None:
+                    return str(self.field)
+                else:
+                    return str(self.field+" as "+ self.range_alias)
             elif self.domain_alias is not None:
-                return str(self.domain_alias+"."+self.field+" as " + self.range_alias)
+                if self.range_alias is None:
+                    return str(self.domain_alias+"."+self.field)
+                else:
+                    return str(self.domain_alias+"."+self.field+" as " + self.range_alias)
         elif self.select_type == "case":
             return "case_text"
+
+class SelectElements:
+    '''
+    SelectElements is a serie of the SelectElement class.
+    '''
+    def __init__(self, *select_elements):
+        self.select_elements = []
+        for slct in select_elements:
+            self.select_elements.append(slct)
+    def __repr__(self):
+        selection_part = ""
+        for slct in self.select_elements:
+            selection_part = selection_part + str(slct) + ", "
+        selection_part = selection_part[:-2]
+        return selection_part
+
+class FromElement:
+    '''
+    A FromElement can have another inner query or a simple table.
+    '''
+    def __init__(self, table=None, alias=None, inner_query_blocks=[]):
+        if inner_query_blocks == []:
+            self.table = table
+            self.alias = alias
+            self.inner_query_blocks = []
+        elif table is None:
+            self.table = None
+            self.alias = None
+            self.inner_query_blocks = inner_query_blocks
+        else:
+            raise ValueError("FromElement can only be a table or a SQL statement reference.")
+    def __repr__(self):
+        if self.inner_query_blocks == []:
+            if self.alias ==None:
+                return f"{str(self.table)} "
+            else:
+                return str(self.table+" as "+self.alias+" \n")
+        elif self.inner_query_blocks is not None:
+            for qry in self.inner_query_blocks:
+                inners = "("+str(qry)+"),\n"
+            inners = inners[:-2]
+            return inners
+
+class FromElements:
+    '''
+    FromElements is a serie of the FromElement class.
+    '''
+    def __init__(self, *from_elements):
+        self.from_elements = []
+        for frm in from_elements:
+            self.from_elements.append(frm)
+    def __repr__(self):
+        from_part = ""
+        if len(self.from_elements) >= 1:
+            for frm in self.from_elements:
+                from_part = f"{str(frm)}, "
+            from_part = from_part[:-2]
+        else:
+            from_part = ""
+        return from_part
 
 class JoinElement:
     '''
@@ -101,27 +224,44 @@ class JoinElement:
             raise ValueError("Join Type can only accept inner query block or table.")
     def __repr__(self):
         if self.inner_query_block == []:
-            if (self.join_type).upper() == "LEFT":
-                return str("LEFT JOIN \n"+self.table+" as "+self.range_alias+" ON\n"+self.condition+"\n")
+            return f"{str(self.join_type).upper()}  JOIN {self.table} as {self.range_alias} ON\n\t{self.condition} "
         elif self.inner_query_block is not None:
             return "inner_query_block_text"
-class FromElement:
+
+class JoinElements:
     '''
-    A FromElement can have another inner query or a simple table.
+    FromElements is a serie of the FromElement class.
     '''
-    def __init__(self, table=None, alias=None, inner_query_blocks=[]):
-        if inner_query_blocks == []:
-            self.table = table
-            self.alias = alias
-            self.inner_query_blocks = []
-        elif table is None:
-            self.table = None
-            self.alias = None
-            self.inner_query_blocks = inner_query_blocks
-        else:
-            raise ValueError("FromElement can only be a table or a SQL statement reference.")
+    def __init__(self, *join_elements):
+        self.join_elements = []
+        for jn in join_elements:
+            self.join_elements.append(jn)
     def __repr__(self):
-        if self.inner_query_blocks == []:
-            return str(self.table+" as "+self.alias+" \n")
-        elif self.inner_query_blocks is not None:
-            return str("inner_query_block_text \n")
+        join_part = ""
+        for jn in self.join_elements:
+            join_part = join_part + str(jn) + "\n"
+        return join_part
+
+class WhereElement:
+    def __init__(self, condition, operator=""):
+        self.condition = condition
+        self.operator = operator
+    def __repr__(self):
+        return f"{self.condition} {self.operator}"
+
+class WhereElements:
+    def __init__(self, *where_elements):
+        self.where_elements = []
+        for whr in where_elements:
+            self.where_elements.append(whr)
+        self.operator = operator
+    def __repr__(self):
+        where_part = ""
+        if len(self.where_elements) >= 1:
+            where_part = "WHERE "
+            for whr in self.where_elements:
+                where_part += f"{str(whr)} "
+            where_part = where_part[:-1]
+        else:
+            where_part = ""
+        return where_part

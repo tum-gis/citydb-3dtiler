@@ -18,6 +18,7 @@ def main():
     description="citydb-3dtiler: Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the provided custom arguments.")
     parser.add_argument("--tilers-path", help="Set the absolute/relative path of the selected 3D Tile Generator software.", metavar="File Path of the 3D Tiler", nargs="?", default="tiler_app/")
     parser.add_argument("--tiler-app", help="Choose one of the compatible 3D Tile Generator app.", default="pg2b3dm", choices=["pg2b3dm", "py3dtiles"])
+    parser.add_argument("--separate-tilesets", help="exports separate tilesets for each objectclass or namespace", nargs="?", default=None, choices=["objectclass", "namespace"])
 
     # Subparsers used to gather together the command related arguments
     subparsers = parser.add_subparsers(help="Select one of the operations: advise, tile.", dest="command")
@@ -28,10 +29,11 @@ def main():
     #parser_advise.add_argument("--consider-appearances", action=argparse.BooleanOptionalAction, default=False)
     parser_advise.add_argument("-o", "--output", metavar="Output File Name", nargs="?", default="advise.yml")
     
+
     # Tile command uses it"s own arguments
     parser_tile = subparsers.add_parser("tile", help="generates 3DTiles from the existing dataset.")
     parser_tile.add_argument("-o", "--output", help="Set the folder for the 3DTiles", metavar="Output Folder", nargs="?", default="output")
-
+    
     # Database authorization information gathered as a group,
     # so the group arguments can be used both of the commands.
     db_group = parser.add_argument_group("database-connection")

@@ -1,10 +1,11 @@
 import subprocess
 import os
 
-def generate_tiles(args, table, column):
+def generate_tiles(args, table, column, output_folder=None):
     #print(args)
     tlr = os.path.join(f"{args.tilers_path}", f"{args.tiler_app}")
-    output_folder = args.output.strip()
+    if output_folder is None:
+        output_folder = args.output.strip()
     #print(output_folder)
     mypass = os.environ.copy()
     mypass['PGPASSWORD']=args.db_password

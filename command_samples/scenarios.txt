@@ -1,0 +1,6 @@
+Scenario 1)
+
+Advise :
+python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm --separate-tilesets objectclass advise
+Tile :
+python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm tile --separate-tilesets objectclass
