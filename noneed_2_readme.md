@@ -28,6 +28,9 @@
 - 18.11.2025
   - [✔] Refresh the visuals regarding the new classes.
 - 24.11.2025
-  - [ ] Change the name of "run_query" in pg_connection as "get_query_results"
-  - [ ] Implement the normal advise mechanism
+  - [✔] Change the name of "run_query" in pg_connection as "get_query_results"
+  - [✔] Implement the normal advise mechanism
   - [ ] Repeat the objectclass based separation in tiling
+- 25.11.2025
+  - [ ] Implement the new advisement classes (ABC classes) into the separate-tilesets option in advisement.
+  - [ ] Reactivate the YAML rewriting.

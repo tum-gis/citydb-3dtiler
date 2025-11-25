@@ -1,14 +1,9 @@
 #External Libraries
 import sys
 
-# Insert the folders to the SYS Environment
-sys.path.insert(0, "./classes") # >sql_blocks
-sys.path.insert(0, "./database") # >pg_connection
-
 # Internal Libraries
-from sql_blocks import *
-from pg_connection import create_materialized_view, run_query, index_materialized_view, run_sql
-
+from classes.sql_blocks import *
+from database.pg_connection import get_query_results
 
 # Group of Geometry Statistics (Min, Max, Average, Total number of points per feature geometry):
 

@@ -46,7 +46,7 @@ def index_materialized_view(table_name, geom_column):
     USING gist(st_centroid(st_envelope({geom_column})))"
     return iq
 
-def run_query(args, query):
+def get_query_results(args, query):
     conn = pg_establish(args)
     try:
         cur = pg_create_session(conn)

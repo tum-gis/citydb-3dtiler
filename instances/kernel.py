@@ -1,11 +1,8 @@
 #External Libraries
 import sys
 
-# Insert the folders to the SYS Environment
-sys.path.insert(0, "../classes")
-
 # Internal Libraries
-from sql_blocks import *
+from classes.sql_blocks import *
 
 def set_kernel():
     # SELECT st_transform(gmdt.geom, 4979) FROM geometry_data as gmdt
