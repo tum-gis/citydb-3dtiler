@@ -1,6 +1,6 @@
 # Notes for myself
 
-> Done : ✔  |  Cancelled : ✗  |  Postponed : 😴
+> Done : ✔  |  Cancelled : ✗  |  Postponed : 😴 | Milestone ✌️
 
 
 - 30.10.2025
@@ -32,5 +32,7 @@
   - [✔] Implement the normal advise mechanism
   - [ ] Repeat the objectclass based separation in tiling
 - 25.11.2025
-  - [ ] Implement the new advisement classes (ABC classes) into the separate-tilesets option in advisement.
-  - [ ] Reactivate the YAML rewriting.
+  - [✔] Implement the new advisement classes (ABC classes) into the separate-tilesets option in advisement.
+  - [✔] Reactivate the YAML rewriting.
+- 26.11.2025
+  - [✌️] Take a beer, first tileset has been created.

@@ -39,12 +39,13 @@ class Advisement(TransformedDict):
         return key.lower()
 
 class ObjectClass(TransformedDict):
-    def __init__(self, name, objectclass_properties=None):
+    def __init__(self, name, objectclass_recommendations=None):
         super().__init__()
         self.store["name"] = name
-        self.store["objectclass_properties"] = objectclass_properties
+        if objectclass_recommendations != None:
+            self.store["objectclass_recommendations"] = objectclass_recommendations
 
-class ObjectClassProperties(TransformedDict):
+class ObjectClassRecommendations(TransformedDict):
     def __init__(self, max_features):
         super().__init__()
         self.store["max_features"] = max_features

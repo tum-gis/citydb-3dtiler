@@ -160,6 +160,12 @@ class SelectElements:
             selection_part = selection_part + str(slct) + ", "
         selection_part = selection_part[:-2]
         return selection_part
+    def __iter__(self):
+        return iter(self.select_elements)
+    def __len__(self):
+        return len(self.select_elements)
+    def __getitem__(self, key):
+        return self.select_elements[key]
 
 class FromElement:
     '''

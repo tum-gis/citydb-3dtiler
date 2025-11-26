@@ -5,13 +5,14 @@ import sys
 from io_tools.yaml import write_yaml
 from io_tools.folder import create_folder
 from io_tools.yaml import read_yaml
+from io_tools.tiles import generate_tiles
 from classes.sql_blocks import *
-from instances.kernel import set_kernel
-from database.pg_connection import create_materialized_view, index_materialized_view, get_query_results
+from instances.kernel import krnl_query
+from database.pg_connection import create_materialized_view, index_materialized_view, get_query_results, run_sql
 
 def create_tileset(args, output_folder=None):
-    query = set_kernel()
-    geom_col = str(query.select_elements[0].range_alias)
+    query = str(krnl_query)
+    geom_col = str(krnl_query.select_elements[0].range_alias)
     mv_name = "geometries"
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, geom_col)
@@ -30,7 +31,7 @@ def tile(args):
                 new_folder = create_folder(args.output, oc)
                 create_tileset(args, output_folder=new_folder)
     else:
-        print("ordinary tilesets")
+        create_tileset(args, output_folder=args.output)
     
 
 
