@@ -30,9 +30,11 @@
 - 24.11.2025
   - [✔] Change the name of "run_query" in pg_connection as "get_query_results"
   - [✔] Implement the normal advise mechanism
-  - [ ] Repeat the objectclass based separation in tiling
+  - [✔] Repeat the objectclass based separation in tiling
 - 25.11.2025
   - [✔] Implement the new advisement classes (ABC classes) into the separate-tilesets option in advisement.
   - [✔] Reactivate the YAML rewriting.
 - 26.11.2025
   - [✌️] Take a beer, first tileset has been created.
+- 27.11.2025
+  - [ ] Time to start implement styling-options...
