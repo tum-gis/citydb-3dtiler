@@ -6,6 +6,7 @@ import argparse
 # Internal Libraries
 from advise_main import advise
 from tile_main import tile
+# from custom_checks import check_arguments
 
 # Added as a future task : Customizing the main help document.
 def help():
@@ -32,6 +33,8 @@ def main():
 
     # Tile command uses it"s own arguments
     parser_tile = subparsers.add_parser("tile", help="generates 3DTiles from the existing dataset.")
+    parser_tile.add_argument("--style-mode", help="Select one of the available style-mode options.", choices=["existing-appearances", "custom-attribute-based", "objectclass-based", "no-style"], default="objectclass-based")
+    parser_tile.add_argument("--style-absence-behavior", help="If you want to change the appearance selection behavior of the tiling app, select one of the possible options. Default option is 'fall-down', which means that if you select a 'custom-attribute-based' styling mode and there are no available custom attributes that match your object, the tiling tool will automatically select the next styling mode ('objectclass-based' style mode) for the  instance.", choices=["fall-down", "rise-up"], default="fall-down")
     parser_tile.add_argument("-o", "--output", help="Set the folder for the 3DTiles", metavar="Output Folder", nargs="?", default="output")
     
     # Database authorization information gathered as a group,

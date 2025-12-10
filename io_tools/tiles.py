@@ -7,26 +7,31 @@ def generate_tiles(args, table, column, output_folder=None, max_features_per_til
         output_folder = args.output.strip()
     mypass = os.environ.copy()
     mypass['PGPASSWORD']=args.db_password
+    # print(args.style_mode)
     command = [
         f"{tiler_path}", 
         "--host", f"{args.db_host}", 
         "--username", f"{args.db_username}", 
         "--port", f"{args.db_port}", 
         "--dbname", f"{args.db_name}", 
+        "--shaderscolumn", f"", 
         "--table", f"{table}",
         "--column", f"{column}", 
         "--attributecolumns", "id,class", 
         "--output", f"{output_folder}", 
         "--max_features_per_tile", f"{max_features_per_tile}"
     ]
+    # print(command)
     # Run the command set above
+    '''
     sent_command = subprocess.run(
         command, 
         env=mypass,
         capture_output=True, 
         text=True
     )
+    '''
     # Print out the options as subprocess runs in terminal
-    print(sent_command.stdout)
+    #print(sent_command.stdout)
     # Information for the user
-    print(f"3D Tiles are created based on '{table}' table(materialized view)")
+    #print(f"3D Tiles are created based on '{table}' table(materialized view)")
