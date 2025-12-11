@@ -13,7 +13,7 @@ def copy_materials(args):
         "--username", f"{args.db_username}", 
         "--port", f"{args.db_port}", 
         "--dbname", f"{args.db_name}", 
-        "--command", f"\\COPY materials_for_features (namespace_of_classname,classname,namespace_of_property,property_name,column_name_of_property_value,property_value,emmisive_color,pbr_metallic_roughness_base_color,pbr_metallic_roughness_metallic_roughness,pbr_specular_glossiness_diffuse_color,pbr_specular_glossiness_specular_glossiness) FROM '{materials_csv_file_path}' DELIMITER ',' CSV HEADER;", 
+        "--command", f"\\COPY _materials_for_features (namespace_of_classname,classname,namespace_of_property,property_name,column_name_of_property_value,property_value,emmisive_color,pbr_metallic_roughness_base_color,pbr_metallic_roughness_metallic_roughness,pbr_specular_glossiness_diffuse_color,pbr_specular_glossiness_specular_glossiness) FROM '{materials_csv_file_path}' DELIMITER ',' CSV HEADER;", 
         "--variable", "ON_ERROR_STOP=1"
     ]
     sent_command = subprocess.run(

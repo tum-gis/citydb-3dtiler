@@ -38,3 +38,9 @@
   - [✌️] Take a beer, first tileset has been created.
 - 27.11.2025
   - [ ] Time to start implement styling-options...
+- 11.12.2025
+  - [ ] Change the name of "advise_sql" as "standalone_queries"
+  - [ ] Add query names to the info "SQL Query executed."
+  - [ ] Remove the (i)--> Connection Status messages.
+  - [ ] Think about adding a "controller" package...
+  - [ ] Complete the existing-appearances scenario.

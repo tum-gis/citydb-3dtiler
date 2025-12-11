@@ -118,7 +118,6 @@ class SelectElement:
     '''
     def __init__(self, select_type, field=None, case=None, domain_alias=None, range_alias=None):
         self.select_type = select_type
-        
         if self.select_type == "field":
             self.field = field
             self.domain_alias = domain_alias
@@ -166,6 +165,10 @@ class SelectElements:
         return len(self.select_elements)
     def __getitem__(self, key):
         return self.select_elements[key]
+    
+
+    def add(self, select_element):
+        self.select_elements.append(select_element)
 
 class FromElement:
     '''
@@ -247,6 +250,8 @@ class JoinElements:
         for jn in self.join_elements:
             join_part = join_part + str(jn) + "\n"
         return join_part
+    def add(self, join_element):
+        self.join_elements.append(join_element)
 
 class WhereElement:
     def __init__(self, condition, operator=""):

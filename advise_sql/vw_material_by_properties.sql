@@ -1,7 +1,7 @@
--- View: citydb.material_data_by_properties_and_classes
- -- DROP VIEW citydb.material_data_by_properties_and_classes;
+-- View: citydb.vw_material_by_properties
+ -- DROP VIEW citydb.vw_material_by_properties;
 
-CREATE OR REPLACE VIEW citydb.material_data_by_properties_and_classes AS
+CREATE OR REPLACE VIEW citydb.vw_material_by_properties AS
 SELECT namespace_of_classname,
        classname,
        namespace_of_property,
@@ -32,8 +32,8 @@ FROM
                 'SpecularGlossiness' : NULLIF(ARRAY[m.pbr_specular_glossiness_specular_glossiness], '{NULL}') 
                  NULL ON NULL RETURNING json)::jsonb)
                  AS pbr_specular_glossiness
-     FROM materials_for_features as m) pbr_1;
+     FROM _materials_for_features as m) pbr_1;
 
 
-ALTER TABLE citydb.material_data_by_properties_and_classes OWNER TO tester;
+ALTER TABLE citydb.vw_material_by_properties OWNER TO tester;
 

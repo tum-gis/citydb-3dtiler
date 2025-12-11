@@ -18,7 +18,17 @@ krnl_selects = SelectElements(
         select_type = "field", 
         field = "classname", 
         domain_alias="oc", 
-        range_alias="class")
+        range_alias="class"),
+    SelectElement(
+        select_type = "field", 
+        field = "alias",
+        domain_alias = "ns",
+        range_alias = "ns") #,
+    # Concatenated alternative for the classname and the namespace alias
+    # SelectElement(
+    #     select_type = "field",
+    #     field = "CONCAT(ns.alias,'__',oc.classname)",
+    #     range_alias = "class2")
     )
 krnl_froms = FromElements(
     FromElement(
@@ -35,7 +45,12 @@ krnl_joins = JoinElements(
         join_type= "left", 
         table="objectclass", 
         range_alias="oc", 
-        condition="oc.id = ftr.objectclass_id")
+        condition="oc.id = ftr.objectclass_id"),
+    JoinElement(
+        join_type="left",
+        table="namespace",
+        range_alias="ns",
+        condition="oc.namespace_id = ns.id")
     )
 krnl_query = QueryBlock(
     name = "kernel", 

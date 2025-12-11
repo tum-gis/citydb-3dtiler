@@ -1,8 +1,8 @@
--- Table: citydb.materials_for_features
+-- Table: citydb._materials_for_features
 
--- DROP TABLE IF EXISTS citydb.materials_for_features;
+-- DROP TABLE IF EXISTS citydb._materials_for_features;
 
-CREATE TABLE IF NOT EXISTS citydb.materials_for_features
+CREATE TABLE IF NOT EXISTS citydb._materials_for_features
 (
     id SERIAL NOT NULL,
     namespace_of_classname text,
@@ -16,10 +16,10 @@ CREATE TABLE IF NOT EXISTS citydb.materials_for_features
     pbr_metallic_roughness_metallic_roughness text,
     pbr_specular_glossiness_diffuse_color text,
     pbr_specular_glossiness_specular_glossiness text,
-    CONSTRAINT materials_for_features_v1_pkey PRIMARY KEY (id)
+    CONSTRAINT _materials_for_features_v1_pkey PRIMARY KEY (id)
 )
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS citydb.materials_for_features
+ALTER TABLE IF EXISTS citydb._materials_for_features
     OWNER to tester;

@@ -12,6 +12,7 @@ from io_tools.pg_sql import read_sql_file
 from database.pg_connection import run_sql
 from classes.sql_blocks import *
 from instances.kernel import krnl_query
+from instances.material import *
 from database.pg_connection import create_materialized_view, index_materialized_view, get_query_results, run_sql
 
 def create_tileset(args, output_folder=None, max_features_per_tile=None):
@@ -21,20 +22,37 @@ def create_tileset(args, output_folder=None, max_features_per_tile=None):
     # Copy the Materials and populate the relevant Views
     copy_materials(args)
     # Populate the relevant tables
-    crt_vw_mat_obj = read_sql_file("advise_sql", "view_material_data_only_by_objectclass.sql")
+    crt_vw_mat_obj = read_sql_file("advise_sql", "vw_material_by_objectclass.sql")
     run_sql(args, crt_vw_mat_obj)
-    crt_vw_mat_pro_and_obj = read_sql_file("advise_sql", "view_material_data_by_properties_and_classes.sql")
+    crt_vw_mat_pro_and_obj = read_sql_file("advise_sql", "vw_material_by_properties.sql")
     run_sql(args, crt_vw_mat_pro_and_obj)
 
+    # Set the controller for the materials
+    if args.style_mode == 'objectclass-based' and args.style_absence_behavior == 'fall-down':
+        krnl_query.select_elements.add(sl_material_by_objectclass_fd)
+        krnl_query.join_elements.add(jn_material_by_objectclass)
+        #Fall-Down to this Join Element
+        krnl_query.join_elements.add(jn_no_material)
+        
     query = str(krnl_query)
-    geom_col = str(krnl_query.select_elements[0].range_alias)
-    mv_name = "geometries"
+    # Find the geom column in the Select Elements
+    for sl in krnl_query.select_elements:
+        if sl.range_alias == 'geom':
+            geom_col_idx = list(krnl_query.select_elements).index(sl)
+    geom_col = str(krnl_query.select_elements[geom_col_idx].range_alias)
+    # Finde the shaders column in the Select Elements
+    for sl in krnl_query.select_elements:
+        if sl.range_alias == 'material_data':
+            shaders_col_idx = list(krnl_query.select_elements).index(sl)
+    shaders_col = str(krnl_query.select_elements[shaders_col_idx].range_alias)
+    
+    mv_name = "mv_geometries"
     mfpt = max_features_per_tile
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, geom_col)
     run_sql(args, crt_mv)
     run_sql(args, ind_mv)
-    generate_tiles(args, mv_name, geom_col, output_folder, mfpt)
+    generate_tiles(args, mv_name, geom_col, shaders_col, output_folder, mfpt)
 
 def tile(args):
     print(args.separate_tilesets)

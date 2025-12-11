@@ -1,9 +1,9 @@
--- View: citydb.material_data_only_by_objectclass
- -- DROP VIEW citydb.material_data_only_by_objectclass;
+-- View: citydb.vw_material_by_objectclass
+ -- DROP VIEW citydb.vw_material_by_objectclass;
 
-CREATE OR REPLACE VIEW citydb.material_data_only_by_objectclass AS
-SELECT namespace_of_classname,
-       classname,
+CREATE OR REPLACE VIEW citydb.vw_material_by_objectclass AS
+SELECT namespace_of_classname as ns,
+       classname as class,
        JSON_OBJECT(
             'EmissiveColors' : NULLIF(ARRAY[pbr_emmisive_color], '{NULL}'), 
             'PbrMetallicRoughness' : pbr_metallic_roughness, 
@@ -24,9 +24,9 @@ FROM
                 'SpecularGlossiness' : NULLIF(ARRAY[mtf.pbr_specular_glossiness_specular_glossiness], '{NULL}') 
                  NULL ON NULL RETURNING json)::jsonb)
                  AS pbr_specular_glossiness
-     FROM materials_for_features as mtf
+     FROM _materials_for_features as mtf
      WHERE mtf.property_value IS NULL);
 
 
-ALTER TABLE citydb.material_data_only_by_objectclass OWNER TO tester;
+ALTER TABLE citydb.vw_material_by_objectclass OWNER TO tester;
 
