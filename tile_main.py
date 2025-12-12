@@ -24,8 +24,10 @@ def create_tileset(args, output_folder=None, max_features_per_tile=None):
     # Populate the relevant tables
     crt_vw_mat_obj = read_sql_file("advise_sql", "vw_material_by_objectclass.sql")
     run_sql(args, crt_vw_mat_obj)
-    crt_vw_mat_pro_and_obj = read_sql_file("advise_sql", "vw_material_by_properties.sql")
-    run_sql(args, crt_vw_mat_pro_and_obj)
+    crt_vw_mat_pro = read_sql_file("advise_sql", "vw_material_by_properties.sql")
+    run_sql(args, crt_vw_mat_pro)
+    crt_vw_mat_pro_mtchs = read_sql_file("advise_sql", "vw_material_by_properties_matches.sql")
+    run_sql(args, crt_vw_mat_pro_mtchs)
 
     # Set the controller for the materials
     if args.style_mode == 'objectclass-based' and args.style_absence_behavior == 'fall-down':
@@ -33,6 +35,13 @@ def create_tileset(args, output_folder=None, max_features_per_tile=None):
         krnl_query.join_elements.add(jn_material_by_objectclass)
         #Fall-Down to this Join Element
         krnl_query.join_elements.add(jn_no_material)
+    elif args.style_mode == 'custom-attribute-based' and args.style_absence_behavior == 'fall-down':
+        krnl_query.join_elements.add(jn_material_by_properties)
+        krnl_query.join_elements.add(jn_material_by_objectclass)
+        krnl_query.join_elements.add(jn_no_material)
+
+        krnl_query.select_elements.add(sl_material_by_property_fd)
+        print(krnl_query)
         
     query = str(krnl_query)
     # Find the geom column in the Select Elements
@@ -70,7 +79,3 @@ def tile(args):
     else:
         advises = read_yaml(args.output, "advise.yml")
         create_tileset(args, output_folder=args.output, max_features_per_tile=advises["max_features"])
-    
-
-
-

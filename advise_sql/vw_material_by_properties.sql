@@ -11,7 +11,7 @@ SELECT namespace_of_classname,
        JSON_OBJECT(
             'EmissiveColors' : emmisive_color, 
             'PbrMetallicRoughness' : pbr_metallic_roughness, 
-            'SpecularGlossiness' : pbr_specular_glossiness 
+            'SpecularGlossiness' : NULLIF(pbr_specular_glossiness, '{}')
             ABSENT ON NULL RETURNING json
             ) AS material_data
 FROM

@@ -86,7 +86,7 @@ class QueryBlock:
         else:
             join_part = ""
         if self.where_elements != None:
-            where_part = f"WHERE {self.where_elements} "
+            where_part = f"{self.where_elements} "
         else:
             where_part = ""
         if self.group_elements != None:
@@ -149,12 +149,16 @@ class SelectElements:
     '''
     SelectElements is a serie of the SelectElement class.
     '''
-    def __init__(self, *select_elements):
+    def __init__(self, *select_elements, distinct_on = None):
         self.select_elements = []
+        self.distinct_on = distinct_on
         for slct in select_elements:
             self.select_elements.append(slct)
     def __repr__(self):
-        selection_part = ""
+        if self.distinct_on != None:
+            selection_part = f"DISTINCT ON ({self.distinct_on}) "
+        else:
+            selection_part = ""
         for slct in self.select_elements:
             selection_part = selection_part + str(slct) + ", "
         selection_part = selection_part[:-2]
@@ -221,11 +225,11 @@ class JoinElement:
     '''
     def __init__(self, join_type, table=None, inner_query_block=None, domain_alias=None, range_alias=None, condition=None):
         self.join_type = join_type
+        self.range_alias = range_alias
+        self.condition = condition
         if inner_query_block is None:
             self.table = table
             self.domain_alias = domain_alias
-            self.range_alias = range_alias
-            self.condition = condition
             self.inner_query_block = []
         elif table is None:
             self.inner_query_block = inner_query_block
@@ -233,9 +237,9 @@ class JoinElement:
             raise ValueError("Join Type can only accept inner query block or table.")
     def __repr__(self):
         if self.inner_query_block == []:
-            return f"{str(self.join_type).upper()}  JOIN {self.table} as {self.range_alias} ON\n\t{self.condition} "
+            return f"{str(self.join_type).upper()}  JOIN {self.table} as {self.range_alias} ON {self.condition} "
         elif self.inner_query_block is not None:
-            return "inner_query_block_text"
+            return f"{str(self.join_type).upper()}  JOIN ({str(self.inner_query_block)}) as {self.range_alias} ON {self.condition} "
 
 class JoinElements:
     '''
@@ -276,3 +280,25 @@ class WhereElements:
         else:
             where_part = ""
         return where_part
+
+class GroupElement:
+        def __init__(self, field):
+            self.field = field
+        def __repr__(self):
+            return f"{self.field}"
+
+class GroupElements:
+    def __init__(self, *group_elements):
+        self.group_elements = []
+        for grp_elm in group_elements:
+            self.group_elements.append(grp_elm)
+    def __repr__(self):
+        group_part = ""
+        if len(self.group_elements) >= 1:
+            group_part = "GROUP BY "
+            for grp_elm in self.group_elements:
+                group_part += f"{str(grp_elm)}, "
+            group_part = group_part[:-2]
+        else:
+            group_part = ""
+        return group_part

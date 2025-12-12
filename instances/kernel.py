@@ -23,7 +23,8 @@ krnl_selects = SelectElements(
         select_type = "field", 
         field = "alias",
         domain_alias = "ns",
-        range_alias = "ns") #,
+        range_alias = "ns"),
+    distinct_on = "gmdt.id" #,
     # Concatenated alternative for the classname and the namespace alias
     # SelectElement(
     #     select_type = "field",
