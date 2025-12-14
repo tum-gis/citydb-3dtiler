@@ -3,6 +3,7 @@ import sys
 
 # Internal Libraries
 from classes.sql_blocks import *
+from instances.kernel import *
 
 # Necessary Selects and Joins for the Objectclass-based Styling
 
@@ -14,16 +15,16 @@ sl_no_material = SelectElement(
 
 sl_material_by_objectclass_fd = SelectElement(
     select_type = "field",
-    field = "COALESCE(mtr_oc.material_data, nmt.material_data)",
+    field = "mtr_oc.material_data",
     range_alias = "material_data"
     )
 
-jn_no_material = JoinElement(
-    join_type = "left",
-    table = "vw_material_by_objectclass",
-    range_alias = "nmt",
-    condition = "nmt.ns is NULL AND nmt.class = 'anything_else'"
-    )
+# jn_no_material = JoinElement(
+#     join_type = "left",
+#     table = "vw_material_by_objectclass",
+#     range_alias = "nmt",
+#     condition = "nmt.ns is NULL AND nmt.class = 'anything_else'"
+#     )
 
 jn_material_by_objectclass = JoinElement(
     join_type = "left",
@@ -32,12 +33,26 @@ jn_material_by_objectclass = JoinElement(
     condition = "mtr_oc.ns = ns.alias AND mtr_oc.class = oc.classname" # Check kernel
     )
 
+objectclass_falldown_select_elements = SelectElements(sl_material_by_objectclass_fd)
+# objectclass_falldown_join_elements = JoinElements(jn_material_by_objectclass, jn_no_material)
+objectclass_falldown_join_elements = JoinElements(jn_material_by_objectclass)
+
+objectclass_falldown_addition = QueryBlock(
+    name = "material_by_objectclass", 
+    type_of_effect = "Visual",
+    order_number =  2, 
+    select_elements=objectclass_falldown_select_elements, 
+    join_elements=objectclass_falldown_join_elements
+    )
+
+objectclass_falldown_query = QueryBlocks(krnl_query, objectclass_falldown_addition)
+
 # Neccassary Selects, Joins and QueryBlocks for the Attribute-based Styling
 
 
 sl_material_by_property_fd = SelectElement(
     select_type = "field",
-    field = "COALESCE(mtr_prp_mtc.material_data, COALESCE(mtr_oc.material_data, nmt.material_data))",
+    field = "COALESCE(mtr_prp_mtc.material_data, mtr_oc.material_data)",
     range_alias = "material_data"
     )
 
@@ -47,3 +62,17 @@ jn_material_by_properties = JoinElement(
     range_alias = "mtr_prp_mtc",
     condition = "mtr_prp_mtc.objectid = ftr.objectid" 
     )
+
+properties_falldown_select_elements = SelectElements(sl_material_by_property_fd)
+# properties_falldown_join_elements = JoinElements(jn_material_by_properties, jn_material_by_objectclass, jn_no_material)
+properties_falldown_join_elements = JoinElements(jn_material_by_properties, jn_material_by_objectclass)
+
+properties_falldown_addition = QueryBlock(
+    name = "material_by_properties", 
+    type_of_effect = "Visual",
+    order_number =  2, 
+    select_elements=properties_falldown_select_elements, 
+    join_elements=properties_falldown_join_elements
+    )
+
+custom_property_falldown_query = QueryBlocks(krnl_query, properties_falldown_addition)

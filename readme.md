@@ -22,3 +22,13 @@ Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the p
   <img src="docs/images/classes.svg" alt="UML Class Diagram" style="border:3px solid #005293">
   <figcaption>UML Class Diagram of the app</figcaption>
 </figure>
+
+<hr>
+
+## Abbreviations used as Alias in SQL Blocks
+
+- ftr : FeaTuRe
+- oc : Object Class
+- prp : PRoPerty
+- mtr_ftr : MaTeRials for FeaTuRes
+- mtr_prp : MaTeRials by PRoPerties

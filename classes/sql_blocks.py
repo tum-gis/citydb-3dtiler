@@ -102,15 +102,55 @@ class QueryBlocks:
     '''
     def __init__(self, *query_blocks):
         self.query_blocks = []
+        self.select_elements = []
         for qb in query_blocks:
             self.query_blocks.append(qb)
+        self.query_blocks = sorted(self.query_blocks, key=operator.attrgetter('order_number'))
+        for qb in self.query_blocks:
+            if qb.select_elements != None:
+                for sl in qb.select_elements:
+                    self.select_elements.append(sl)
+    def __iter__(self):
+        return iter(self.query_blocks)
+    def __len__(self):
+        return len(self.query_blocks)
+    def __getitem__(self, key):
+        return self.query_blocks[key]
     def __repr__(self):
+        sorted_query = ""
+        selection_part = "SELECT "
+        from_part = "FROM "
+        join_part = ""
+        where_part = ""
+        count_where_elements = 0
+        group_part = ""
+        count_group_elements = 0
+        for qb in self.query_blocks:
+            if qb.select_elements != None:
+                selection_part += str(qb.select_elements) + ", "
+            if qb.from_elements != None:
+                from_part += str(qb.from_elements) + ", "
+            if qb.join_elements != None:
+                join_part += str(qb.join_elements) + " \n"
+            if qb.where_elements != None:
+                count_where_elements += 1
+                where_part += str(qb.where_elements) + ", "
+            if qb.group_elements != None:
+                count_group_elements += 1
+                group_part += str(qb.group_elements) + ", "
+        selection_part = selection_part[:-2]
+        from_part = from_part[:-2]
+        if count_where_elements > 0:
+            where_part = "WHERE " + where_part[:-2]
+        if count_group_elements > 0:
+            group_part = "GROUP BY " + group_part[:-2]
+        return (selection_part + " " + from_part + join_part + where_part + group_part)
         # First sort the query blocks by using the order_number attribute
-        sorted_query_blocks = sorted(self.query_blocks, key=operator.attrgetter('order_number'))
-        series_of_query_blocks = ""
-        for qb in sorted_query_blocks:
-            series_of_query_blocks = series_of_query_blocks + str(qb) + "\n"
-        return series_of_query_blocks
+        # sorted_query_blocks = sorted(self.query_blocks, key=operator.attrgetter('order_number'))
+        # series_of_query_blocks = ""
+        # for qb in sorted_query_blocks:
+        #     series_of_query_blocks = series_of_query_blocks + str(qb) + "\n"
+        # return series_of_query_blocks
 
 class SelectElement:
     '''
@@ -169,8 +209,6 @@ class SelectElements:
         return len(self.select_elements)
     def __getitem__(self, key):
         return self.select_elements[key]
-    
-
     def add(self, select_element):
         self.select_elements.append(select_element)
 
@@ -273,7 +311,7 @@ class WhereElements:
     def __repr__(self):
         where_part = ""
         if len(self.where_elements) >= 1:
-            where_part = "WHERE "
+            where_part = ""
             for whr in self.where_elements:
                 where_part += f"{str(whr)} "
             where_part = where_part[:-1]
