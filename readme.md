@@ -25,6 +25,34 @@ Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the p
 
 <hr>
 
+## Test Procedure
+
+Each command should be checked once when a milestone is achieved.
+
+1. [ ] Check the help documentation
+
+```bash
+python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm --help
+```
+<details>
+<summary>Help doc for advise command</summary>
+
+```bash
+python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm advise --help
+```
+
+</details>
+<details>
+<summary>Help doc for tile command</summary>
+
+```bash
+python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm tile --help
+```
+
+</details>
+
+<hr>
+
 ## Abbreviations used as Alias in SQL Blocks
 
 - ftr : FeaTuRe

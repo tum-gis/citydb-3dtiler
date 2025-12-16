@@ -31,40 +31,44 @@ def create_tileset(args, output_folder=None, max_features_per_tile=None, whrs=No
 
     # Set the controller for the materials
     if args.style_mode == 'objectclass-based' and args.style_absence_behavior == 'fall-down':
-        # print(objectclass_falldown_query)
+        
+        # If any filter is given, add the filter to the query
         if whrs != None:
             objectclass_falldown_query[0].where_elements = whrs
-            print("okokokok")
         query = str(objectclass_falldown_query)
-        # print(query)
+
         # Find the geom column in the Select Elements
         for sl in objectclass_falldown_query.select_elements:
             if sl.range_alias == 'geom':
                 geom_col_idx = list(objectclass_falldown_query.select_elements).index(sl)
-        # print(geom_col_idx, "-->", objectclass_falldown_query.select_elements)
         geom_col = str(objectclass_falldown_query.select_elements[geom_col_idx].range_alias)
+
         # Find the shaders column in the Select Elements
         for sl in objectclass_falldown_query.select_elements:
             if sl.range_alias == 'material_data':
                 shaders_col_idx = list(objectclass_falldown_query.select_elements).index(sl)
         shaders_col = str(objectclass_falldown_query.select_elements[shaders_col_idx].range_alias)
-        # print(geom_col_idx, geom_col, shaders_col_idx, shaders_col)
+        
     elif args.style_mode == 'custom-attribute-based' and args.style_absence_behavior == 'fall-down':
-        if whrs == None:
-            query = str(custom_property_falldown_query)
-        else:
-            custom_property_falldown_query.where_elements = whrs
-            query = str(custom_property_falldown_query)
+        
+        # If any filter is given, add the filter to the query
+        if whrs != None:
+            custom_property_falldown_query[0].where_elements = whrs
+        query = str(custom_property_falldown_query)
+        
         # Find the geom column in the Select Elements
         for sl in custom_property_falldown_query.select_elements:
             if sl.range_alias == 'geom':
                 geom_col_idx = list(custom_property_falldown_query.select_elements).index(sl)
         geom_col = str(custom_property_falldown_query.select_elements[geom_col_idx].range_alias)
-        # Finde the shaders column in the Select Elements
+        
+        # Find the shaders column in the Select Elements
         for sl in custom_property_falldown_query.select_elements:
             if sl.range_alias == 'material_data':
                 shaders_col_idx = list(custom_property_falldown_query.select_elements).index(sl)
         shaders_col = str(custom_property_falldown_query.select_elements[shaders_col_idx].range_alias)
+
+    # Set the name of materialized view that would be used for tiling
     mv_name = "mv_geometries"
     mfpt = max_features_per_tile
     crt_mv = create_materialized_view(mv_name, str(query))
@@ -80,12 +84,13 @@ def tile(args):
         if args.separate_tilesets == "objectclass":
             advises = read_yaml(args.output, "advise.yml")
             objectclasses = advises["objectclasses"]
-            # print(objectclasses)
+            
             for oc in objectclasses:
                 oc_name = oc["name"]
                 oc_mfpt = oc["objectclass_recommendations"]
                 new_folder = create_folder(args.output, oc_name)
                 oc_folder = os.path.join(args.output, oc_name)
+                
                 # Set a Where condition for each calculator query that filters objectclasses
                 cndtn = f"oc.classname = '{oc_name}'"
                 whrs_oc = WhereElements(
