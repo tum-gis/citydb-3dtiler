@@ -29,7 +29,7 @@ Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the p
 
 > Each command should be checked once when a milestone is achieved.
 
-1. Check the **help** documentation
+### 1. Check the **help** documentation
 
 ```bash
 python3 citydb-3dtiler.py --help
@@ -51,7 +51,7 @@ python3 citydb-3dtiler.py tile --help
 
 </details>
 
-2. Check the **advise** command
+### 2. Check the **advise** command
 
 2.1. *advise for* **single tileset**
 
@@ -72,7 +72,7 @@ python3 citydb-3dtiler.py \
 advise
 ```
 
-3. Check the **tile** command
+### 3. Check the **tile** command
 
 3.1. *tile as* **single tileset**
 
