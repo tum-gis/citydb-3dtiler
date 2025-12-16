@@ -29,7 +29,7 @@ Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the p
 
 Each command should be checked once when a milestone is achieved.
 
-1. [ ] Check the help documentation
+1. Check the **help** documentation
 
 ```bash
 python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm --help
@@ -50,6 +50,33 @@ python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u
 ```
 
 </details>
+
+2. Check the **advise** command
+
+2.1. *advise* for **single tileset**
+
+```bash
+python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm advise
+```
+
+2.2. *advise* for **separate tilesets**
+
+2.2.1. considering Object Classes
+
+```bash
+python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm --separate-tilesets objectclass advise
+```
+2.2.2. ~~considering Namespaces ~~ (planned)
+
+3. Check the **tile** command
+
+3.1. *tile* for **single tileset**
+
+3.1.1. *tile* for *single tileset* with **Objectclass-based** styling (default)
+
+```bash
+python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm tile --style-mode objectclass-based --style-absence-behavior fall-down
+```
 
 <hr>
 

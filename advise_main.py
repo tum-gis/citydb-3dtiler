@@ -29,7 +29,7 @@ def advise(args):
                 addition_of_objectclasses.where_elements = whrs
                 # Calculates Maximum Features per Tile for the specificied Objectclass
                 oc_statistics = get_query_results(args, str(recommended_max_features_per_tile))
-                rmf = oc_statistics[3]
+                rmf = oc_statistics[3] # Statistics Order: 0:min, 1:max, 2:avg, 3:mxm_ftr_pr_tl
                 # Add to the list of the ObjectClasses
                 oc_new = dict(ObjectClass(oc, objectclass_recommendations = int(rmf)))
                 ocs.append(oc_new)

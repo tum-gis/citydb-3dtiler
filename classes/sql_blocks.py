@@ -20,7 +20,7 @@ class CompositeQueryBlock:
         slct_part = "SELECT"
         frm_part = "FROM"
         join_part = ""
-        where_part = ""
+        where_part = "WHERE"
         group_part = ""
         for qb in qbs.query_blocks:
             if qb.select_elements != None:
@@ -86,7 +86,7 @@ class QueryBlock:
         else:
             join_part = ""
         if self.where_elements != None:
-            where_part = f"{self.where_elements} "
+            where_part = f"WHERE {self.where_elements} "
         else:
             where_part = ""
         if self.group_elements != None:
