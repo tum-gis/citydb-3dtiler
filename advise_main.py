@@ -13,8 +13,8 @@ def advise(args):
     conn = pg_establish(args)
 
     # Take the existing objectclasses in the database instance
-    oc_list = read_sql_file("advise_sql", "get_all_available_objectclasses.sql")
-    result_oc = get_query_results(args, oc_list)
+    oc_list, oc_sql_fil = read_sql_file("standalone_queries", "get_all_available_objectclasses.sql")
+    result_oc = get_query_results(args, oc_list, name=oc_sql_fil)
     # Take the used command arguments and save as list 
     commandset = dict(args._get_kwargs())
 
@@ -29,7 +29,8 @@ def advise(args):
                 geometry_statistics.where_elements = whrs
                 # Calculates Maximum Features per Tile for the specificied Objectclass
                 # print(recommended_max_features_per_tile)
-                oc_statistics = get_query_results(args, str(recommended_max_features_per_tile))
+                qry_name = "recommended_max_features_per_tile for : " + f"{oc}" + " (instance)"
+                oc_statistics = get_query_results(args, str(recommended_max_features_per_tile), name=qry_name)
                 rmf = oc_statistics[3] # Statistics Order: 0:min, 1:max, 2:avg, 3:mxm_ftr_pr_tl
                 # Add to the list of the ObjectClasses
                 oc_new = dict(ObjectClass(oc, objectclass_recommendations = int(rmf)))
@@ -43,7 +44,7 @@ def advise(args):
                 print(f"File Writing Error:\n{err}")
     else:
         # Calculate the recommended max features per tile by considering all the features
-        oc_statistics = get_query_results(args, str(recommended_max_features_per_tile))
+        oc_statistics = get_query_results(args, str(recommended_max_features_per_tile), name="recommended_max_features_per_tile (instance)")
         rmf = oc_statistics[3]
         # Add the existing objectclasses to the advisement document
         ocs= []

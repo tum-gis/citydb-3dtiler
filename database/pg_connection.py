@@ -29,7 +29,7 @@ def pg_check_connection(conn):
     print(dir(conn))
 
 def pg_check_session(cur):
-    print(f"(i)--> Connection Status: {cur.connection.status}")
+    # print(f"(i)--> Connection Status: {cur.connection.status}")
     return cur.connection.status
 
 def create_materialized_view(mv_name, query):
@@ -46,7 +46,7 @@ def index_materialized_view(table_name, geom_column):
     USING gist(st_centroid(st_envelope({geom_column})))"
     return iq
 
-def get_query_results(args, query):
+def get_query_results(args, query, name="not-specified"):
     conn = pg_establish(args)
     try:
         cur = pg_create_session(conn)
@@ -61,10 +61,10 @@ def get_query_results(args, query):
     except OSError as err:
         print(f"Database error:\n{err}")
     finally:
-        print("SQL Query executed and result returned.")
+        print(f"(i) {name} executed,  and the results were obtained.")
     return result
 
-def run_sql(args, query):
+def run_sql(args, query, name="not-specified"):
     conn = pg_establish(args)
     try:
         cur = pg_create_session(conn)
@@ -78,5 +78,5 @@ def run_sql(args, query):
     except OSError as err:
         print(f"Database error:\n{err}")
     finally:
-        print("SQL Query executed.")
+        print(f"(i) {name} executed.")
 

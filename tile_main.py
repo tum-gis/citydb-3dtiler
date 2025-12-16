@@ -17,17 +17,17 @@ from database.pg_connection import create_materialized_view, index_materialized_
 
 def create_tileset(args, output_folder=None, max_features_per_tile=None, whrs=None):
     # Create the materials table on DB
-    crt_mat = read_sql_file("advise_sql", "create_materials_for_features_table.sql")
-    run_sql(args, crt_mat)
+    crt_mat, crt_mat_fl_nm = read_sql_file("standalone_queries", "create_materials_for_features_table.sql")
+    run_sql(args, crt_mat, name=crt_mat_fl_nm)
     # Copy the Materials and populate the relevant Views
     copy_materials(args)
     # Populate the relevant tables
-    crt_vw_mat_obj = read_sql_file("advise_sql", "vw_material_by_objectclass.sql")
-    run_sql(args, crt_vw_mat_obj)
-    crt_vw_mat_pro = read_sql_file("advise_sql", "vw_material_by_properties.sql")
-    run_sql(args, crt_vw_mat_pro)
-    crt_vw_mat_pro_mtchs = read_sql_file("advise_sql", "vw_material_by_properties_matches.sql")
-    run_sql(args, crt_vw_mat_pro_mtchs)
+    crt_vw_mat_obj, crt_vw_mat_obj_fl_nm = read_sql_file("standalone_queries", "vw_material_by_objectclass.sql")
+    run_sql(args, crt_vw_mat_obj, name=crt_vw_mat_obj_fl_nm)
+    crt_vw_mat_pro, crt_vw_mat_pro_fl_nm = read_sql_file("standalone_queries", "vw_material_by_properties.sql")
+    run_sql(args, crt_vw_mat_pro, name= crt_vw_mat_pro_fl_nm)
+    crt_vw_mat_pro_mtchs, crt_vw_mat_pro_mtchs_fl_nm = read_sql_file("standalone_queries", "vw_material_by_properties_matches.sql")
+    run_sql(args, crt_vw_mat_pro_mtchs, name=crt_vw_mat_pro_mtchs_fl_nm)
 
     # Set the controller for the materials
     if args.style_mode == 'objectclass-based' and args.style_absence_behavior == 'fall-down':
@@ -74,8 +74,8 @@ def create_tileset(args, output_folder=None, max_features_per_tile=None, whrs=No
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, geom_col)
     # print(crt_mv)
-    run_sql(args, crt_mv)
-    run_sql(args, ind_mv)
+    run_sql(args, crt_mv, name=f"create_materialized_view (function) for {mv_name}")
+    run_sql(args, ind_mv, name=f"index_materialized_view (function) for {mv_name}")
     generate_tiles(args, mv_name, geom_col, shaders_col, output_folder, mfpt)
 
 def tile(args):
