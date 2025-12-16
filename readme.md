@@ -93,7 +93,7 @@ python3 citydb-3dtiler.py \
 -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 \
 --tilers-path tiler_app --tiler-app pg2b3dm \
 tile \
---style-mode custom-attribute-based --style-absence-behavior fall-down
+--style-mode property-based --style-absence-behavior fall-down
 ```
 
 3.2. *tile as* **separate tilesets**
@@ -117,7 +117,7 @@ python3 citydb-3dtiler.py \
 --tilers-path tiler_app --tiler-app pg2b3dm \
 --separate-tilesets objectclass \
 tile \
---style-mode custom-attribute-based --style-absence-behavior fall-down
+--style-mode property-based --style-absence-behavior fall-down
 ```
 
 <hr>

@@ -40,13 +40,14 @@
   - [✔] Time to start implement styling-options...
 - 11.12.2025
   - [✔] Change the name of "advise_sql" as "standalone_queries"
-  - [ ] Add query names to the info "SQL Query executed."
-  - [ ] Remove the (i)--> Connection Status messages.
-  - [ ] Think about adding a "controller" package...
+  - [✔] Add query names to the info "SQL Query executed."
+  - [✔] Remove the (i)--> Connection Status messages.
+  - [😴] Think about adding a "controller" package...
   - [ ] Complete the existing-appearances scenario.
 - 12.12.2025
   - [ ] Check that terms are used consistently
 - 14.12.2025
-  - [ ] Refactor tile_main.py>51 (property based materials)
+  - [✔] Refactor tile_main.py>51 (property based materials)
 - 16.12.2025
 - [ ] No need for the CompositeQueryBlock (QueryBlock supports nested queries by self)
+- [ ] Create a docker image !

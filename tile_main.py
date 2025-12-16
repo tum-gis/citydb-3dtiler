@@ -49,7 +49,7 @@ def create_tileset(args, output_folder=None, max_features_per_tile=None, whrs=No
                 shaders_col_idx = list(objectclass_falldown_query.select_elements).index(sl)
         shaders_col = str(objectclass_falldown_query.select_elements[shaders_col_idx].range_alias)
         
-    elif args.style_mode == 'custom-attribute-based' and args.style_absence_behavior == 'fall-down':
+    elif args.style_mode == 'property-based' and args.style_absence_behavior == 'fall-down':
         
         # If any filter is given, add the filter to the query
         if whrs != None:

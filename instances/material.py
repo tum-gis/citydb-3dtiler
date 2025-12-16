@@ -47,7 +47,7 @@ objectclass_falldown_addition = QueryBlock(
 
 objectclass_falldown_query = QueryBlocks(krnl_query, objectclass_falldown_addition)
 
-# Neccassary Selects, Joins and QueryBlocks for the Attribute-based Styling
+# Neccassary Selects, Joins and QueryBlocks for the Property-based Styling
 
 
 sl_material_by_property_fd = SelectElement(
