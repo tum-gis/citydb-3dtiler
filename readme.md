@@ -32,56 +32,51 @@ Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the p
 1. Check the **help** documentation
 
 ```bash
-python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm --help
+python3 citydb-3dtiler.py --help
 ```
 <details>
-<summary>Help doc for advise command</summary>
+<summary>1.1. Help doc for advise command</summary>
 
 ```bash
-python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm advise --help
+python3 citydb-3dtiler.py advise --help
 ```
 
 </details>
 <details>
-<summary>Help doc for tile command</summary>
+<summary>1.2. Help doc for tile command</summary>
 
 ```bash
-python3 citydb-3dtiler.py \
--H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 \
---tilers-path tiler_app --tiler-app pg2b3dm \
-tile --help
+python3 citydb-3dtiler.py tile --help
 ```
 
 </details>
 
 2. Check the **advise** command
 
-2.1. *advise* for **single tileset**
+2.1. *advise for* **single tileset**
 
 ```bash
 python3 citydb-3dtiler.py \
 -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 \
---tilers-path tiler_app --tiler-app pg2b3dm \
 advise
 ```
 
-2.2. *advise* for **separate tilesets**
+2.2. *advise for* **separate tilesets**
 
-2.2.1. considering Object Classes
+2.2.1. *advise for separate tilesets* considering Object Classes
 
 ```bash
 python3 citydb-3dtiler.py \
 -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 \
---tilers-path tiler_app --tiler-app pg2b3dm \
 --separate-tilesets objectclass \
 advise
 ```
 
 3. Check the **tile** command
 
-3.1. *tile* as **single tileset**
+3.1. *tile as* **single tileset**
 
-3.1.1. *tile* as *single tileset* with **Objectclass-based** style-mode (default)
+3.1.1. *tile as single tileset with* **Objectclass-based** *style-mode (default)*
 
 ```bash
 python3 citydb-3dtiler.py \
@@ -91,7 +86,7 @@ tile \
 --style-mode objectclass-based --style-absence-behavior fall-down
 ```
 
-3.1.2. *tile* as *single tileset* with **property-based** style-mode
+3.1.2. *tile as single tileset with* **property-based** *style-mode*
 
 ```bash
 python3 citydb-3dtiler.py \
@@ -101,9 +96,9 @@ tile \
 --style-mode custom-attribute-based --style-absence-behavior fall-down
 ```
 
-3.2. *tile* as **separate tilesets**
+3.2. *tile as* **separate tilesets**
 
-3.2.1. *tile* as *separate tilesets* with **objectclass-based** styling (default)
+3.2.1. *tile as separate tilesets with* **objectclass-based** *style-mode (default)*
 
 ```bash
 python3 citydb-3dtiler.py \
@@ -114,7 +109,7 @@ tile \
 --style-mode objectclass-based --style-absence-behavior fall-down
 ```
 
-3.2.2. *tile* as *separate tilesets* with **property-based** styling
+3.2.2. *tile as separate tilesets with* **property-based** *style-mode*
 
 ```bash
 python3 citydb-3dtiler.py \
