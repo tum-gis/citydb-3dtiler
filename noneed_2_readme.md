@@ -45,9 +45,10 @@
   - [😴] Think about adding a "controller" package...
   - [ ] Complete the existing-appearances scenario.
 - 12.12.2025
-  - [ ] Check that terms are used consistently
+  - [✔] Check that terms are used consistently
 - 14.12.2025
   - [✔] Refactor tile_main.py>51 (property based materials)
 - 16.12.2025
 - [ ] No need for the CompositeQueryBlock (QueryBlock supports nested queries by self)
 - [ ] Create a docker image !
+- [ ] Fix the advise command to calculate a "max feature per tile" value, even if it is executed for separated tilesets.
