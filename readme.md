@@ -27,7 +27,7 @@ Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the p
 
 ## Test Procedure
 
-Each command should be checked once when a milestone is achieved.
+> Each command should be checked once when a milestone is achieved.
 
 1. Check the **help** documentation
 
@@ -46,7 +46,10 @@ python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u
 <summary>Help doc for tile command</summary>
 
 ```bash
-python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm tile --help
+python3 citydb-3dtiler.py \
+-H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 \
+--tilers-path tiler_app --tiler-app pg2b3dm \
+tile --help
 ```
 
 </details>
@@ -56,7 +59,10 @@ python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u
 2.1. *advise* for **single tileset**
 
 ```bash
-python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm advise
+python3 citydb-3dtiler.py \
+-H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 \
+--tilers-path tiler_app --tiler-app pg2b3dm \
+advise
 ```
 
 2.2. *advise* for **separate tilesets**
@@ -64,26 +70,59 @@ python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u
 2.2.1. considering Object Classes
 
 ```bash
-python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm --separate-tilesets objectclass advise
+python3 citydb-3dtiler.py \
+-H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 \
+--tilers-path tiler_app --tiler-app pg2b3dm \
+--separate-tilesets objectclass \
+advise
 ```
-2.2.2. ~~considering Namespaces ~~ (planned)
 
 3. Check the **tile** command
 
-3.1. *tile* for **single tileset**
+3.1. *tile* as **single tileset**
 
-3.1.1. *tile* for *single tileset* with **Objectclass-based** styling (default)
+3.1.1. *tile* as *single tileset* with **Objectclass-based** style-mode (default)
 
 ```bash
-python3 citydb-3dtiler.py -H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 --tilers-path tiler_app --tiler-app pg2b3dm tile --style-mode objectclass-based --style-absence-behavior fall-down
+python3 citydb-3dtiler.py \
+-H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 \
+--tilers-path tiler_app --tiler-app pg2b3dm \
+tile \
+--style-mode objectclass-based --style-absence-behavior fall-down
+```
+
+3.1.2. *tile* as *single tileset* with **property-based** style-mode
+
+```bash
+python3 citydb-3dtiler.py \
+-H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 \
+--tilers-path tiler_app --tiler-app pg2b3dm \
+tile \
+--style-mode custom-attribute-based --style-absence-behavior fall-down
+```
+
+3.2. *tile* as **separate tilesets**
+
+3.2.1. *tile* as *separate tilesets* with **objectclass-based** styling (default)
+
+```bash
+python3 citydb-3dtiler.py \
+-H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 \
+--tilers-path tiler_app --tiler-app pg2b3dm \
+--separate-tilesets objectclass \
+tile \
+--style-mode objectclass-based --style-absence-behavior fall-down
+```
+
+3.2.2. *tile* as *separate tilesets* with **property-based** styling
+
+```bash
+python3 citydb-3dtiler.py \
+-H localhost -P 9876 -d citydb-visualizer -S citydb -u tester -p 123456 \
+--tilers-path tiler_app --tiler-app pg2b3dm \
+--separate-tilesets objectclass \
+tile \
+--style-mode custom-attribute-based --style-absence-behavior fall-down
 ```
 
 <hr>
-
-## Abbreviations used as Alias in SQL Blocks
-
-- ftr : FeaTuRe
-- oc : Object Class
-- prp : PRoPerty
-- mtr_ftr : MaTeRials for FeaTuRes
-- mtr_prp : MaTeRials by PRoPerties

@@ -5,9 +5,9 @@ import sys
 from classes.sql_blocks import *
 from database.pg_connection import get_query_results
 
-# Group of Geometry Statistics (Min, Max, Average, Total number of points per feature geometry):
+# Geometry Statistics (Min, Max, Average, Total number of points per feature geometry):
 
-selects1 = SelectElements(
+gmt_stt_selects = SelectElements(
         SelectElement(
             select_type="field",
             field="MIN(st_npoints(gd.geometry))",
@@ -18,31 +18,22 @@ selects1 = SelectElements(
             range_alias="max_vertices"), 
         SelectElement(
             select_type="field",
-            field="AVG(st_npoints(gd.geometry))",
+            field="ROUND(AVG(st_npoints(gd.geometry)),2)",
             range_alias="avg_vertices"), 
         SelectElement(
             select_type="field",
             field="count(gd.id)",
             range_alias="geometries_total")
         )
-forms1 = FromElements(
+gmt_stt_froms = FromElements(
         FromElement(
             table="geometry_data",
             alias="gd"
         )
     )
-statistics_of_geometries = QueryBlock(
-    name="Statistics of Geometries",
-    range_alias="stt",
-    type_of_effect="Spatial",
-    order_number=1,
-    select_elements=selects1,
-    from_elements=forms1
-    )
 
-# Additional Group of Objectclass based separation (Separates the statistics by conisdering objectclasses)
-
-joins3 = JoinElements(
+# Objectclass based separation (Separates the statistics by considering objectclasses)
+oc_spr_joins = JoinElements(
     JoinElement(
         join_type = "left",
         table = "feature",
@@ -56,30 +47,29 @@ joins3 = JoinElements(
         condition = "ftr.objectclass_id = oc.id"
         )
     )
-# wheres3 = WhereElements(
-#     WhereElement(
-#         condition = "oc.classname = 'Building'"
-#         )
-#     )
-addition_of_objectclasses = QueryBlock(
-    name = "Addition of Objectclasses",
-    type_of_effect = "Ontological",
-    order_number = 2,
-    join_elements = joins3#,
-    # where_elements = wheres3
+
+geometry_statistics = QueryBlock(
+    name = "Statistics of Geometries",
+    range_alias = "stt",
+    type_of_effect = "Spatial",
+    order_number = 1,
+    select_elements = gmt_stt_selects,
+    from_elements = gmt_stt_froms,
+    join_elements = oc_spr_joins
     )
+
 
 # Combination of "Statistics of Geometries" and "Addition of Objectclasses"
 
-qryblcks = QueryBlocks(statistics_of_geometries, addition_of_objectclasses)
-statistics_of_geometries_w_objectclasses = CompositeQueryBlock(
-    name = "Statistics of Geometries by every Objectclasses",
-    db_type = "postgresql",
-    query_blocks = qryblcks)
+# geometry_statistics_w_objectclasses = QueryBlock(
+#     name = "Statistics of Geometries by every Objectclasses",
+#     type_of_effect = "Ontological",
+#     order_number = 1,
+#     inner_query_blocks = geometry_statistics)
 
-# Group of Recommended Maximum Features Per Tile (encapsulates Geometry Statistics)
+# Recommended Maximum Features Per Tile (encapsulates Geometry Statistics)
 
-selects2 = SelectElements(
+rcm_mxm_ftr_pr_tl_selects = SelectElements(
         SelectElement(
             select_type="field",
             field="min_vertices"
@@ -98,14 +88,14 @@ selects2 = SelectElements(
             range_alias = "max_features_per_tile"
         )
     )
-forms2 = FromElements(
+rcm_mxm_ftr_pr_tl_selects_froms = FromElements(
     FromElement(
-        inner_query_blocks = [statistics_of_geometries_w_objectclasses])
+        inner_query_blocks = [geometry_statistics])
     )
 recommended_max_features_per_tile = QueryBlock(
     name = "Recommended Max Features Per Tile",
-    type_of_effect = "Spatial",
+    type_of_effect = "Ontological",
     order_number = 1,
-    select_elements = selects2,
-    from_elements = forms2
+    select_elements = rcm_mxm_ftr_pr_tl_selects,
+    from_elements = rcm_mxm_ftr_pr_tl_selects_froms
     )

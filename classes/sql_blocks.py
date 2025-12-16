@@ -38,7 +38,7 @@ class CompositeQueryBlock:
             if qb.where_elements != None:
                 where_part += f" {str(qb.where_elements)}"
             else:
-                pass
+                where_part = ""
             if qb.group_elements != None:
                 group_part += f" {str(qb.group_elements)}"
             else:

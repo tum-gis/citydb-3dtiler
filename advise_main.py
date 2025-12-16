@@ -26,8 +26,9 @@ def advise(args):
                 cndtn = f"oc.classname = '{oc}'"
                 whrs = WhereElements(
                     WhereElement(condition = cndtn))
-                addition_of_objectclasses.where_elements = whrs
+                geometry_statistics.where_elements = whrs
                 # Calculates Maximum Features per Tile for the specificied Objectclass
+                # print(recommended_max_features_per_tile)
                 oc_statistics = get_query_results(args, str(recommended_max_features_per_tile))
                 rmf = oc_statistics[3] # Statistics Order: 0:min, 1:max, 2:avg, 3:mxm_ftr_pr_tl
                 # Add to the list of the ObjectClasses
