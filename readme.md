@@ -4,9 +4,7 @@
 Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the provided custom arguments.
 </blockquote>
 
-## For Users :
-
-## Docker Scripts
+## For Docker Users :
 
 ### Build
 
@@ -19,26 +17,38 @@ docker build --tag IMAGENAME:VERSIONorTAG .
 Sample
 
 ```bash
-docker build -t citydb-3dtiler:0.6 .
+docker build -t citydb-3dtiler:0.8 .
 ```
 
 ### Run the Container
 
 Pattern:
 
-Sample:
+Sample 1 (Run the **advise** command):
 
 ```bash
 docker run --rm --interactive \
---name citydb-3dtiler07 \
---volume ./materials_for_features:/home/citydb-3dtiler/materials_for_features:rw \
---volume ./output:/home/citydb-3dtiler/output \
-citydb-3dtiler:0.6 \
+--name citydb-3dtiler08 \
+--volume ./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw \
+--volume ./output:/home/tester/citydb-3dtiler/output \
+citydb-3dtiler:0.8 \
 -H 10.162.246.195 -P 9876 -d citydb-visualizer \
 -S citydb -u tester -p 123456 \
 advise
 ```
 
+Sample 2 (Run the **tile** command):
+
+```bash
+docker run --rm --interactive \
+--name citydb-3dtiler08 \
+--volume ./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw \
+--volume ./output:/home/tester/citydb-3dtiler/output \
+citydb-3dtiler:0.8 \
+-H 10.162.246.195 -P 9876 -d citydb-visualizer \
+-S citydb -u tester -p 123456 \
+tile
+```
 
 ### Check the Container itself (for development purposes)
 
@@ -46,11 +56,11 @@ Sample (Overwrite the Entrypoint):
 
 ```bash
 docker run --rm --interactive --tty \
---volume ./materials_for_features:/home/citydb-3dtiler/materials_for_features:rw \
---volume ./output:/home/citydb-3dtiler/output \
---name citydb-3dtiler09 \
+--volume ./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw \
+--volume ./output:/home/tester/citydb-3dtiler/output \
+--name citydb-3dtiler08 \
 --entrypoint /bin/bash \
-citydb-3dtiler:0.6
+citydb-3dtiler:0.8
 ```
 
 ### Remove all the relevant containers, images etc.
@@ -59,7 +69,7 @@ All-in-One Command:
 
 ```bash
 docker rm --force $(docker ps --all --quiet --filter label=composition=citydb-3dtiler) \
-&& docker rmi --force $(docker image list --quiet --filter label=composition=citydb-visualizer)
+&& docker rmi --force $(docker image list --quiet --filter label=composition=citydb-3dtiler)
 ```
 <details>
 <summary>Remove Containers:</summary>
@@ -74,7 +84,7 @@ docker rm --force $(docker ps --all --quiet --filter label=composition=citydb-3d
 <summary>Remove Images:</summary>
 
 ```bash
-docker rmi --force $(docker image list --quiet --filter label=composition=citydb-visualizer)
+docker rmi --force $(docker image list --quiet --filter label=composition=citydb-3dtiler)
 ```
 
 </details>
