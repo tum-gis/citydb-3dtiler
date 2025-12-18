@@ -9,10 +9,11 @@ citydb-3dtiler.sublime-workspace
 !tiler_app/about_tiler_app.md
 !.gitignore
 !output/.gitkeep
+!.github/workflows/build-docker-image.yml
 # Ignore Folders
 .*
 env
 sources
 __pycache__
 # Do NOT Ignore Folders
-!.github/workflows
+
