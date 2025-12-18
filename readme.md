@@ -1,16 +1,16 @@
 # citydb-3dtiler
 
 <blockquote>
-Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the provided custom arguments.
+Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance by considering the provided arguments (separation, material colors etc.).
 </blockquote>
 
 ## How to use?
 
 1. Download and (if it is a ZIP file) extract the repository
 
-> If you don't want to customize the feature colors, skip to the Step 5. Otherwise follow the next instructions.
+> If you don't want to customize the feature colors, skip to the Step 4. Otherwise follow the next instructions.
 
-3. Check the file *materials_for_features/materials_for_features.ods* (with OpenOffice, LibreOffice or OnlyOffice) file and customize the colors just using the columns in the first sheet (Sheet Name: *materials*).
+2. Check the file *materials_for_features/materials_for_features.ods* (with OpenOffice, LibreOffice or OnlyOffice) file and customize the colors just using the columns in the first sheet (Sheet Name: *materials*).
 
 <details>
 <summary>Alternatively ...</summary>
@@ -21,7 +21,7 @@ https://syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_feature
 
 </details>
 
-4. After making your customizations, export the spreadsheet as a CSV file and replace with the default file (*materails_for_features/materials_for_features.csv*).
+3. After making your customizations, export the spreadsheet as a CSV file and replace with the default file (*materails_for_features/materials_for_features.csv*).
 
 <details>
 <summary>Tips</summary>
@@ -31,19 +31,19 @@ https://syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_feature
 
 </details>
 
-5. Navigate into the same folder (citydb-3dtiler) with your favorite CLI tool (Terminal/Shell) using the ```cd <FOLDERNAME>``` command.
+4. Navigate into the same folder (citydb-3dtiler) with your favorite CLI tool (Terminal/Shell) using the ```cd <FOLDERNAME>``` command.
 
-6. Pull the docker image with following command:
+5. Pull the docker image with following command:
 
 ```bash
 docker pull ghcr.io/muratkendir/citydb-3dtiler/citydb-3dtiler:0.9
 ```
 
-7. Decide to which one of the following scenario best fits to your desire and replace the parameters given between the "<" and ">" characters.
+6. Decide to which one of the following scenario best fits to your desire and replace the parameters given between the "<" and ">" characters.
 
 You would like to ...
 
-  7.1. (A) create a **single** tilesets by considering every available object in 3DCityDB.
+  6.1. (Sin) create a **single** tilesets by considering every available object in 3DCityDB.
 
   <details>
   <summary>Advise command for PowerShell</summary>
@@ -63,7 +63,7 @@ You would like to ...
 
   </details>
 
-  7.2. (B) create **separate** tilesets for every objectclasses in 3DCityDB
+  6.2. (Sep) create **separate** tilesets for every objectclasses in 3DCityDB
 
   <details>
   <summary>Advise command for PowerShell</summary>
@@ -84,14 +84,14 @@ You would like to ...
 
   </details>
 
-8. Decide to which one of the following scenario best fits to your desire.
+7. Check the *output* folder to see the advise document. After that, decide to which one of the following scenario best fits to your desire.
 
-  8.1. (x) create tilesets considering **objectclass-based** materials
+  7.1. (OBJ) create tilesets considering **objectclass-based** materials
 
   <details>
   <summary>Tile Command for PowerShell</summary>
   
-  Remove the last row the previous command ("advise") and add the followings:
+  > Remove the last row the previous command ("advise") and add the followings:
 
   ```bash
   tile `
@@ -100,12 +100,12 @@ You would like to ...
   ```
   </details>
 
-  8.2. (y) create tilesets considering predefined **property-based** materials
+  7.2. (PRO) create tilesets considering predefined **property-based** materials
 
   <details>
   <summary>Tile Command for PowerShell</summary>
 
-  Remove the last row the previous command ("advise") and add the followings:
+  > Remove the last row the previous command ("advise") and add the followings:
 
   ```bash
   tile \
