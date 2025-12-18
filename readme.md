@@ -6,7 +6,7 @@ Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance by conside
 
 ## How to use?
 
-1. Download and (if it is a ZIP file) extract the repository
+1. Download and extract the repository (if it is a ZIP file).
 
 > If you don't want to customize the feature colors, skip to the Step 4. Otherwise follow the next instructions.
 
@@ -86,7 +86,7 @@ You would like to ...
 
 7. Check the *output* folder to see the advise document. After that, decide to which one of the following scenario best fits to your desire.
 
-  7.1. (OBJ) create tilesets considering **objectclass-based** materials
+  7.1. (Obj) create tilesets considering **objectclass-based** materials
 
   <details>
   <summary>Tile Command for PowerShell</summary>
@@ -100,7 +100,7 @@ You would like to ...
   ```
   </details>
 
-  7.2. (PRO) create tilesets considering predefined **property-based** materials
+  7.2. (Pro) create tilesets considering predefined **property-based** materials
 
   <details>
   <summary>Tile Command for PowerShell</summary>
