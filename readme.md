@@ -31,7 +31,7 @@ https://syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_feature
 
 </details>
 
-5. Navigate into the same folder (citydb-3dtiler) with your favorite CLI tool (Terminal/Shell) using the ```cd FOLDERNAME``` command.
+5. Navigate into the same folder (citydb-3dtiler) with your favorite CLI tool (Terminal/Shell) using the ```cd <FOLDERNAME>``` command.
 
 6. Pull the docker image with following command:
 
@@ -43,26 +43,11 @@ docker pull ghcr.io/muratkendir/citydb-3dtiler/citydb-3dtiler:0.9
 
 You would like to ...
 
-  7.1. create a **single** tileset by using **objectclass-based** materials
+  7.1. (A) create a **single** tilesets by considering every available object in 3DCityDB.
 
   <details>
-  <summary>Commands for PowerShell</summary>
-  Advise Command:
+  <summary>Advise command for PowerShell</summary>
   
-  ```bash
-  docker run `
---rm --interactive `
---name citydb-3dtiler09 `
---volume ./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw `
---volume ./output:/home/tester/citydb-3dtiler/output `
-ghcr.io/muratkendir/citydb-3dtiler/citydb-3dtiler:0.9 `
---db-host <IP-or-COMP-NAME> --db-port <PORT-NUMBER> `
---db-name <DATABASE-NAME> --db-schema <SCHEMA-NAME> `
---db-username <USER-NAME> --db-password <DATABASE-PASSWORD> `
-advise
-  ```
-
-  Tile Command:
   ```bash
   docker run `
   --rm --interactive `
@@ -73,13 +58,59 @@ advise
   --db-host <IP-or-COMP-NAME> --db-port <PORT-NUMBER> `
   --db-name <DATABASE-NAME> --db-schema <SCHEMA-NAME> `
   --db-username <USER-NAME> --db-password <DATABASE-PASSWORD> `
-  tile
+  advise
+  ```
+
+  </details>
+
+  7.2. (B) create **separate** tilesets for every objectclasses in 3DCityDB
+
+  <details>
+  <summary>Advise command for PowerShell</summary>
+  
+  ```bash
+  docker run `
+  --rm --interactive `
+  --name citydb-3dtiler09 `
+  --volume ./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw `
+  --volume ./output:/home/tester/citydb-3dtiler/output `
+  ghcr.io/muratkendir/citydb-3dtiler/citydb-3dtiler:0.9 `
+  --db-host <IP-or-COMP-NAME> --db-port <PORT-NUMBER> `
+  --db-name <DATABASE-NAME> --db-schema <SCHEMA-NAME> `
+  --db-username <USER-NAME> --db-password <DATABASE-PASSWORD> `
+  --separate-tilesets objectclass `
+  advise
+  ```
+
+  </details>
+
+8. Decide to which one of the following scenario best fits to your desire.
+
+  8.1. (x) create tilesets considering **objectclass-based** materials
+
+  <details>
+  <summary>Tile Command for PowerShell</summary>
+  
+  Remove the last row the previous command ("advise") and add the followings:
+
+  ```bash
+  tile `
+  --style-mode objectclass-based `
+  --style-absence-behavior fall-down
   ```
   </details>
 
-  7.2. create a **single** tileset by using predefined (must be specified in CSV document) **property-based** materials
+  8.2. (y) create tilesets considering predefined **property-based** materials
 
-  7.3. create **separate** tilesets for every objectclasses using **objectclass-based** materials
+  <details>
+  <summary>Tile Command for PowerShell</summary>
 
-  7.4. create **separate** tilesets for every objectclasses using predefined **property-based** materials
+  Remove the last row the previous command ("advise") and add the followings:
+
+  ```bash
+  tile \
+  --style-mode property-based --style-absence-behavior fall-down
+  ```
+
+  </details>
 
