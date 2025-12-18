@@ -18,7 +18,7 @@ jobs:
       packages: write
       id-token: write
     steps:
-      - run: echo "🐧 This job is now running on a ${{ runner.os }}."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} by actor ${{ github.actor }}."
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Login to GitHub Container Registry
