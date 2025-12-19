@@ -36,7 +36,7 @@ https://syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_feature
 5. Pull the docker image with following command:
 
 ```bash
-docker pull ghcr.io/muratkendir/citydb-3dtiler/citydb-3dtiler:0.9
+docker pull ghcr.io/tum-gis/citydb-3dtiler:0.9
 ```
 
 6. Decide to which one of the following scenario best fits to your desire and replace the parameters given between the "<" and ">" characters.
