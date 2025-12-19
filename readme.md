@@ -4,6 +4,15 @@
 Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance by considering the provided arguments (separation, material colors etc.).
 </blockquote>
 
+## Development Progress
+
+The following diagram shows the application's currently available and unavailable but planned features.
+
+<figure style="width:%100;text-align: center;">
+  <img src="docs/images/cli_command_options_and_arguments_design_for_docs.drawio.png" alt="Usage" style="border:3px solid #005293">
+  <figcaption>Using the Application (Semi-transparent sketched boxes indicate features that have not yet been implemented.)</figcaption>
+</figure>
+
 ## How to use?
 
 1. Download the repository and extract it (if it is a ZIP file).
@@ -115,4 +124,3 @@ You would like ...
   ```
 
   </details>
-
