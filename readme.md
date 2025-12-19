@@ -6,11 +6,11 @@ Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance by conside
 
 ## How to use?
 
-1. Download and extract the repository (if it is a ZIP file).
+1. Download the repository and extract it (if it is a ZIP file).
 
-> If you don't want to customize the feature colors, skip to the Step 4. Otherwise follow the next instructions.
+> If you do not want to customize the feature colors (materials), proceed to Step 4. Otherwise, follow the next instructions.
 
-2. Check the file *materials_for_features/materials_for_features.ods* (with OpenOffice, LibreOffice or OnlyOffice) file and customize the colors just using the columns in the first sheet (Sheet Name: *materials*).
+2. Check the *materials_for_features/materials_for_features.ods* file (using OpenOffice, LibreOffice, or OnlyOffice) and customize the colors/shininess/transparency using the columns on the first sheet (Sheet Name: *materials*).
 
 <details>
 <summary>Alternatively ...</summary>
@@ -21,17 +21,17 @@ https://syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_feature
 
 </details>
 
-3. After making your customizations, export the spreadsheet as a CSV file and replace with the default file (*materails_for_features/materials_for_features.csv*).
+3. After making your customizations, export the spreadsheet as a CSV file and replace the default file (*materials_for_features/materials_for_features.csv*).
 
 <details>
 <summary>Tips</summary>
 
-- Field delimiter must be comma (,)
-- Do not force to quote with apostrophe (").
+- Field delimiters must be commas (,)
+- Do not force text to be quoted with apostrophes (")
 
 </details>
 
-4. Navigate into the same folder (citydb-3dtiler) with your favorite CLI tool (Terminal/Shell) using the ```cd <FOLDERNAME>``` command.
+4. Using your preferred CLI tool (Terminal/Shell), navigate to the same folder (citydb-3dtiler) using the ```cd <FOLDERNAME>``` command.
 
 5. Pull the docker image with following command:
 
@@ -39,11 +39,11 @@ https://syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_feature
 docker pull ghcr.io/tum-gis/citydb-3dtiler:0.9
 ```
 
-6. Decide to which one of the following scenario best fits to your desire and replace the parameters given between the "<" and ">" characters.
+6. Decide which of the following scenarios best suits your needs and modify the parameters in the tag style (<>).
 
-You would like to ...
+You would like ...
 
-  6.1. (Sin) create a **single** tilesets by considering every available object in 3DCityDB.
+  6.1. (Sin) to create a **single** tileset, taking into account all features available in 3DCityDB.
 
   <details>
   <summary>Advise command for PowerShell</summary>
@@ -63,7 +63,7 @@ You would like to ...
 
   </details>
 
-  6.2. (Sep) create **separate** tilesets for every objectclasses in 3DCityDB
+  6.2. (Sep) to create **separate** tilesets for each object class available in 3DCityDB.
 
   <details>
   <summary>Advise command for PowerShell</summary>
@@ -84,9 +84,11 @@ You would like to ...
 
   </details>
 
-7. Check the *output* folder to see the advise document. After that, decide to which one of the following scenario best fits to your desire.
+7. Check the *output* folder and review the advice document. Then, decide which style mode best suits your needs.
 
-  7.1. (Obj) create tilesets considering **objectclass-based** materials
+You would like ...
+
+  7.1. (Obj) to create tilesets using **objectclass-based** materials.
 
   <details>
   <summary>Tile Command for PowerShell</summary>
@@ -100,7 +102,7 @@ You would like to ...
   ```
   </details>
 
-  7.2. (Pro) create tilesets considering predefined **property-based** materials
+  7.2. (Pro) to create tilesets using **property-based** materials. (Properties must be specified in the CSV file.)
 
   <details>
   <summary>Tile Command for PowerShell</summary>
