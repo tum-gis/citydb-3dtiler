@@ -50,6 +50,11 @@ docker pull ghcr.io/tum-gis/citydb-3dtiler:0.9
 
 6. Decide which of the following scenarios best suits your needs and modify the parameters in the tag style (<>).
 
+<details>
+<summary>Tips</summary>
+If your 3DCityDB is running in another Docker container and has a port forwarded to your host machine (check this with the ```docker ps``` command), you can connect by entering the host machine's local IP address and the forwarded port number in the following instructions.
+</details>
+
 You would like ...
 
   6.1. (Sin) to create a **single** tileset, taking into account all features available in 3DCityDB.
@@ -63,7 +68,7 @@ You would like ...
   --name citydb-3dtiler09 `
   --volume ./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw `
   --volume ./output:/home/tester/citydb-3dtiler/output `
-  ghcr.io/muratkendir/citydb-3dtiler/citydb-3dtiler:0.9 `
+  ghcr.io/tum-gis/citydb-3dtiler:0.9 `
   --db-host <IP-or-COMP-NAME> --db-port <PORT-NUMBER> `
   --db-name <DATABASE-NAME> --db-schema <SCHEMA-NAME> `
   --db-username <USER-NAME> --db-password <DATABASE-PASSWORD> `
@@ -83,7 +88,7 @@ You would like ...
   --name citydb-3dtiler09 `
   --volume ./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw `
   --volume ./output:/home/tester/citydb-3dtiler/output `
-  ghcr.io/muratkendir/citydb-3dtiler/citydb-3dtiler:0.9 `
+  ghcr.io/tum-gis/citydb-3dtiler:0.9 `
   --db-host <IP-or-COMP-NAME> --db-port <PORT-NUMBER> `
   --db-name <DATABASE-NAME> --db-schema <SCHEMA-NAME> `
   --db-username <USER-NAME> --db-password <DATABASE-PASSWORD> `
