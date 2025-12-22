@@ -1,0 +1,26 @@
+site_name: "citydb-3ditler"
+repo_url: "https://github.com/tum-gis/citydb-3dtiler"
+# site_url: "https://muratkendir.github.io/dist-gis-exercises/"
+#edit_uri: "tree/main/docs"
+# exclude_docs: |
+#   /html_documents/
+#   /notebooks/
+nav:
+  - Home: index.md
+  - "Docs for Users": doc_4_user.md
+  - "Docs for Developers" : doc_4_dev.md
+theme: material
+extra_css:
+  - extra_style.css
+markdown_extensions:
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - attr_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      clickable_checkbox: true

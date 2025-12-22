@@ -15,7 +15,7 @@ Links for relevant libraries :
 The following diagram shows the application's currently available and unavailable but planned features.
 
 <figure style="width:%100;text-align: center;">
-  <img src="docs/images/cli_command_options_and_arguments_design_for_docs.drawio.svg" alt="Usage" style="border:3px solid #005293">
+  <img src="../images/cli_command_options_and_arguments_design_for_docs.drawio.svg" alt="Usage" style="border:3px solid #005293">
   <figcaption>Using the Application (Semi-transparent sketched boxes indicate features that have not yet been implemented.)</figcaption>
 </figure>
 
