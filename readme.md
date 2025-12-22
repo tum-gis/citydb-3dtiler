@@ -148,3 +148,4 @@ To bridge this gap, two main elements have been used in this software:
 2. pg2b3dm
 
 ***We would like to take this opportunity to thank Bert Temme, the developer of the pg2b3dm library, and all 3DCityDB developers.***
+
