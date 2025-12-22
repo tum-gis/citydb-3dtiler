@@ -2,6 +2,7 @@
 .*
 env
 sources
+site
 __pycache__
 # Ignore Files
 *.*~
