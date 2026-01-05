@@ -2,9 +2,9 @@ name: Build and Publish Docker Image
 
 on:
   push:
-    branches: 
+    branches:
       - main
-    paths: 
+    paths:
       - Dockerfile
 
 env:
