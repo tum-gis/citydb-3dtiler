@@ -5,6 +5,10 @@ on:
     branches: 
       - "main"
 
+env:
+  REGISTRY: docker.io
+  IMAGE_NAME: tum-gis/citydb-3dtiler
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,6 +19,19 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Extract metadata (tags, labels) for docker image
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: |
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tumgis/cityb-3dtiler
+        tags: |
+          type=raw,value=latest
+        labels: |
+          maintainer=Chair of Geoinformatics, Technical University of Munich (TUM)
+          org.opencontainers.image.vendor=Chair of Geoinformatics, Technical University of Munich (TUM)
+          org.opencontainers.image.title=citydb-3dtiler
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag tumgis/citydb-3dtiler:latest
     - name: Push the Docker mage
