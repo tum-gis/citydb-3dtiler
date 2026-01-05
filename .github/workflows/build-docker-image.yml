@@ -36,6 +36,11 @@ jobs:
           images: |
             tum-gis/citydb-3dtiler
             ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest
+          labels: |
+            maintainer=Chair of Geoinformatics, Technical University of Munich (TUM)
+            org.opencontainers.image.vendor=Chair of Geoinformatics, Technical University of Munich (TUM)
 
       - name: Build and push Docker images
         id: push
