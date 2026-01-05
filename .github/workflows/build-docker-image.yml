@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - Dockerfile
 
 env:
   REGISTRY: ghcr.io
@@ -49,7 +47,6 @@ jobs:
     - name: Build and publish ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} - Ubuntu
       uses: docker/build-push-action@v4
       with:
-        file: Dockerfile
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
