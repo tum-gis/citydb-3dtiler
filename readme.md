@@ -51,8 +51,15 @@ Open the document in LRZ Sync & Share:
 5. Pull the docker image with following command:
 
 ```bash
-docker pull ghcr.io/tum-gis/citydb-3dtiler:0.9
+docker pull ghcr.io/tum-gis/citydb-3dtiler:latest
 ```
+
+or 
+
+```bash
+docker pull tumgis/citydb-3dtiler:latest
+```
+
 
 6. Decide which of the following scenarios best suits your needs and modify the parameters in the tag style (<>).
 
