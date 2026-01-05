@@ -40,5 +40,12 @@ jobs:
           org.opencontainers.image.title=citydb-3dtiler
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag tumgis/citydb-3dtiler:latest
-    - name: Push the Docker mage
-      run: docker push tumgis/citydb-3dtiler:latest
+    # - name: Push the Docker mage
+      # run: docker push tumgis/citydb-3dtiler:latest
+    - name: Build and publish ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} - Ubuntu
+      uses: docker/build-push-action@v4
+      with:
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        platforms: linux/amd64,linux/arm64
