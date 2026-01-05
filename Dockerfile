@@ -18,6 +18,14 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y postgresql-client
 
+# Donwload and unzip pg23dm version 2.25.0
+
+RUN wget --directory-prefix /home/tester/downloads --quiet https://github.com/Geodan/pg2b3dm/releases/download/v2.25.0/pg2b3dm-linux-x64.zip
+
+RUN unzip -d /home/tester/citydb-3dtiler/tiler_app /home/tester/downloads/pg2b3dm-linux-x64.zip
+
+RUN rm /home/tester/downloads/pg2b3dm-linux-x64.zip
+
 ENV PIP_ROOT_USER_ACTION=ignore
 
 RUN pip install --upgrade pip
