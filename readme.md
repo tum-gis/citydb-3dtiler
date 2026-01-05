@@ -132,7 +132,7 @@ You would like ...
   > Remove the last row the previous command ("advise") and add the followings:
 
   ```bash
-  tile \
+  tile `
   --style-mode property-based --style-absence-behavior fall-down
   ```
 
