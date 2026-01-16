@@ -21,5 +21,8 @@ CREATE TABLE IF NOT EXISTS citydb._materials_for_features
 
 TABLESPACE pg_default;
 
+-- This part cause to a problem
+/*
 ALTER TABLE IF EXISTS citydb._materials_for_features
     OWNER to tester;
+*/
