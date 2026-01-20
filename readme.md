@@ -151,12 +151,6 @@ Remove the images :
 docker rmi --force $(docker image list --quiet --filter label=composition=citydb-3dtiler)
 ```
 
-(If neccessary) Remove the containers :
-
-```bash
-docker rm --force $(docker ps --all --quiet --filter label=composition=citydb-3dtiler)
-```
-
 ## Special Thanks:
 
 This application is based on two important concepts and aims to bridge the gap between the concepts 3DTiles and CityGML.
@@ -166,8 +160,3 @@ To bridge this gap, two main elements have been used in this software:
 2. pg2b3dm
 
 ***We would like to take this opportunity to thank Bert Temme, the developer of the pg2b3dm library, and all 3DCityDB developers.***
-
-
-
- 
-  

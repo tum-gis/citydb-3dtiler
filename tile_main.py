@@ -4,7 +4,7 @@ import os
 
 # Internal Libraries
 from io_tools.yaml import write_yaml
-from io_tools.folder import create_folder
+from io_tools.folder import create_folder, check_custom_materials
 from io_tools.yaml import read_yaml
 from io_tools.tiles import generate_tiles
 from io_tools.pg_plpgsql import copy_materials
@@ -19,8 +19,13 @@ def create_tileset(args, output_folder=None, max_features_per_tile=None, whrs=No
     # Create the materials table on DB
     crt_mat, crt_mat_fl_nm = read_sql_file("standalone_queries", "create_materials_for_features_table.sql")
     run_sql(args, crt_mat, name=crt_mat_fl_nm)
-    # Copy the Materials and populate the relevant Views
-    copy_materials(args)
+    
+    # Check for Custom Materials and copy the Materials and populate the relevant Views
+    if check_custom_materials().exists == True:
+        copy_materials(args, check_custom_materials().file_path)
+    else:
+        copy_materials(args)
+
     # Populate the relevant tables
     crt_vw_mat_obj, crt_vw_mat_obj_fl_nm = read_sql_file("standalone_queries", "vw_material_by_objectclass.sql")
     run_sql(args, crt_vw_mat_obj, name=crt_vw_mat_obj_fl_nm)

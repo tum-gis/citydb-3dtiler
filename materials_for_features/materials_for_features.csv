@@ -1,7 +1,5 @@
 namespace_of_classname,classname,namespace_of_property,property_name,column_name_of_property_value,property_value,emmisive_color,pbr_metallic_roughness_base_color,pbr_metallic_roughness_metallic_roughness,pbr_specular_glossiness_diffuse_color,pbr_specular_glossiness_specular_glossiness
-bldg,Building,,,,,,#8FBCC480,,,
-bldg,Building,con,value,val_double,9,,#64F35A80,,,
-bldg,Building,con,value,val_double,12,,#F3402C80,,,
+bldg,Building,,,,,,#F3A76880,,,
 bldg,BuildingConstructiveElement,,,,,,#E93895FF,,,
 bldg,BuildingFurniture,,,,,,#E67322FF,,,
 bldg,BuildingInstallation,,,,,,#E67322FF,,,

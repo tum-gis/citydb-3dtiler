@@ -1,10 +1,13 @@
 import subprocess
 import os
 
-def copy_materials(args):
+def copy_materials(args, custom_materials=None):
     mypass = os.environ.copy()
     mypass['PGPASSWORD']=args.db_password
-    materials_csv_file_path = os.path.join(os.getcwd(), "materials_for_features", "materials_for_features.csv")
+    if custom_materials == None:
+        materials_csv_file_path = os.path.join(os.getcwd(), "materials_for_features", "materials_for_features.csv")
+    else:
+        materials_csv_file_path = os.path.join(os.getcwd(), "shared", custom_materials)
     # print(materials_csv_file_path)
     # print(args)
     command = [
