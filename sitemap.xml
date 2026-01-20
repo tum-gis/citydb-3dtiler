@@ -16,6 +16,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://tum-gis.github.io/citydb-3dtiler/tiling_options/</loc>
+         <lastmod>2026-01-20</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://tum-gis.github.io/citydb-3dtiler/tips_for_docker_usage/</loc>
          <lastmod>2026-01-20</lastmod>
          <changefreq>daily</changefreq>
