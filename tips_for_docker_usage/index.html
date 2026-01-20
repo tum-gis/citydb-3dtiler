@@ -472,48 +472,48 @@
 <h2 id="docker-scripts">Docker Scripts</h2>
 <h3 id="build">Build</h3>
 <p>Pattern:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span>build<span class="w"> </span>--tag<span class="w"> </span>IMAGENAME:VERSIONorTAG<span class="w"> </span>.
-</code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span>build<span class="w"> </span>--tag<span class="w"> </span>IMAGENAME:VERSIONorTAG<span class="w"> </span>.
+</span></code></pre></div>
 <p>Sample</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>citydb-3dtiler:0.6<span class="w"> </span>.
-</code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>citydb-3dtiler:0.6<span class="w"> </span>.
+</span></code></pre></div>
 <h3 id="run-the-container">Run the Container</h3>
 <p>Pattern:</p>
 <p>Sample:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--interactive<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>--name<span class="w"> </span>citydb-3dtiler07<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>--volume<span class="w"> </span>./:/home/citydb-3dtiler/shared:rw<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>citydb-3dtiler:0.9<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>-H<span class="w"> </span><span class="m">10</span>.162.246.195<span class="w"> </span>-P<span class="w"> </span><span class="m">9876</span><span class="w"> </span>-d<span class="w"> </span>citydb-visualizer<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>-S<span class="w"> </span>citydb<span class="w"> </span>-u<span class="w"> </span>tester<span class="w"> </span>-p<span class="w"> </span><span class="m">123456</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>advise
-</code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--interactive<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>--name<span class="w"> </span>citydb-3dtiler07<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>--volume<span class="w"> </span>./:/home/citydb-3dtiler/shared:rw<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>citydb-3dtiler:0.9<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>-H<span class="w"> </span><span class="m">10</span>.162.246.195<span class="w"> </span>-P<span class="w"> </span><span class="m">9876</span><span class="w"> </span>-d<span class="w"> </span>citydb-visualizer<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>-S<span class="w"> </span>citydb<span class="w"> </span>-u<span class="w"> </span>tester<span class="w"> </span>-p<span class="w"> </span><span class="m">123456</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>advise
+</span></code></pre></div>
 <h3 id="check-the-container-itself-for-development-purposes">Check the Container itself (for development purposes)</h3>
 <p>Sample (Overwrite the Entrypoint):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--interactive<span class="w"> </span>--tty<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>--volume<span class="w"> </span>./:/home/citydb-3dtiler/shared:rw<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>--name<span class="w"> </span>citydb-3dtiler09<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>--entrypoint<span class="w"> </span>/bin/bash<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>citydb-3dtiler:0.9
-</code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--interactive<span class="w"> </span>--tty<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>--volume<span class="w"> </span>./:/home/citydb-3dtiler/shared:rw<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>--name<span class="w"> </span>citydb-3dtiler09<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>--entrypoint<span class="w"> </span>/bin/bash<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>citydb-3dtiler:0.9
+</span></code></pre></div>
 <h3 id="remove-all-the-relevant-containers-images-etc">Remove all the relevant containers, images etc.</h3>
 <p>All-in-One Command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>ps<span class="w"> </span>--all<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-3dtiler<span class="k">)</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="o">&amp;&amp;</span><span class="w"> </span>docker<span class="w"> </span>rmi<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>image<span class="w"> </span>list<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-visualizer<span class="k">)</span>
-</code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>ps<span class="w"> </span>--all<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-3dtiler<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="o">&amp;&amp;</span><span class="w"> </span>docker<span class="w"> </span>rmi<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>image<span class="w"> </span>list<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-visualizer<span class="k">)</span>
+</span></code></pre></div>
 <details>
 <summary>Remove Containers:</summary>
 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>ps<span class="w"> </span>--all<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-3dtiler<span class="k">)</span>
-</code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>ps<span class="w"> </span>--all<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-3dtiler<span class="k">)</span>
+</span></code></pre></div>
 
 </details>
 
 <details>
 <summary>Remove Images:</summary>
 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span>rmi<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>image<span class="w"> </span>list<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-visualizer<span class="k">)</span>
-</code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span>rmi<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>image<span class="w"> </span>list<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-visualizer<span class="k">)</span>
+</span></code></pre></div>
 
 </details>
 
@@ -526,6 +526,8 @@
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
         </div>
         
       </main>
@@ -553,7 +555,7 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.a264c092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link", "content.code.copy", "content.code.select"], "search": "../assets/javascripts/workers/search.a264c092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.4e0fa4ba.min.js"></script>
