@@ -35,7 +35,7 @@ def main():
     parser_tile = subparsers.add_parser("tile", help="generates 3DTiles from the existing dataset.")
     parser_tile.add_argument("--style-mode", help="Select one of the available style-mode options.", choices=["existing-appearances", "property-based", "objectclass-based", "no-style"], default="objectclass-based")
     parser_tile.add_argument("--style-absence-behavior", help="If you want to change the appearance selection behavior of the tiling app, select one of the possible options. Default option is 'fall-down', which means that if you select a 'property-based' styling mode and there are no available predefined properties (in materials_for_features.csv file) that match your object, the tiling tool will automatically select the next styling mode ('objectclass-based' style mode) for the  instance.", choices=["fall-down", "rise-up"], default="fall-down")
-    parser_tile.add_argument("-o", "--output", help="Set the folder for the 3DTiles", metavar="Output Folder", nargs="?", default="output")
+    parser_tile.add_argument("-o", "--output", help="Set the folder for the 3DTiles", metavar="Output Folder", nargs="?", default="shared")
     parser_tile.add_argument("--transparency", help="Choose of the possible options. Please consider that transparency values might vary regarding to the selected tiler application.", choices=["BLEND", "MASK", "OPAQUE"], default="BLEND")
     
     # Database authorization information gathered as a group,

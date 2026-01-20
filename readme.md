@@ -79,10 +79,9 @@ You would like ...
   
   ```bash
   docker run `
-  --rm --interactive `
+  --rm --interactive --tty `
   --name citydb-3dtiler09 `
-  --volume ./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw `
-  --volume ./output:/home/tester/citydb-3dtiler/output `
+  --volume ./:/home/tester/citydb-3dtiler/shared:rw `
   ghcr.io/tum-gis/citydb-3dtiler:0.9 `
   --db-host <IP-or-COMP-NAME> --db-port <PORT-NUMBER> `
   --db-name <DATABASE-NAME> --db-schema <SCHEMA-NAME> `
@@ -99,10 +98,9 @@ You would like ...
   
   ```bash
   docker run `
-  --rm --interactive `
+  --rm --interactive --tty `
   --name citydb-3dtiler09 `
-  --volume ./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw `
-  --volume ./output:/home/tester/citydb-3dtiler/output `
+  --volume ./:/home/tester/citydb-3dtiler/shared:rw `
   ghcr.io/tum-gis/citydb-3dtiler:0.9 `
   --db-host <IP-or-COMP-NAME> --db-port <PORT-NUMBER> `
   --db-name <DATABASE-NAME> --db-schema <SCHEMA-NAME> `
@@ -113,7 +111,7 @@ You would like ...
 
   </details>
 
-7. Check the *output* folder and review the advice document. Then, decide which style mode best suits your needs.
+7. Check the current folder and review the advice document. Then, decide which style mode best suits your needs.
 
 You would like ...
 
@@ -147,16 +145,16 @@ You would like ...
 
 ## Remove all the relevant containers and images from the host machine
 
-Remove the containers :
-
-```bash
-docker rm --force $(docker ps --all --quiet --filter label=composition=citydb-3dtiler)
-```
-
 Remove the images :
 
 ```bash
 docker rmi --force $(docker image list --quiet --filter label=composition=citydb-3dtiler)
+```
+
+(If neccessary) Remove the containers :
+
+```bash
+docker rm --force $(docker ps --all --quiet --filter label=composition=citydb-3dtiler)
 ```
 
 ## Special Thanks:

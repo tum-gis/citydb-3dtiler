@@ -39,7 +39,7 @@ def advise(args):
             adv = Advisement(commandset, max_features=None, objectclasses=ocs)
 
             try:
-                write_yaml("output", args.output, dict(adv))
+                write_yaml("shared", args.output, dict(adv))
             except OSError as err:
                 print(f"File Writing Error:\n{err}")
     else:
@@ -55,6 +55,6 @@ def advise(args):
         adv = Advisement(commandset, max_features=int(rmf), objectclasses = ocs)
         # Write the Advisement as a YAML file
         try:
-            write_yaml("output", args.output, dict(adv))
+            write_yaml("shared", args.output, dict(adv))
         except OSError as err:
             print(f"File Writing Error:\n{err}")

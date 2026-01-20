@@ -6,8 +6,8 @@ site
 __pycache__
 # Ignore Files
 *.*~
-output/*
-output/**/*
+shared/*
+shared/**/*
 tiler_app/*
 citydb-3dtiler.sublime-project
 citydb-3dtiler.sublime-workspace
@@ -15,7 +15,7 @@ citydb-3dtiler.sublime-workspace
 # Do NOT Ignore Files
 !tiler_app/about_tiler_app.md
 !.gitignore
-!output/.gitkeep
+!shared/.gitkeep
 !.github/workflows/build-docker-image.yml
 
 

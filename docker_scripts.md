@@ -23,9 +23,8 @@ Sample:
 ```bash
 docker run --rm --interactive \
 --name citydb-3dtiler07 \
---volume ./materials_for_features:/home/citydb-3dtiler/materials_for_features:rw \
---volume ./output:/home/citydb-3dtiler/output \
-citydb-3dtiler:0.6 \
+--volume ./:/home/citydb-3dtiler/shared:rw \
+citydb-3dtiler:0.9 \
 -H 10.162.246.195 -P 9876 -d citydb-visualizer \
 -S citydb -u tester -p 123456 \
 advise
@@ -38,11 +37,10 @@ Sample (Overwrite the Entrypoint):
 
 ```bash
 docker run --rm --interactive --tty \
---volume ./materials_for_features:/home/citydb-3dtiler/materials_for_features:rw \
---volume ./output:/home/citydb-3dtiler/output \
+--volume ./:/home/citydb-3dtiler/shared:rw \
 --name citydb-3dtiler09 \
 --entrypoint /bin/bash \
-citydb-3dtiler:0.6
+citydb-3dtiler:0.9
 ```
 
 ### Remove all the relevant containers, images etc.
