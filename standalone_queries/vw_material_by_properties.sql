@@ -34,6 +34,3 @@ FROM
                  AS pbr_specular_glossiness
      FROM _materials_for_features as m) pbr_1;
 
-
-ALTER TABLE citydb.vw_material_by_properties OWNER TO tester;
-

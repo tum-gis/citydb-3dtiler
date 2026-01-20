@@ -145,6 +145,19 @@ You would like ...
 
   </details>
 
+## Remove all the relevant containers and images from the host machine
+
+Remove the containers :
+
+```bash
+docker rm --force $(docker ps --all --quiet --filter label=composition=citydb-3dtiler)
+```
+
+Remove the images :
+
+```bash
+docker rmi --force $(docker image list --quiet --filter label=composition=citydb-3dtiler)
+```
 
 ## Special Thanks:
 

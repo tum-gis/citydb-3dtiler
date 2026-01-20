@@ -27,6 +27,3 @@ FROM
      FROM _materials_for_features as mtf
      WHERE mtf.property_value IS NULL);
 
-
-ALTER TABLE citydb.vw_material_by_objectclass OWNER TO tester;
-

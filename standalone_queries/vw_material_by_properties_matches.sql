@@ -17,7 +17,3 @@ CREATE OR REPLACE VIEW citydb.vw_material_by_properties_matches
      LEFT JOIN property prp ON prp.feature_id = ftr.id
      LEFT JOIN namespace prp_ns ON prp_ns.id = prp.namespace_id
      JOIN vw_material_by_properties mtr_prp ON mtr_prp.namespace_of_classname = ns.alias AND mtr_prp.classname = oc.classname AND mtr_prp.namespace_of_property = prp_ns.alias AND mtr_prp.property_name = prp.name AND (mtr_prp.property_value = prp.val_string OR mtr_prp.property_value = prp.val_int::text OR mtr_prp.property_value = prp.val_double::text);
-
-ALTER TABLE citydb.vw_material_by_properties_matches
-    OWNER TO tester;
-
