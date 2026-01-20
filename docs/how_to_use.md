@@ -21,22 +21,20 @@ The following diagram shows the application's currently available and unavailabl
 
 ## How to use?
 
-1. Download the repository and extract it (if it is a ZIP file).
+1. (Optional) Download and customize the "materials_for_features" file with one of office software by changing the color values in the first sheet (sheet name : "materials").
+  - [materials_for_features.ods](https://github.com/tum-gis/citydb-3dtiler/blob/main/materials_for_features/materials_for_features.ods)
 
 > If you do not want to customize the feature colors (materials), proceed to Step 4. Otherwise, follow the next instructions.
-
-2. Check the *materials_for_features/materials_for_features.ods* file (using OpenOffice, LibreOffice, or OnlyOffice) and customize the colors/shininess/transparency using the columns on the first sheet (Sheet Name: *materials*).
 
 <details>
 <summary>Alternatively ...</summary>
 
 Open the document in LRZ Sync & Share:
 <a href="https://syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_features.ods" target="_blank">syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_features.ods</a>
-
-
 </details>
 
-3. After making your customizations, export the spreadsheet as a CSV file and replace the default file (*materials_for_features/materials_for_features.csv*).
+
+2. Save as the ODS file as CSV.
 
 <details>
 <summary>Tips</summary>
@@ -45,6 +43,7 @@ Open the document in LRZ Sync & Share:
 <li>Do not force text to be quoted with apostrophes (")</li>
 </ul>
 </details>
+
 
 4. Using your preferred CLI tool (Terminal/Shell), navigate to the same folder (citydb-3dtiler) using the ```cd <FOLDERNAME>``` command.
 

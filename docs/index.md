@@ -1,9 +1,8 @@
 # citydb-3dtiler
  
-## Document for Users
- 
-[Documentation for the Users](doc_4_user.md)
- 
-## Document for Developers
- 
-[Documentation for the Developers](doc_4_dev.md)
+## Documentation
+
+- [How to Use?](how_to_use.md)
+- [Tips for Docker Usage](tips_for_docker_usage.md)
+- [Documentation for the Developers](developer_docs.md)
+- [To-Do List](to-do_list.md)

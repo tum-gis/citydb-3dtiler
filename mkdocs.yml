@@ -1,14 +1,16 @@
 site_name: "citydb-3dtiler"
 repo_url: "https://github.com/tum-gis/citydb-3dtiler"
-# site_url: "https://muratkendir.github.io/dist-gis-exercises/"
+site_url: "https://tum-gis.github.io/citydb-3dtiler"
 #edit_uri: "tree/main/docs"
 # exclude_docs: |
 #   /html_documents/
 #   /notebooks/
 nav:
   - Home: index.md
-  - "Docs for Users": doc_4_user.md
-  - "Docs for Developers" : doc_4_dev.md
+  - "How to use?": how_to_use.md
+  - "Tips for Docker usage" : tips_for_docker_usage.md
+  - "Documentation for Developers" : developer_docs.md
+  - "To-Do list" : to-do_list.md
 theme: material
 extra_css:
   - extra_style.css
