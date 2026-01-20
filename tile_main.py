@@ -21,8 +21,10 @@ def create_tileset(args, output_folder=None, max_features_per_tile=None, whrs=No
     run_sql(args, crt_mat, name=crt_mat_fl_nm)
     
     # Check for Custom Materials and copy the Materials and populate the relevant Views
-    if check_custom_materials().exists == True:
-        copy_materials(args, check_custom_materials().file_path)
+    custom_material = check_custom_materials()
+    print(custom_material)
+    if custom_material["exists"] == True:
+        copy_materials(args, custom_material["file_path"])
     else:
         copy_materials(args)
 

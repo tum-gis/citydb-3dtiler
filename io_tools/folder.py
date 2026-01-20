@@ -18,8 +18,8 @@ def check_custom_materials(custom_style_file=None):
         custom_materials_file = os.path.join(materials_folder, custom_style_file)
         custom_materials_exists = os.path.exists(custom_materials_file)
     custom_materials_dict = {
-        exists : custom_materials_exists,
-        file_path : custom_materials_file
+        "exists" : custom_materials_exists,
+        "file_path" : custom_materials_file
     }
     return custom_materials_dict
 

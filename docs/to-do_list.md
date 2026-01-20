@@ -53,3 +53,6 @@
 - [✔] Create a docker image !
 - [ ] Fix the advise command to calculate a "max feature per tile" value, even if it is executed for separated tilesets.
 - [ ] Fix the typo : Advise --> Advice
+- 20.01.2026
+- [ ] Activate the custom-style argument
+- [ ] Add a controller for the absence of advise document
