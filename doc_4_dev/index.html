@@ -1,0 +1,716 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../doc_4_user/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.0">
+    
+    
+      
+        <title>Docs for Developers - citydb-3dtiler</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.9f615399.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../extra_style.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#citydb-3dtiler" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="citydb-3dtiler" class="md-header__button md-logo" aria-label="citydb-3dtiler" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            citydb-3dtiler
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Docs for Developers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tum-gis/citydb-3dtiler" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="citydb-3dtiler" class="md-nav__button md-logo" aria-label="citydb-3dtiler" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    citydb-3dtiler
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tum-gis/citydb-3dtiler" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../doc_4_user/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docs for Users
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Docs for Developers
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Docs for Developers
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#for-docker-users" class="md-nav__link">
+    For Docker Users :
+  </a>
+  
+    <nav class="md-nav" aria-label="For Docker Users :">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    Build
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-container" class="md-nav__link">
+    Run the Container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-the-container-itself-for-development-purposes" class="md-nav__link">
+    Check the Container itself (for development purposes)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-the-relevant-containers-images-etc" class="md-nav__link">
+    Remove all the relevant containers, images etc.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#doc-for-dev" class="md-nav__link">
+    DOC for DEV :
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-procedure" class="md-nav__link">
+    Test Procedure
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Procedure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-check-the-help-documentation" class="md-nav__link">
+    1. Check the help documentation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-check-the-advise-command" class="md-nav__link">
+    2. Check the advise command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-check-the-tile-command" class="md-nav__link">
+    3. Check the tile command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#for-docker-users" class="md-nav__link">
+    For Docker Users :
+  </a>
+  
+    <nav class="md-nav" aria-label="For Docker Users :">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    Build
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-container" class="md-nav__link">
+    Run the Container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-the-container-itself-for-development-purposes" class="md-nav__link">
+    Check the Container itself (for development purposes)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-the-relevant-containers-images-etc" class="md-nav__link">
+    Remove all the relevant containers, images etc.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#doc-for-dev" class="md-nav__link">
+    DOC for DEV :
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-procedure" class="md-nav__link">
+    Test Procedure
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Procedure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-check-the-help-documentation" class="md-nav__link">
+    1. Check the help documentation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-check-the-advise-command" class="md-nav__link">
+    2. Check the advise command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-check-the-tile-command" class="md-nav__link">
+    3. Check the tile command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="citydb-3dtiler">citydb-3dtiler</h1>
+<blockquote>
+Generates 3D Tiles by connecting to a 3DCityDB (v5) database instance with the provided custom arguments.
+</blockquote>
+
+<h2 id="for-docker-users">For Docker Users :</h2>
+<h3 id="build">Build</h3>
+<p>Pattern:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span>build<span class="w"> </span>--tag<span class="w"> </span>IMAGENAME:VERSIONorTAG<span class="w"> </span>.
+</code></pre></div>
+<p>Sample</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>citydb-3dtiler:0.8<span class="w"> </span>.
+</code></pre></div>
+<h3 id="run-the-container">Run the Container</h3>
+<p>Pattern:</p>
+<p>Sample 1 (Run the <strong>advise</strong> command):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--interactive<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>--name<span class="w"> </span>citydb-3dtiler08<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>--volume<span class="w"> </span>./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>--volume<span class="w"> </span>./output:/home/tester/citydb-3dtiler/output<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>citydb-3dtiler:0.8<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>-H<span class="w"> </span><span class="m">10</span>.162.246.195<span class="w"> </span>-P<span class="w"> </span><span class="m">9876</span><span class="w"> </span>-d<span class="w"> </span>citydb-visualizer<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>-S<span class="w"> </span>citydb<span class="w"> </span>-u<span class="w"> </span>tester<span class="w"> </span>-p<span class="w"> </span><span class="m">123456</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>advise
+</code></pre></div>
+<p>Sample 2 (Run the <strong>tile</strong> command):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--interactive<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>--name<span class="w"> </span>citydb-3dtiler08<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>--volume<span class="w"> </span>./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>--volume<span class="w"> </span>./output:/home/tester/citydb-3dtiler/output<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>citydb-3dtiler:0.8<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>-H<span class="w"> </span><span class="m">10</span>.162.246.195<span class="w"> </span>-P<span class="w"> </span><span class="m">9876</span><span class="w"> </span>-d<span class="w"> </span>citydb-visualizer<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>-S<span class="w"> </span>citydb<span class="w"> </span>-u<span class="w"> </span>tester<span class="w"> </span>-p<span class="w"> </span><span class="m">123456</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>tile
+</code></pre></div>
+<h3 id="check-the-container-itself-for-development-purposes">Check the Container itself (for development purposes)</h3>
+<p>Sample (Overwrite the Entrypoint):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--interactive<span class="w"> </span>--tty<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>--volume<span class="w"> </span>./materials_for_features:/home/tester/citydb-3dtiler/materials_for_features:rw<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>--volume<span class="w"> </span>./output:/home/tester/citydb-3dtiler/output<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>--name<span class="w"> </span>citydb-3dtiler08<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>--entrypoint<span class="w"> </span>/bin/bash<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>citydb-3dtiler:0.8
+</code></pre></div>
+<h3 id="remove-all-the-relevant-containers-images-etc">Remove all the relevant containers, images etc.</h3>
+<p>All-in-One Command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>ps<span class="w"> </span>--all<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-3dtiler<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="o">&amp;&amp;</span><span class="w"> </span>docker<span class="w"> </span>rmi<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>image<span class="w"> </span>list<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-3dtiler<span class="k">)</span>
+</code></pre></div>
+<details>
+<summary>Remove Containers:</summary>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>ps<span class="w"> </span>--all<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-3dtiler<span class="k">)</span>
+</code></pre></div>
+
+</details>
+
+<details>
+<summary>Remove Images:</summary>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span>rmi<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>image<span class="w"> </span>list<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-3dtiler<span class="k">)</span>
+</code></pre></div>
+
+</details>
+
+<h2 id="doc-for-dev">DOC for DEV :</h2>
+<figure style="width:%100;text-align: center;">
+  <img src="../images/cli_command_options_and_arguments_design_for_docs.drawio.png" alt="Usage" style="border:3px solid #005293">
+  <figcaption>Using the Application (Semi-transparent sketched boxes indicate features that have not yet been implemented.)</figcaption>
+</figure>
+
+<hr>
+
+<figure style="width:%100;text-align: center;">
+  <img src="../images/app_mapp.svg" alt="Structure" style="border:3px solid #005293">
+  <figcaption>Current Structure of Files & Folders</figcaption>
+</figure>
+
+<hr>
+
+<figure style="width:%100;text-align: center;">
+  <img src="../images/classes.svg" alt="UML Class Diagram" style="border:3px solid #005293">
+  <figcaption>UML Class Diagram of the app</figcaption>
+</figure>
+
+<hr>
+
+<h2 id="test-procedure">Test Procedure</h2>
+<blockquote>
+<p>Each command should be checked once when a milestone is achieved.</p>
+</blockquote>
+<h3 id="1-check-the-help-documentation">1. Check the <strong>help</strong> documentation</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python3<span class="w"> </span>citydb-3dtiler.py<span class="w"> </span>--help
+</code></pre></div>
+<details>
+<summary>1.1. Help doc for advise command</summary>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python3<span class="w"> </span>citydb-3dtiler.py<span class="w"> </span>advise<span class="w"> </span>--help
+</code></pre></div>
+
+</details>
+<details>
+<summary>1.2. Help doc for tile command</summary>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python3<span class="w"> </span>citydb-3dtiler.py<span class="w"> </span>tile<span class="w"> </span>--help
+</code></pre></div>
+
+</details>
+
+<h3 id="2-check-the-advise-command">2. Check the <strong>advise</strong> command</h3>
+<p>2.1. <em>advise for</em> <strong>single tileset</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>python3<span class="w"> </span>citydb-3dtiler.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>-H<span class="w"> </span>localhost<span class="w"> </span>-P<span class="w"> </span><span class="m">9876</span><span class="w"> </span>-d<span class="w"> </span>citydb-visualizer<span class="w"> </span>-S<span class="w"> </span>citydb<span class="w"> </span>-u<span class="w"> </span>tester<span class="w"> </span>-p<span class="w"> </span><span class="m">123456</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>advise
+</code></pre></div>
+<p>2.2. <em>advise for</em> <strong>separate tilesets</strong></p>
+<p>2.2.1. <em>advise for separate tilesets</em> considering Object Classes</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python3<span class="w"> </span>citydb-3dtiler.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>-H<span class="w"> </span>localhost<span class="w"> </span>-P<span class="w"> </span><span class="m">9876</span><span class="w"> </span>-d<span class="w"> </span>citydb-visualizer<span class="w"> </span>-S<span class="w"> </span>citydb<span class="w"> </span>-u<span class="w"> </span>tester<span class="w"> </span>-p<span class="w"> </span><span class="m">123456</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>--separate-tilesets<span class="w"> </span>objectclass<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>advise
+</code></pre></div>
+<h3 id="3-check-the-tile-command">3. Check the <strong>tile</strong> command</h3>
+<p>3.1. <em>tile as</em> <strong>single tileset</strong></p>
+<p>3.1.1. <em>tile as single tileset with</em> <strong>Objectclass-based</strong> <em>style-mode (default)</em></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python3<span class="w"> </span>citydb-3dtiler.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>-H<span class="w"> </span>localhost<span class="w"> </span>-P<span class="w"> </span><span class="m">9876</span><span class="w"> </span>-d<span class="w"> </span>citydb-visualizer<span class="w"> </span>-S<span class="w"> </span>citydb<span class="w"> </span>-u<span class="w"> </span>tester<span class="w"> </span>-p<span class="w"> </span><span class="m">123456</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>--tilers-path<span class="w"> </span>tiler_app<span class="w"> </span>--tiler-app<span class="w"> </span>pg2b3dm<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>tile<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>--style-mode<span class="w"> </span>objectclass-based<span class="w"> </span>--style-absence-behavior<span class="w"> </span>fall-down
+</code></pre></div>
+<p>3.1.2. <em>tile as single tileset with</em> <strong>property-based</strong> <em>style-mode</em></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>python3<span class="w"> </span>citydb-3dtiler.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>-H<span class="w"> </span>localhost<span class="w"> </span>-P<span class="w"> </span><span class="m">9876</span><span class="w"> </span>-d<span class="w"> </span>citydb-visualizer<span class="w"> </span>-S<span class="w"> </span>citydb<span class="w"> </span>-u<span class="w"> </span>tester<span class="w"> </span>-p<span class="w"> </span><span class="m">123456</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>--tilers-path<span class="w"> </span>tiler_app<span class="w"> </span>--tiler-app<span class="w"> </span>pg2b3dm<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>tile<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>--style-mode<span class="w"> </span>property-based<span class="w"> </span>--style-absence-behavior<span class="w"> </span>fall-down
+</code></pre></div>
+<p>3.2. <em>tile as</em> <strong>separate tilesets</strong></p>
+<p>3.2.1. <em>tile as separate tilesets with</em> <strong>objectclass-based</strong> <em>style-mode (default)</em></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>python3<span class="w"> </span>citydb-3dtiler.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>-H<span class="w"> </span>localhost<span class="w"> </span>-P<span class="w"> </span><span class="m">9876</span><span class="w"> </span>-d<span class="w"> </span>citydb-visualizer<span class="w"> </span>-S<span class="w"> </span>citydb<span class="w"> </span>-u<span class="w"> </span>tester<span class="w"> </span>-p<span class="w"> </span><span class="m">123456</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>--tilers-path<span class="w"> </span>tiler_app<span class="w"> </span>--tiler-app<span class="w"> </span>pg2b3dm<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>--separate-tilesets<span class="w"> </span>objectclass<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>tile<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>--style-mode<span class="w"> </span>objectclass-based<span class="w"> </span>--style-absence-behavior<span class="w"> </span>fall-down
+</code></pre></div>
+<p>3.2.2. <em>tile as separate tilesets with</em> <strong>property-based</strong> <em>style-mode</em></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>python3<span class="w"> </span>citydb-3dtiler.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>-H<span class="w"> </span>localhost<span class="w"> </span>-P<span class="w"> </span><span class="m">9876</span><span class="w"> </span>-d<span class="w"> </span>citydb-visualizer<span class="w"> </span>-S<span class="w"> </span>citydb<span class="w"> </span>-u<span class="w"> </span>tester<span class="w"> </span>-p<span class="w"> </span><span class="m">123456</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>--tilers-path<span class="w"> </span>tiler_app<span class="w"> </span>--tiler-app<span class="w"> </span>pg2b3dm<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>--separate-tilesets<span class="w"> </span>objectclass<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>tile<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>--style-mode<span class="w"> </span>property-based<span class="w"> </span>--style-absence-behavior<span class="w"> </span>fall-down
+</code></pre></div>
+<hr>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.a264c092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.4e0fa4ba.min.js"></script>
+      
+    
+  </body>
+</html>
