@@ -13,8 +13,9 @@ Download and customize the "materials_for_features" file with one of office soft
 
 ## 2. Save the ODS file as CSV
 
-??? tip "Tips"
-    - Field delimiters must be commas (,)
+??? warning "Pay attention to the following"
+    While exporting the table as CSV file : </br>
+    - Field delimiters must be commas (,) </br>
     - Do not force text to be quoted with apostrophes (")
 
 
@@ -82,6 +83,10 @@ Using your preferred CLI tool (Terminal/Shell), navigate to the same folder with
     advise
     ```
 
+
+??? tip "Alternative Docker Registry"
+
+    Alternatively, you can use the Docker Hub registry by changing the image location in the above commands (ghcr.io/tumgis/citydb-3dtiler:latest <> tumgis/citydb-3dtiler:latest) or by first pulling the same image with the following command: ```docker pull tumgis/citydb-3dtiler:latest```
 
 ## 5. Generate the 3DTiles (using default configuration)
 
