@@ -6,6 +6,7 @@ import argparse
 # Internal Libraries
 from advise_main import advise
 from tile_main import tile
+from io_tools.folder import check_file_in
 # from custom_checks import check_arguments
 
 # Added as a future task : Customizing the main help document.
@@ -37,6 +38,7 @@ def main():
     parser_tile.add_argument("--style-absence-behavior", help="If you want to change the appearance selection behavior of the tiling app, select one of the possible options. Default option is 'fall-down', which means that if you select a 'property-based' styling mode and there are no available predefined properties (in materials_for_features.csv file) that match your object, the tiling tool will automatically select the next styling mode ('objectclass-based' style mode) for the  instance.", choices=["fall-down", "rise-up"], default="fall-down")
     parser_tile.add_argument("-o", "--output", help="Set the folder for the 3DTiles", metavar="Output Folder", nargs="?", default="shared")
     parser_tile.add_argument("--transparency", help="Choose of the possible options. Please consider that transparency values might vary regarding to the selected tiler application.", choices=["BLEND", "MASK", "OPAQUE"], default="BLEND")
+    parser_tile.add_argument("--custom-style", help="If you want to provide a custom style file (any CSV file not named 'materials_for_features'), you can specify the file name (inc. file extension : CSV) using this argument.", metavar="Name of the custom style file", nargs="?", default="materials_for_features.csv")
     
     # Database authorization information gathered as a group,
     # so the group arguments can be used both of the commands.
@@ -55,7 +57,14 @@ def main():
     if args.command == "advise":
         advise(args)
     elif args.command == "tile":
-        tile(args)
+        # Check if the advise command exexuted once or not.
+        #  If not, try to run it first.
+        advice_file = check_file_in("advise.yml", "shared")
+        if advice_file["exists"] == True:
+            tile(args)
+        else:
+            advice(args)
+            tile(args)
     else:
         print("Please select one of the available commands : advise, tile. Otherwiser add -h or --help to get help.")
 

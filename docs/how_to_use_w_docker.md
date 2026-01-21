@@ -1,4 +1,4 @@
-# How to use?
+# How to use with Docker?
 
 ## 1. Set the Feature Colors (Optional)
 
@@ -167,10 +167,12 @@ If you need to use specify arguments see the page [Tiling Options](tiling_option
     --tilers-path (default: tiler_app) </br>
     advise </br>
     ??? example "Advise Arguments"
+        --help
         --consider-thematic-features (default: False) </br>
         --output (default: advise.yml)
     tile
     ??? example "Tile Arguments"
+        --help </br>
         --style-mode
         ??? info "Style Mode Options"
             property-based </br>
@@ -178,7 +180,7 @@ If you need to use specify arguments see the page [Tiling Options](tiling_option
             no-style
         --style-absence-behavior
         ??? info "Style Absence Behavior"
-            falldown (default)
+            falldown (default) </br>
             riseup
         --transparency-mode
         ??? info "Transparency Options"

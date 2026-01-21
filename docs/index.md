@@ -21,7 +21,7 @@ The following diagram shows the application's currently available and unavailabl
  
 ## Documentation
 
-- [How to Use?](how_to_use.md)
+- [How to Use?](how_to_use_w_docker.md)
 - [Tiling Options](tiling_options.md)
 - [Tips for Docker Usage](tips_for_docker_usage.md)
 - [Documentation for the Developers](developer_docs.md)

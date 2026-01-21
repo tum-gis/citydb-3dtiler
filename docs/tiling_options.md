@@ -19,10 +19,12 @@
     --tilers-path (default: tiler_app) </br>
     advise </br>
     ??? example "Advise Arguments"
+        --help
         --consider-thematic-features (default: False) </br>
         --output (default: advise.yml)
     tile
     ??? example "Tile Arguments"
+        --help </br>
         --style-mode
         ??? info "Style Mode Options"
             property-based </br>
@@ -30,7 +32,7 @@
             no-style
         --style-absence-behavior
         ??? info "Style Absence Behavior"
-            falldown (default)
+            falldown (default) </br>
             riseup
         --transparency-mode
         ??? info "Transparency Options"

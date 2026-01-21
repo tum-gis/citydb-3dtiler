@@ -21,8 +21,14 @@ def create_tileset(args, output_folder=None, max_features_per_tile=None, whrs=No
     run_sql(args, crt_mat, name=crt_mat_fl_nm)
     
     # Check for Custom Materials and copy the Materials and populate the relevant Views
-    custom_material = check_custom_materials()
-    print(custom_material)
+    # Check if the user specified a custom style other than "materials_for_features"
+    if args.custom_style == "materials_for_features.csv":
+        custom_material = check_custom_materials()
+    else:
+        custom_material = check_custom_materials(args.custom_style)
+    # If the custom_material exists in the shared folder,
+    #  then consider this file,
+    #  otherwise use the default materials_for_features file in repository.
     if custom_material["exists"] == True:
         copy_materials(args, custom_material["file_path"])
     else:

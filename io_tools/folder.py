@@ -23,3 +23,14 @@ def check_custom_materials(custom_style_file=None):
     }
     return custom_materials_dict
 
+def check_file_in(file_name, folder_name):
+    folder_path = os.path.join(os.getcwd(), folder_name)
+    file_path = os.path.join(folder_path, file_name)
+    file_exists = os.path.exists(file_path)
+    file_dict = {
+        "exists" : file_exists,
+        "file_path" : file_path
+    }
+    return file_dict
+
+

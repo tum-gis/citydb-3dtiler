@@ -7,7 +7,7 @@ site_url: "https://tum-gis.github.io/citydb-3dtiler"
 #   /notebooks/
 nav:
   - Home: index.md
-  - "How to use?": how_to_use.md
+  - "How to use with Docker?": how_to_use_w_docker.md
   - "Tiling Options": tiling_options.md
   - "Tips for Docker usage" : tips_for_docker_usage.md
   - "Documentation for Developers" : developer_docs.md
