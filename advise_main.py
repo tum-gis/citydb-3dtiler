@@ -6,6 +6,7 @@ from io_tools.pg_sql import read_sql_file
 from io_tools.yaml import write_yaml
 from database.pg_connection import pg_establish, get_query_results
 from classes.advisement2 import Advisement, ObjectClass, ObjectClassRecommendations
+from default_paths import get_base_path, get_shared_folder_path
 from instances.in_advise import *
 
 def advise(args):
@@ -39,7 +40,7 @@ def advise(args):
             adv = Advisement(commandset, max_features=None, objectclasses=ocs)
 
             try:
-                write_yaml("shared", args.output_file, dict(adv))
+                write_yaml(get_shared_folder_path(), args.output_file, dict(adv))
             except OSError as err:
                 print(f"File Writing Error:\n{err}")
     else:
@@ -55,6 +56,6 @@ def advise(args):
         adv = Advisement(commandset, max_features=int(rmf), objectclasses = ocs)
         # Write the Advisement as a YAML file
         try:
-            write_yaml("shared", args.output_file, dict(adv))
+            write_yaml(get_shared_folder_path(), args.output_file, dict(adv))
         except OSError as err:
             print(f"File Writing Error:\n{err}")

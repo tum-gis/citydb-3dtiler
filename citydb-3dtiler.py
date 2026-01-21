@@ -2,11 +2,13 @@
 
 # External Libraries
 import argparse
+import os
 
 # Internal Libraries
 from advise_main import advise
 from tile_main import tile
-from io_tools.folder import check_file_in
+from io_tools.folder import check_file_in, create_folder
+from default_paths import get_base_path, get_shared_folder_path
 # from custom_checks import check_arguments
 
 # Added as a future task : Customizing the main help document.
@@ -37,7 +39,7 @@ def main():
     parser_tile.add_argument("--style-mode", help="Select one of the available style-mode options.", choices=["existing-appearances", "property-based", "objectclass-based", "no-style"], default="objectclass-based")
     parser_tile.add_argument("--style-absence-behavior", help="If you want to change the appearance selection behavior of the tiling app, select one of the possible options. Default option is 'fall-down', which means that if you select a 'property-based' styling mode and there are no available predefined properties (in materials_for_features.csv file) that match your object, the tiling tool will automatically select the next styling mode ('objectclass-based' style mode) for the  instance.", choices=["fall-down", "rise-up"], default="fall-down")
     parser_tile.add_argument("-o", "--output-folder", help="Set the folder for the 3DTiles", metavar="Output Folder", nargs="?", default="shared")
-    parser_tile.add_argument("--transparency", help="Choose of the possible options. Please consider that transparency values might vary regarding to the selected tiler application.", choices=["BLEND", "MASK", "OPAQUE"], default="BLEND")
+    parser_tile.add_argument("--transparency", help="Choose of the possible options. Please consider that transparency values might vary regarding to the selected tiler application.", choices=["blend", "mask", "opaque"], default="blend")
     parser_tile.add_argument("--custom-style", help="If you want to provide a custom style file (any CSV file not named 'materials_for_features'), you can specify the file name (inc. file extension : CSV) using this argument.", metavar="Name of the custom style file", nargs="?", default="materials_for_features.csv")
     
     # Database authorization information gathered as a group,
@@ -57,9 +59,14 @@ def main():
     if args.command == "advise":
         advise(args)
     elif args.command == "tile":
-        # Check if the advise command exexuted once or not.
+        # Check if the advise command executed once or not.
         #  If not, try to run it first.
-        advice_file = check_file_in("advise.yml", "shared")
+        if args.output_folder == "shared":
+            advice_file = check_file_in("advise.yml", get_shared_folder_path())
+        else:
+            create_folder(get_shared_folder_path(), args.output_folder)
+            #custom_folders_path = os.path.join(get_shared_folder_path(), args.output_folder)
+            advice_file = check_file_in("advise.yml", get_shared_folder_path())
         if advice_file["exists"] == True:
             tile(args)
         else:

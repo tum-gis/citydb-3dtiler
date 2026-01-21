@@ -19,7 +19,7 @@ def generate_tiles(args, table, geom_column, shaders_column, output_folder=None,
         "--column", f"{geom_column}", 
         "--attributecolumns", "id,class", 
         "--output", f"{output_folder}", 
-        "--default_alpha_mode", f"{args.transparency}", 
+        "--default_alpha_mode", f"{args.transparency}".upper(), 
         "--max_features_per_tile", f"{max_features_per_tile}"
     ]
     # print(command)

@@ -14,8 +14,12 @@ from classes.sql_blocks import *
 from instances.kernel import krnl_query
 from instances.material import objectclass_falldown_query, custom_property_falldown_query
 from database.pg_connection import create_materialized_view, index_materialized_view, get_query_results, run_sql
+from default_paths import get_base_path, get_shared_folder_path
 
-def create_tileset(args, output_folder=None, max_features_per_tile=None, whrs=None):
+# Set the default path of the shared folder
+shared_folders_path = os.path.join(os.getcwd(), "shared")
+
+def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None):
     # Create the materials table on DB
     crt_mat, crt_mat_fl_nm = read_sql_file("standalone_queries", "create_materials_for_features_table.sql")
     run_sql(args, crt_mat, name=crt_mat_fl_nm)
@@ -89,26 +93,37 @@ def create_tileset(args, output_folder=None, max_features_per_tile=None, whrs=No
     # print(crt_mv)
     run_sql(args, crt_mv, name=f"create_materialized_view (function) for {mv_name}")
     run_sql(args, ind_mv, name=f"index_materialized_view (function) for {mv_name}")
-    generate_tiles(args, mv_name, geom_col, shaders_col, output_folder, mfpt)
+    generate_tiles(args, mv_name, geom_col, shaders_col, output_path, mfpt)
 
 def tile(args):
     print(args.separate_tilesets)
     if args.separate_tilesets is not None:
         if args.separate_tilesets == "objectclass":
-            advises = read_yaml(args.output, "advise.yml")
+            advises = read_yaml(get_shared_folder_path(), "advise.yml")
             objectclasses = advises["objectclasses"]
             
             for oc in objectclasses:
                 oc_name = oc["name"]
                 oc_mfpt = oc["objectclass_recommendations"]
-                new_folder = create_folder(args.output, oc_name)
-                oc_folder = os.path.join(args.output, oc_name)
+                if args.output_folder == "shared":
+                    new_folder = create_folder(get_shared_folder_path(), oc_name)
+                    oc_path = os.path.join(new_folder, oc_name)
+                else:
+                    custom_path = os.path.join(get_shared_folder_path(), args.output_folder)
+                    new_folder = create_folder(custom_path, oc_name)
+                    oc_path = os.path.join(custom_path, oc_name)
                 
                 # Set a Where condition for each calculator query that filters objectclasses
                 cndtn = f"oc.classname = '{oc_name}'"
                 whrs_oc = WhereElements(
                     WhereElement(condition = cndtn))
-                create_tileset(args, output_folder=oc_folder, max_features_per_tile=oc_mfpt, whrs=whrs_oc)
+                create_tileset(args, output_path=oc_path, max_features_per_tile=oc_mfpt, whrs=whrs_oc)
     else:
-        advises = read_yaml(args.output_folder, "advise.yml")
-        create_tileset(args, output_folder=args.output_folder, max_features_per_tile=advises["max_features"])
+        if args.output_folder == "shared":
+            advises = read_yaml(get_shared_folder_path(), "advise.yml")
+            tileset_path = get_shared_folder_path()
+        else:
+            custom_path = os.path.join(get_shared_folder_path(), args.output_folder)
+            advises = read_yaml(get_shared_folder_path(), "advise.yml")
+            tileset_path = custom_path
+        create_tileset(args, output_path=tileset_path, max_features_per_tile=advises["max_features"])

@@ -1,8 +1,8 @@
 import os
 import shutil
 
-def create_folder(current_path, folder_name):
-    new_folder = os.path.join(current_path, folder_name)
+def create_folder(path, folder_name):
+    new_folder = os.path.join(path, folder_name)
     if os.path.exists(new_folder):
         shutil.rmtree(new_folder)
     os.mkdir(new_folder)
@@ -23,8 +23,7 @@ def check_custom_materials(custom_style_file=None):
     }
     return custom_materials_dict
 
-def check_file_in(file_name, folder_name):
-    folder_path = os.path.join(os.getcwd(), folder_name)
+def check_file_in(file_name, folder_path):
     file_path = os.path.join(folder_path, file_name)
     file_exists = os.path.exists(file_path)
     file_dict = {
