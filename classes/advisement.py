@@ -8,7 +8,7 @@ class Advisement(yaml.YAMLObject):
         self.availableObjectclasses = objectclasses
     
     def to_oneline_command(self):
-        cmmnd = f"citydb-3dtiler {self.usedCommandSet['command']} --db-host {self.usedCommandSet['db_host']} --db-port {self.usedCommandSet['db_port']} --db-name {self.usedCommandSet['db_name']} --db-schema {self.usedCommandSet['db_schema']} --db-username {self.usedCommandSet['db_username']} --db-password SOMETHING --consider-thematic-features {self.usedCommandSet['consider_thematic_features']} --output {self.usedCommandSet['output']}"
+        cmmnd = f"citydb-3dtiler {self.usedCommandSet['command']} --db-host {self.usedCommandSet['db_host']} --db-port {self.usedCommandSet['db_port']} --db-name {self.usedCommandSet['db_name']} --db-schema {self.usedCommandSet['db_schema']} --db-username {self.usedCommandSet['db_username']} --db-password SOMETHING --consider-thematic-features {self.usedCommandSet['consider_thematic_features']} --output-file {self.usedCommandSet['output_file']}"
         return cmmnd
     def to_yaml(self):
         dict4yaml = {"usedCommand": self.to_oneline_command(), "maximumFeaturePerTile": self.maximumFeaturePerTile, "availableObjectclasses": str(self.availableObjectclasses)}

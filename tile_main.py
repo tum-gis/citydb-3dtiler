@@ -110,5 +110,5 @@ def tile(args):
                     WhereElement(condition = cndtn))
                 create_tileset(args, output_folder=oc_folder, max_features_per_tile=oc_mfpt, whrs=whrs_oc)
     else:
-        advises = read_yaml(args.output, "advise.yml")
-        create_tileset(args, output_folder=args.output, max_features_per_tile=advises["max_features"])
+        advises = read_yaml(args.output_folder, "advise.yml")
+        create_tileset(args, output_folder=args.output_folder, max_features_per_tile=advises["max_features"])

@@ -29,14 +29,14 @@ def main():
     parser_advise = subparsers.add_parser("advise", help="generates advisement docs for the existing dataset.")
     parser_advise.add_argument("--consider-thematic-features", action=argparse.BooleanOptionalAction, default=False)
     #parser_advise.add_argument("--consider-appearances", action=argparse.BooleanOptionalAction, default=False)
-    parser_advise.add_argument("-o", "--output", metavar="Output File Name", nargs="?", default="advise.yml")
+    parser_advise.add_argument("-o", "--output-file", metavar="Output File Name", nargs="?", default="advise.yml")
     
 
     # Tile command uses it"s own arguments
     parser_tile = subparsers.add_parser("tile", help="generates 3DTiles from the existing dataset.")
     parser_tile.add_argument("--style-mode", help="Select one of the available style-mode options.", choices=["existing-appearances", "property-based", "objectclass-based", "no-style"], default="objectclass-based")
     parser_tile.add_argument("--style-absence-behavior", help="If you want to change the appearance selection behavior of the tiling app, select one of the possible options. Default option is 'fall-down', which means that if you select a 'property-based' styling mode and there are no available predefined properties (in materials_for_features.csv file) that match your object, the tiling tool will automatically select the next styling mode ('objectclass-based' style mode) for the  instance.", choices=["fall-down", "rise-up"], default="fall-down")
-    parser_tile.add_argument("-o", "--output", help="Set the folder for the 3DTiles", metavar="Output Folder", nargs="?", default="shared")
+    parser_tile.add_argument("-o", "--output-folder", help="Set the folder for the 3DTiles", metavar="Output Folder", nargs="?", default="shared")
     parser_tile.add_argument("--transparency", help="Choose of the possible options. Please consider that transparency values might vary regarding to the selected tiler application.", choices=["BLEND", "MASK", "OPAQUE"], default="BLEND")
     parser_tile.add_argument("--custom-style", help="If you want to provide a custom style file (any CSV file not named 'materials_for_features'), you can specify the file name (inc. file extension : CSV) using this argument.", metavar="Name of the custom style file", nargs="?", default="materials_for_features.csv")
     
@@ -63,7 +63,8 @@ def main():
         if advice_file["exists"] == True:
             tile(args)
         else:
-            advice(args)
+            args.output_file = 'advise.yml'
+            advise(args)
             tile(args)
     else:
         print("Please select one of the available commands : advise, tile. Otherwiser add -h or --help to get help.")

@@ -174,7 +174,7 @@ If you need to use specify arguments see the page [Tiling Options](tiling_option
     ??? example "Advise Arguments"
         --help
         --consider-thematic-features (default: False) </br>
-        --output (default: advise.yml)
+        --output-file (default: advise.yml)
     tile
     ??? example "Tile Arguments"
         --help </br>
@@ -191,7 +191,7 @@ If you need to use specify arguments see the page [Tiling Options](tiling_option
         ??? info "Transparency Options"
             Blend </br>
             Opaque (default)
-        --output (default: shared/current folder)
+        --output-folder (default: current folder in host)
 
 ## Remove the Docker Images
 
