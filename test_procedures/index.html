@@ -1,0 +1,629 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://tum-gis.github.io/citydb-3dtiler/test_procedures/">
+      
+      
+        <link rel="prev" href="../tips_for_docker_usage/">
+      
+      
+        <link rel="next" href="../developer_docs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Test Procedures & Tilesets - citydb-3dtiler</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../extra_style.css">
+    
+      <link rel="stylesheet" href="../assets/mkdocs_puml/puml.css">
+    
+      <link rel="stylesheet" href="../assets/mkdocs_puml/interaction.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#test-procedures" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="citydb-3dtiler" class="md-header__button md-logo" aria-label="citydb-3dtiler" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            citydb-3dtiler
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Test Procedures & Tilesets
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tum-gis/citydb-3dtiler" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="citydb-3dtiler" class="md-nav__button md-logo" aria-label="citydb-3dtiler" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    citydb-3dtiler
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tum-gis/citydb-3dtiler" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how_to_use_w_docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to use with Docker?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how_to_use_w_venv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to use with VEnv?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../all_commands_samples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All Commands & Samples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tips_for_docker_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tips for Docker usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Procedures & Tilesets
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Procedures & Tilesets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#test-procedures-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Procedures Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#former-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Former Tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation for Developers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#test-procedures-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Procedures Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#former-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Former Tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="test-procedures">Test Procedures</h1>
+<h2 id="test-procedures-diagram">Test Procedures Diagram</h2>
+<div class='puml-container'><div class="puml light" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="MINDMAP" height="472px" preserveAspectRatio="xMidYMid meet" style="width:1135px;height:472px;background:#FFFFFF;" version="1.1" viewBox="0 0 1135 472" width="1135px" zoomAndPan="magnify" class="diagram"><defs/><g><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="145.7744" x="10" y="217.0391"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="125.7744" x="20" y="240.0342">&quot;Test Procedures&quot;</text><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="150.4092" x="205.7744" y="104.4453"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="130.4092" x="215.7744" y="127.4404">&quot;for Single Tileset&quot;</text><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="302.6387" x="406.1836" y="20"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="282.6387" x="416.1836" y="42.9951">&quot;(1) No material is given | Advise &amp; Tile&quot;</text><path d="M356.1836,122.5938 L366.1836,122.5938 C381.1836,122.5938 381.1836,38.1484 396.1836,38.1484 L406.1836,38.1484" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="280.5723" x="406.1836" y="132.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="260.5723" x="416.1836" y="155.5889">&quot;(2) materials_for_features.csv | Tile&quot;</text><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="256.6533" x="736.7559" y="76.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="236.6533" x="746.7559" y="99.292">&quot;(4) style-mode : property-based&quot;</text><path d="M686.7559,150.7422 L696.7559,150.7422 C711.7559,150.7422 711.7559,94.4453 726.7559,94.4453 L736.7559,94.4453" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="202.6084" x="736.7559" y="132.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="182.6084" x="746.7559" y="155.5889">&quot;(5) transparency : blend&quot;</text><path d="M686.7559,150.7422 L696.7559,150.7422 C711.7559,150.7422 711.7559,150.7422 726.7559,150.7422 L736.7559,150.7422" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="172.3115" x="736.7559" y="188.8906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152.3115" x="746.7559" y="211.8857">&quot;(6) to custom folder&quot;</text><path d="M686.7559,150.7422 L696.7559,150.7422 C711.7559,150.7422 711.7559,207.0391 726.7559,207.0391 L736.7559,207.0391" fill="none" style="stroke:#181818;stroke-width:1;"/><path d="M356.1836,122.5938 L366.1836,122.5938 C381.1836,122.5938 381.1836,150.7422 396.1836,150.7422 L406.1836,150.7422" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="218.0986" x="406.1836" y="188.8906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="198.0986" x="416.1836" y="211.8857">&quot;(3) my_materials.csv | Tile&quot;</text><path d="M356.1836,122.5938 L366.1836,122.5938 C381.1836,122.5938 381.1836,207.0391 396.1836,207.0391 L406.1836,207.0391" fill="none" style="stroke:#181818;stroke-width:1;"/><path d="M155.7744,235.1875 L165.7744,235.1875 C180.7744,235.1875 180.7744,122.5938 195.7744,122.5938 L205.7744,122.5938" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="271.3369" x="205.7744" y="329.6328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="251.3369" x="215.7744" y="352.6279">&quot;for Separate Tilesets (objectclass)&quot;</text><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="302.6387" x="527.1113" y="245.1875"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="282.6387" x="537.1113" y="268.1826">&quot;(7) No material is given | Advise &amp; Tile&quot;</text><path d="M477.1113,347.7813 L487.1113,347.7813 C502.1113,347.7813 502.1113,263.3359 517.1113,263.3359 L527.1113,263.3359" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="280.5723" x="527.1113" y="357.7813"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="260.5723" x="537.1113" y="380.7764">&quot;(8) materials_for_features.csv | Tile&quot;</text><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="265.5605" x="857.6836" y="301.4844"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="245.5605" x="867.6836" y="324.4795">&quot;(10) style-mode : property-based&quot;</text><path d="M807.6836,375.9297 L817.6836,375.9297 C832.6836,375.9297 832.6836,319.6328 847.6836,319.6328 L857.6836,319.6328" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="211.5156" x="857.6836" y="357.7813"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="191.5156" x="867.6836" y="380.7764">&quot;(11) transparency : blend&quot;</text><path d="M807.6836,375.9297 L817.6836,375.9297 C832.6836,375.9297 832.6836,375.9297 847.6836,375.9297 L857.6836,375.9297" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="181.2188" x="857.6836" y="414.0781"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="161.2188" x="867.6836" y="437.0732">&quot;(12) to custom folder&quot;</text><path d="M807.6836,375.9297 L817.6836,375.9297 C832.6836,375.9297 832.6836,432.2266 847.6836,432.2266 L857.6836,432.2266" fill="none" style="stroke:#181818;stroke-width:1;"/><path d="M477.1113,347.7813 L487.1113,347.7813 C502.1113,347.7813 502.1113,375.9297 517.1113,375.9297 L527.1113,375.9297" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="218.0986" x="527.1113" y="414.0781"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="198.0986" x="537.1113" y="437.0732">&quot;(9) my_materials.csv | Tile&quot;</text><path d="M477.1113,347.7813 L487.1113,347.7813 C502.1113,347.7813 502.1113,432.2266 517.1113,432.2266 L527.1113,432.2266" fill="none" style="stroke:#181818;stroke-width:1;"/><path d="M155.7744,235.1875 L165.7744,235.1875 C180.7744,235.1875 180.7744,347.7813 195.7744,347.7813 L205.7744,347.7813" fill="none" style="stroke:#181818;stroke-width:1;"/><?plantuml-src bPBDQiCm48JlVeebXn85OYAtIPEUqXSeXUPkP6aTL6J9Q3S6Gn--SgbSAFGdrvrlHxE3ZiGgScUzwLHVh61nGc9uZa6ZkKIaHR5AmpP4UB7-x11ErY4XJ_CaBAM0fm2TOenMER04PpkWXpTuD8CbX9kFZOnNOcQfJgvrYugdTqfDGrgQsGc-4q0yEbntmI0yG1z3Zv77TQC8pOnj1N1KddeLqUinWOr3_wNlaXv0NuX31srm1cEESvlYZFMSw5k8pxin6ISYNqwm3CqhQjPE4ObiTNzT4VjhYf2R_pKXvHzLoEhdBWw_T75C9lcF5BAiDjMkb0soshu3?></g></svg></div><div class="puml dark" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="MINDMAP" height="472px" preserveAspectRatio="xMidYMid meet" style="width:1135px;height:472px;background:#FFFFFF;" version="1.1" viewBox="0 0 1135 472" width="1135px" zoomAndPan="magnify" class="diagram"><defs/><g><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="145.7744" x="10" y="217.0391"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="125.7744" x="20" y="240.0342">&quot;Test Procedures&quot;</text><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="150.4092" x="205.7744" y="104.4453"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="130.4092" x="215.7744" y="127.4404">&quot;for Single Tileset&quot;</text><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="302.6387" x="406.1836" y="20"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="282.6387" x="416.1836" y="42.9951">&quot;(1) No material is given | Advise &amp; Tile&quot;</text><path d="M356.1836,122.5938 L366.1836,122.5938 C381.1836,122.5938 381.1836,38.1484 396.1836,38.1484 L406.1836,38.1484" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="280.5723" x="406.1836" y="132.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="260.5723" x="416.1836" y="155.5889">&quot;(2) materials_for_features.csv | Tile&quot;</text><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="256.6533" x="736.7559" y="76.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="236.6533" x="746.7559" y="99.292">&quot;(4) style-mode : property-based&quot;</text><path d="M686.7559,150.7422 L696.7559,150.7422 C711.7559,150.7422 711.7559,94.4453 726.7559,94.4453 L736.7559,94.4453" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="202.6084" x="736.7559" y="132.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="182.6084" x="746.7559" y="155.5889">&quot;(5) transparency : blend&quot;</text><path d="M686.7559,150.7422 L696.7559,150.7422 C711.7559,150.7422 711.7559,150.7422 726.7559,150.7422 L736.7559,150.7422" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="172.3115" x="736.7559" y="188.8906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152.3115" x="746.7559" y="211.8857">&quot;(6) to custom folder&quot;</text><path d="M686.7559,150.7422 L696.7559,150.7422 C711.7559,150.7422 711.7559,207.0391 726.7559,207.0391 L736.7559,207.0391" fill="none" style="stroke:#181818;stroke-width:1;"/><path d="M356.1836,122.5938 L366.1836,122.5938 C381.1836,122.5938 381.1836,150.7422 396.1836,150.7422 L406.1836,150.7422" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="218.0986" x="406.1836" y="188.8906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="198.0986" x="416.1836" y="211.8857">&quot;(3) my_materials.csv | Tile&quot;</text><path d="M356.1836,122.5938 L366.1836,122.5938 C381.1836,122.5938 381.1836,207.0391 396.1836,207.0391 L406.1836,207.0391" fill="none" style="stroke:#181818;stroke-width:1;"/><path d="M155.7744,235.1875 L165.7744,235.1875 C180.7744,235.1875 180.7744,122.5938 195.7744,122.5938 L205.7744,122.5938" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="271.3369" x="205.7744" y="329.6328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="251.3369" x="215.7744" y="352.6279">&quot;for Separate Tilesets (objectclass)&quot;</text><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="302.6387" x="527.1113" y="245.1875"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="282.6387" x="537.1113" y="268.1826">&quot;(7) No material is given | Advise &amp; Tile&quot;</text><path d="M477.1113,347.7813 L487.1113,347.7813 C502.1113,347.7813 502.1113,263.3359 517.1113,263.3359 L527.1113,263.3359" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="280.5723" x="527.1113" y="357.7813"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="260.5723" x="537.1113" y="380.7764">&quot;(8) materials_for_features.csv | Tile&quot;</text><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="265.5605" x="857.6836" y="301.4844"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="245.5605" x="867.6836" y="324.4795">&quot;(10) style-mode : property-based&quot;</text><path d="M807.6836,375.9297 L817.6836,375.9297 C832.6836,375.9297 832.6836,319.6328 847.6836,319.6328 L857.6836,319.6328" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="211.5156" x="857.6836" y="357.7813"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="191.5156" x="867.6836" y="380.7764">&quot;(11) transparency : blend&quot;</text><path d="M807.6836,375.9297 L817.6836,375.9297 C832.6836,375.9297 832.6836,375.9297 847.6836,375.9297 L857.6836,375.9297" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="181.2188" x="857.6836" y="414.0781"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="161.2188" x="867.6836" y="437.0732">&quot;(12) to custom folder&quot;</text><path d="M807.6836,375.9297 L817.6836,375.9297 C832.6836,375.9297 832.6836,432.2266 847.6836,432.2266 L857.6836,432.2266" fill="none" style="stroke:#181818;stroke-width:1;"/><path d="M477.1113,347.7813 L487.1113,347.7813 C502.1113,347.7813 502.1113,375.9297 517.1113,375.9297 L527.1113,375.9297" fill="none" style="stroke:#181818;stroke-width:1;"/><rect fill="#F1F1F1" height="36.2969" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:1.5;" width="218.0986" x="527.1113" y="414.0781"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="198.0986" x="537.1113" y="437.0732">&quot;(9) my_materials.csv | Tile&quot;</text><path d="M477.1113,347.7813 L487.1113,347.7813 C502.1113,347.7813 502.1113,432.2266 517.1113,432.2266 L527.1113,432.2266" fill="none" style="stroke:#181818;stroke-width:1;"/><path d="M155.7744,235.1875 L165.7744,235.1875 C180.7744,235.1875 180.7744,347.7813 195.7744,347.7813 L205.7744,347.7813" fill="none" style="stroke:#181818;stroke-width:1;"/><?plantuml-src bPBDQiCm48JlVeebXn85OYAtIPEUqXSeXUPkP6aTL6J9Q3S6Gn--SgbSAFGdrvrlHxE3ZiGgScUzwLHVh61nGc9uZa6ZkKIaHR5AmpP4UB7-x11ErY4XJ_CaBAM0fm2TOenMER04PpkWXpTuD8CbX9kFZOnNOcQfJgvrYugdTqfDGrgQsGc-4q0yEbntmI0yG1z3Zv77TQC8pOnj1N1KddeLqUinWOr3_wNlaXv0NuX31srm1cEESvlYZFMSw5k8pxin6ISYNqwm3CqhQjPE4ObiTNzT4VjhYf2R_pKXvHzLoEhdBWw_T75C9lcF5BAiDjMkb0soshu3?></g></svg></div></div>
+
+<h2 id="former-tests">Former Tests</h2>
+<ul>
+<li>Before release 0.9<ul>
+<li><a href="https://www.3dcitydb.net/3dcitydb/fileadmin/public/kendir/#test_campaign_03_samplycity" target="_blank">Tests done for SamplyCity Dataset</a></li>
+</ul>
+</li>
+<li>Test with Hamburg LoD3 dataset<ul>
+<li><a href="https://www.3dcitydb.net/3dcitydb/fileadmin/public/kendir/#test_campaign_02_hamburg" target="_blank">Hamburg Buildings LoD3</a></li>
+</ul>
+</li>
+<li>Test with Melbourne dataset<ul>
+<li><a href="https://www.3dcitydb.net/3dcitydb/fileadmin/public/kendir/#tests_for_3dtiler_melbourne" target="_blank">Melbourne Buildings &amp; Roads</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.tabs.link", "content.code.copy", "content.code.select"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../assets/mkdocs_puml/puml.js"></script>
+      
+        <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+      
+        <script src="../assets/mkdocs_puml/interaction.js"></script>
+      
+    
+  </body>
+</html>

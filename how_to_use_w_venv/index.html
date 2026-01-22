@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://tum-gis.github.io/citydb-3dtiler/tiling_options/">
+        <link rel="canonical" href="https://tum-gis.github.io/citydb-3dtiler/how_to_use_w_venv/">
       
       
         <link rel="prev" href="../how_to_use_w_docker/">
       
       
-        <link rel="next" href="../tips_for_docker_usage/">
+        <link rel="next" href="../all_commands_samples/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Tiling Options - citydb-3dtiler</title>
+        <title>How to use with VEnv? - citydb-3dtiler</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tiling-options" class="md-skip">
+        <a href="#how-to-use-citydb-3dtiler-independently" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tiling Options
+              How to use with VEnv?
             
           </span>
         </div>
@@ -287,6 +287,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to use with VEnv?
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -294,7 +312,7 @@
   <span class="md-ellipsis">
     
   
-    Tiling Options
+    How to use with VEnv?
   
 
     
@@ -304,6 +322,63 @@
 
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-software-using-virtual-environment-venv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Software using Virtual Environment (VEnv)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../all_commands_samples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All Commands & Samples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -323,6 +398,33 @@
     
   
     Tips for Docker usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../test_procedures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Procedures & Tilesets
   
 
     
@@ -362,33 +464,6 @@
   
 
     
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../to-do_list/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    To-Do list
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -409,6 +484,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-software-using-virtual-environment-venv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Software using Virtual Environment (VEnv)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -427,61 +521,89 @@
   
 
 
-<h1 id="tiling-options">Tiling Options</h1>
-<details class="example" open="open">
-<summary>citydb-3dtiler Usage</summary>
-<p>--help </br>
---db-.. </br></p>
-<details class="example">
-<summary>Database Connection Arguments</summary>
-<p>--db-host </br>
---db-port (default: 5432) </br>
---db-name </br>
---db-schema (default: citydb) </br>
---db-username </br>
---db-password </br></p>
-</details>
-<p>--separate-tilesets</p>
-<details class="info">
-<summary>Separate Tilesets Options</summary>
-<p>None (Default) </br>
-objectclass</p>
-</details>
-<p>--tiler-app (default: pg2b3dm) </br>
---tilers-path (default: tiler_app) </br>
-advise </br></p>
-<details class="example">
-<summary>Advise Arguments</summary>
-<p>--help
---consider-thematic-features (default: False) </br>
---output (default: advise.yml)</p>
-</details>
-<p>tile</p>
-<details class="example">
-<summary>Tile Arguments</summary>
-<p>--help </br>
---style-mode</p>
-<details class="info">
-<summary>Style Mode Options</summary>
-<p>property-based </br>
-objectclass-based (default) </br>
-no-style</p>
-</details>
-<p>--style-absence-behavior</p>
-<details class="info">
-<summary>Style Absence Behavior</summary>
-<p>falldown (default) </br>
-riseup</p>
-</details>
-<p>--transparency-mode</p>
-<details class="info">
-<summary>Transparency Options</summary>
-<p>Blend </br>
-Opaque (default)</p>
-</details>
-<p>--output (default: shared/current folder)</p>
-</details>
-</details>
+<h1 id="how-to-use-citydb-3dtiler-independently">How to use citydb-3dtiler independently?</h1>
+<p>If you are familiar with common Python application workflows, you can use the following instructions to run the software independently.</p>
+<h2 id="running-software-using-virtual-environment-venv">Running Software using Virtual Environment (VEnv)</h2>
+<ul class="task-list">
+<li class="task-list-item">
+<p><input type="checkbox"/> Download the latest release or the main branch in the github repository.</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox"/> Create a Virtual Environment using following command:</p>
+</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">on Windows</label><label for="__tabbed_1_2">on Unix-based Systems</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">python</span> <span class="n">-m</span> <span class="n">venv</span> <span class="n">env</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> Activate the virtual environment (venv) using following command:</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">on Windows</label><label for="__tabbed_2_2">on Unix-based Systems</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">.\</span><span class="n">env</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">source</span><span class="w"> </span>env/bin/activate
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> Ensure that the PIP package is updated (optional).</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">on Windows</label><label for="__tabbed_3_2">on Unix-based Systems</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-upgrade</span> <span class="n">pip</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> Install the dependent libraries:</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">on Windows</label><label for="__tabbed_4_2">on Unix-based Systems</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">pip</span> <span class="n">install</span> <span class="n">-r</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> Run the Application</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">on Windows</label><label for="__tabbed_5_2">on Unix-based Systems</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">python</span> <span class="n">citydb</span><span class="p">-</span><span class="n">3dtiler</span><span class="p">.</span><span class="n">py</span> <span class="p">-</span><span class="n">-help</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python3<span class="w"> </span>citydb-3dtiler.py<span class="w"> </span>--help
+</span></code></pre></div>
+</div>
+</div>
+</div>
 
 
 

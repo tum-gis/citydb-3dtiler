@@ -14,7 +14,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../tiling_options/">
+        <link rel="next" href="../how_to_use_w_venv/">
       
       
         
@@ -355,10 +355,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-generate-the-3dtiles-using-default-configuration" class="md-nav__link">
+  <a href="#5-generate-the-3dtiles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Generate the 3DTiles (using default configuration)
+        5. Generate the 3DTiles
       
     </span>
   </a>
@@ -366,10 +366,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#general-usage-options" class="md-nav__link">
+  <a href="#all-available-commands-arguments-options" class="md-nav__link">
     <span class="md-ellipsis">
       
-        General Usage Options
+        All available Commands, Arguments &amp; Options
       
     </span>
   </a>
@@ -377,10 +377,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#remove-the-docker-images" class="md-nav__link">
+  <a href="#remove-the-docker-images-optional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Remove the Docker Images
+        Remove the Docker Images (Optional)
       
     </span>
   </a>
@@ -402,14 +402,41 @@
   
   
     <li class="md-nav__item">
-      <a href="../tiling_options/" class="md-nav__link">
+      <a href="../how_to_use_w_venv/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Tiling Options
+    How to use with VEnv?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../all_commands_samples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All Commands & Samples
   
 
     
@@ -456,14 +483,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../developer_docs/" class="md-nav__link">
+      <a href="../test_procedures/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Documentation for Developers
+    Test Procedures & Tilesets
   
 
     
@@ -483,14 +510,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../to-do_list/" class="md-nav__link">
+      <a href="../developer_docs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    To-Do list
+    Documentation for Developers
   
 
     
@@ -574,10 +601,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-generate-the-3dtiles-using-default-configuration" class="md-nav__link">
+  <a href="#5-generate-the-3dtiles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Generate the 3DTiles (using default configuration)
+        5. Generate the 3DTiles
       
     </span>
   </a>
@@ -585,10 +612,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#general-usage-options" class="md-nav__link">
+  <a href="#all-available-commands-arguments-options" class="md-nav__link">
     <span class="md-ellipsis">
       
-        General Usage Options
+        All available Commands, Arguments &amp; Options
       
     </span>
   </a>
@@ -596,10 +623,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#remove-the-docker-images" class="md-nav__link">
+  <a href="#remove-the-docker-images-optional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Remove the Docker Images
+        Remove the Docker Images (Optional)
       
     </span>
   </a>
@@ -629,7 +656,7 @@
 <h1 id="how-to-use-with-docker">How to use with Docker?</h1>
 <h2 id="1-set-the-feature-colors-optional">1. Set the Feature Colors (Optional)</h2>
 <p>Download and customize the "materials_for_features" file with one of office software by changing the color values in the first sheet (sheet name : "materials").
-    - <a href="https://github.com/tum-gis/citydb-3dtiler/blob/main/materials_for_features/materials_for_features.ods">materials_for_features.ods</a></p>
+    - <a href="https://github.com/tum-gis/citydb-3dtiler/blob/main/materials_for_features/materials_for_features.ods" target="_blank">materials_for_features.ods</a></p>
 <blockquote>
 <p>If you do not want to customize the feature colors (materials), proceed to Step 4. Otherwise, follow the next instructions.</p>
 </blockquote>
@@ -704,8 +731,12 @@
 <summary>Alternative Docker Registry</summary>
 <p>Alternatively, you can use the Docker Hub registry by changing the image location in the above commands (ghcr.io/tumgis/citydb-3dtiler:latest &lt;&gt; tumgis/citydb-3dtiler:latest) or by first pulling the same image with the following command: <code>docker pull tumgis/citydb-3dtiler:latest</code></p>
 </details>
-<h2 id="5-generate-the-3dtiles-using-default-configuration">5. Generate the 3DTiles (using default configuration)</h2>
+<h2 id="5-generate-the-3dtiles">5. Generate the 3DTiles</h2>
 <p>Generate 3DTiles using the default configuration by typing the following command: </p>
+<details class="warning">
+<summary>The 'materials_for_features.csv' file</summary>
+<p>The program automatically checks whether the “materials_for_features.csv” file is present in the current folder. If the file is not present in the current folder, it uses the predefined materials stored internally (in the Docker image). If you have renamed the file, you can use the “--custom-style” argument after the ‘tile’ command.</p>
+</details>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Powershell</label><label for="__tabbed_2_2">Linux Terminal</label><label for="__tabbed_2_3">Command Prompt (CMD)</label><label for="__tabbed_2_4">Sample Command</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -758,8 +789,8 @@
 </div>
 </div>
 </div>
-<p>If you need to use specify arguments see the page <a href="../tiling_options/">Tiling Options</a></p>
-<h2 id="general-usage-options">General Usage Options</h2>
+<p>If you need to use specify arguments see the page <a href="../all_commands_samples/">All Commands &amp; Samples</a></p>
+<h2 id="all-available-commands-arguments-options">All available Commands, Arguments &amp; Options</h2>
 <details class="example">
 <summary>citydb-3dtiler Usage</summary>
 <p>--help </br>
@@ -784,7 +815,7 @@ objectclass</p>
 advise </br></p>
 <details class="example">
 <summary>Advise Arguments</summary>
-<p>--help
+<p>--help </br>
 --consider-thematic-features (default: False) </br>
 --output-file (default: advise.yml)</p>
 </details>
@@ -814,7 +845,7 @@ Opaque (default)</p>
 <p>--output-folder (default: current folder in host)</p>
 </details>
 </details>
-<h2 id="remove-the-docker-images">Remove the Docker Images</h2>
+<h2 id="remove-the-docker-images-optional">Remove the Docker Images (Optional)</h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>rmi<span class="w"> </span>--force<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>image<span class="w"> </span>list<span class="w"> </span>--quiet<span class="w"> </span>--filter<span class="w"> </span><span class="nv">label</span><span class="o">=</span><span class="nv">composition</span><span class="o">=</span>citydb-3dtiler<span class="k">)</span>
 </span></code></pre></div>
 
