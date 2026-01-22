@@ -37,3 +37,5 @@ def generate_tiles(args, table, geom_column, shaders_column, output_folder=None,
         print(sent_command.stderr)
     # Information for the user
     print(f"3D Tiles are created based on '{table}' table(materialized view)")
+    # Used Command:
+    print("Used Command : ", sent_command.stdout)

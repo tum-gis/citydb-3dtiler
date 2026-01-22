@@ -8,10 +8,11 @@ site_url: "https://tum-gis.github.io/citydb-3dtiler"
 nav:
   - Home: index.md
   - "How to use with Docker?": how_to_use_w_docker.md
-  - "Tiling Options": tiling_options.md
+  - "How to use with VEnv?": how_to_use_w_venv.md
+  - "All Commands & Samples": all_commands_samples.md
   - "Tips for Docker usage" : tips_for_docker_usage.md
+  - "Test Procedures & Tilesets" : test_procedures.md
   - "Documentation for Developers" : developer_docs.md
-  - "To-Do list" : to-do_list.md
 theme: 
   name: material
   icon:
@@ -68,4 +69,5 @@ markdown_extensions:
 plugins:
   - plantuml:
       puml_url: https://www.plantuml.com/plantuml/
+
 

@@ -3,7 +3,7 @@
 ## 1. Set the Feature Colors (Optional)
 
 Download and customize the "materials_for_features" file with one of office software by changing the color values in the first sheet (sheet name : "materials").
-    - [materials_for_features.ods](https://github.com/tum-gis/citydb-3dtiler/blob/main/materials_for_features/materials_for_features.ods)
+    - [materials_for_features.ods](https://github.com/tum-gis/citydb-3dtiler/blob/main/materials_for_features/materials_for_features.ods){:target="_blank"}
 
 > If you do not want to customize the feature colors (materials), proceed to Step 4. Otherwise, follow the next instructions.
 
@@ -88,9 +88,13 @@ Using your preferred CLI tool (Terminal/Shell), navigate to the same folder with
 
     Alternatively, you can use the Docker Hub registry by changing the image location in the above commands (ghcr.io/tumgis/citydb-3dtiler:latest <> tumgis/citydb-3dtiler:latest) or by first pulling the same image with the following command: ```docker pull tumgis/citydb-3dtiler:latest```
 
-## 5. Generate the 3DTiles (using default configuration)
+## 5. Generate the 3DTiles
 
 Generate 3DTiles using the default configuration by typing the following command: 
+
+??? warning "The 'materials_for_features.csv' file"
+    The program automatically checks whether the “materials_for_features.csv” file is present in the current folder. If the file is not present in the current folder, it uses the predefined materials stored internally (in the Docker image). If you have renamed the file, you can use the “--custom-style” argument after the ‘tile’ command.
+
 
 === "Powershell"
 
@@ -149,9 +153,9 @@ Generate 3DTiles using the default configuration by typing the following command
     ```
 
 
-If you need to use specify arguments see the page [Tiling Options](tiling_options.md)
+If you need to use specify arguments see the page [All Commands & Samples](all_commands_samples.md)
 
-## General Usage Options
+## All available Commands, Arguments & Options
 
 ??? example "citydb-3dtiler Usage"
 
@@ -172,7 +176,7 @@ If you need to use specify arguments see the page [Tiling Options](tiling_option
     --tilers-path (default: tiler_app) </br>
     advise </br>
     ??? example "Advise Arguments"
-        --help
+        --help </br>
         --consider-thematic-features (default: False) </br>
         --output-file (default: advise.yml)
     tile
@@ -193,7 +197,7 @@ If you need to use specify arguments see the page [Tiling Options](tiling_option
             Opaque (default)
         --output-folder (default: current folder in host)
 
-## Remove the Docker Images
+## Remove the Docker Images (Optional)
 
 ```bash
 docker rmi --force $(docker image list --quiet --filter label=composition=citydb-3dtiler)

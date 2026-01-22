@@ -51,8 +51,13 @@
 - 16.12.2025
 - [✔] No need for the CompositeQueryBlock (QueryBlock supports nested queries by self)
 - [✔] Create a docker image !
-- [ ] Fix the advise command to calculate a "max feature per tile" value, even if it is executed for separated tilesets.
-- [ ] Fix the typo : Advise --> Advice
+- [😴] Fix the advise command to calculate a "max feature per tile" value, even if it is executed for separated tilesets.
+- [😴] Fix the typo : Advise --> Advice
 - 20.01.2026
-- [ ] Activate the custom-style argument
-- [ ] Add a controller for the absence of advise document
+- [✔] Activate the custom-style argument
+- [✔] Add a controller for the absence of advise document
+- 21.01.2026
+- [ ] Check the documentation pages and test the commands
+- [ ] Add the Test Procedure to Docs
+- [ ] Update the graphics regarding to the new argument names
+- [ ] Publish the repo as public

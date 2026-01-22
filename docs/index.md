@@ -21,11 +21,12 @@ The following diagram shows the application's currently available and unavailabl
  
 ## Documentation
 
-- [How to Use?](how_to_use_w_docker.md)
-- [Tiling Options](tiling_options.md)
+- [How to use with Docker?](how_to_use_w_docker.md)
+- [How to use with VENV?](how_to_use_w_venv.md)
+- [All Commands & Samples](all_commands_samples.md)
 - [Tips for Docker Usage](tips_for_docker_usage.md)
+- [Test Procedures & Sample Tilesets](test_procedures.md)
 - [Documentation for the Developers](developer_docs.md)
-- [To-Do List](to-do_list.md)
 
 ## Special Thanks:
 
