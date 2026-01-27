@@ -5,17 +5,11 @@ import sys
 from classes.sql_blocks import *
 from instances.kernel import *
 
-# Necessary Selects and Joins for the Objectclass-based Styling
+# Neccassary Selects and Joins for the No-Style option
 
-# sl_no_material = SelectElement(
-#     select_type = "field", 
-#     field = "nmt.material_data", 
-#     range_alias = "material_data"
-#     )
-
-sl_material_by_objectclass_fd = SelectElement(
+sl_material_w_no_styling = SelectElement(
     select_type = "field",
-    field = "COALESCE(mtr_oc.material_data, nmt.material_data)",
+    field = "nmt.material_data",
     range_alias = "material_data"
     )
 
@@ -24,6 +18,28 @@ jn_no_material = JoinElement(
     table = "vw_material_by_objectclass",
     range_alias = "nmt",
     condition = "nmt.ns is NULL AND nmt.class = 'anything_else'"
+    )
+
+no_styling_select_elements = SelectElements(sl_material_w_no_styling)
+no_styling_join_elements = JoinElements(jn_no_material)
+
+not_styling_addition = QueryBlock(
+    name = "material_w_no_style", 
+    type_of_effect = "Visual",
+    order_number =  2, 
+    select_elements=no_styling_select_elements, 
+    join_elements=no_styling_join_elements
+    )
+
+no_style_query = QueryBlocks(krnl_query, not_styling_addition)
+
+# Necessary Selects and Joins for the Objectclass-based Styling
+
+# For nmt.material_data see above
+sl_material_by_objectclass_fd = SelectElement(
+    select_type = "field",
+    field = "COALESCE(mtr_oc.material_data, nmt.material_data)",
+    range_alias = "material_data"
     )
 
 jn_material_by_objectclass = JoinElement(
@@ -47,8 +63,8 @@ objectclass_falldown_addition = QueryBlock(
 
 objectclass_falldown_query = QueryBlocks(krnl_query, objectclass_falldown_addition)
 
-# Neccassary Selects, Joins and QueryBlocks for the Property-based Styling
 
+# Neccassary Selects, Joins and QueryBlocks for the Property-based Styling
 
 sl_material_by_property_fd = SelectElement(
     select_type = "field",

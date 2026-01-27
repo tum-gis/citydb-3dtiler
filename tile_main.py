@@ -12,7 +12,7 @@ from io_tools.pg_sql import read_sql_file
 from database.pg_connection import run_sql
 from classes.sql_blocks import *
 from instances.kernel import krnl_query
-from instances.material import objectclass_falldown_query, custom_property_falldown_query
+from instances.material import no_style_query, objectclass_falldown_query, custom_property_falldown_query
 from database.pg_connection import create_materialized_view, index_materialized_view, get_query_results, run_sql
 from default_paths import get_base_path, get_shared_folder_path
 
@@ -48,9 +48,27 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     crt_vw_mat_pro_mtchs, crt_vw_mat_pro_mtchs_fl_nm = read_sql_file("standalone_queries", "vw_material_by_properties_matches.sql")
     run_sql(args, crt_vw_mat_pro_mtchs, name=crt_vw_mat_pro_mtchs_fl_nm)
 
+    # !Refactor the following code blcok!
     # Set the controller for the materials
-    if args.style_mode == 'objectclass-based' and args.style_absence_behavior == 'fall-down':
-        
+    if args.style_mode == "no-style" and args.style_absence_behavior == 'fall-down':
+        # If any filter is given, add the filter to the query
+        if whrs != None:
+            no_style_query[0].where_elements = whrs
+        query = str(no_style_query)
+
+        # Find the geom column in the Select Elements
+        for sl in no_style_query.select_elements:
+            if sl.range_alias == 'geom':
+                geom_col_idx = list(no_style_query.select_elements).index(sl)
+        geom_col = str(no_style_query.select_elements[geom_col_idx].range_alias)
+
+        # Find the shaders column in the Select Elements
+        for sl in no_style_query.select_elements:
+            if sl.range_alias == 'material_data':
+                shaders_col_idx = list(no_style_query.select_elements).index(sl)
+        shaders_col = str(no_style_query.select_elements[shaders_col_idx].range_alias)
+
+    elif args.style_mode == 'objectclass-based' and args.style_absence_behavior == 'fall-down':
         # If any filter is given, add the filter to the query
         if whrs != None:
             objectclass_falldown_query[0].where_elements = whrs
@@ -91,7 +109,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     mv_name = "mv_geometries"
     mfpt = max_features_per_tile
     #Test
-    print(str(query))
+    # print(str(query))
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, geom_col)
     # print(crt_mv)
