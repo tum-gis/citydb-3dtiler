@@ -7,7 +7,7 @@ from io_tools.yaml import write_yaml
 from io_tools.folder import create_folder, check_custom_materials
 from io_tools.yaml import read_yaml
 from io_tools.tiles import generate_tiles
-from io_tools.pg_plpgsql import copy_materials
+from io_tools.pg_plpgsql import copy_materials, drop_cascade_if_exists
 from io_tools.pg_sql import read_sql_file
 from database.pg_connection import run_sql
 from classes.sql_blocks import *
@@ -20,6 +20,8 @@ from default_paths import get_base_path, get_shared_folder_path
 shared_folders_path = os.path.join(os.getcwd(), "shared")
 
 def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None):
+    # Drop the materials table if it is existing in DB
+    drop_cascade_if_exists(args, "_materials_for_features")
     # Create the materials table on DB
     crt_mat, crt_mat_fl_nm = read_sql_file("standalone_queries", "create_materials_for_features_table.sql")
     run_sql(args, crt_mat, name=crt_mat_fl_nm)
@@ -88,6 +90,8 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     # Set the name of materialized view that would be used for tiling
     mv_name = "mv_geometries"
     mfpt = max_features_per_tile
+    #Test
+    print(str(query))
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, geom_col)
     # print(crt_mv)

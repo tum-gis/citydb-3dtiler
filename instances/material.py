@@ -7,24 +7,24 @@ from instances.kernel import *
 
 # Necessary Selects and Joins for the Objectclass-based Styling
 
-sl_no_material = SelectElement(
-    select_type = "field", 
-    field = "nmt.material_data", 
-    range_alias = "material_data"
-    )
+# sl_no_material = SelectElement(
+#     select_type = "field", 
+#     field = "nmt.material_data", 
+#     range_alias = "material_data"
+#     )
 
 sl_material_by_objectclass_fd = SelectElement(
     select_type = "field",
-    field = "mtr_oc.material_data",
+    field = "COALESCE(mtr_oc.material_data, nmt.material_data)",
     range_alias = "material_data"
     )
 
-# jn_no_material = JoinElement(
-#     join_type = "left",
-#     table = "vw_material_by_objectclass",
-#     range_alias = "nmt",
-#     condition = "nmt.ns is NULL AND nmt.class = 'anything_else'"
-#     )
+jn_no_material = JoinElement(
+    join_type = "left",
+    table = "vw_material_by_objectclass",
+    range_alias = "nmt",
+    condition = "nmt.ns is NULL AND nmt.class = 'anything_else'"
+    )
 
 jn_material_by_objectclass = JoinElement(
     join_type = "left",
@@ -35,7 +35,7 @@ jn_material_by_objectclass = JoinElement(
 
 objectclass_falldown_select_elements = SelectElements(sl_material_by_objectclass_fd)
 # objectclass_falldown_join_elements = JoinElements(jn_material_by_objectclass, jn_no_material)
-objectclass_falldown_join_elements = JoinElements(jn_material_by_objectclass)
+objectclass_falldown_join_elements = JoinElements(jn_material_by_objectclass, jn_no_material)
 
 objectclass_falldown_addition = QueryBlock(
     name = "material_by_objectclass", 
