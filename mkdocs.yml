@@ -1,7 +1,8 @@
 site_name: "citydb-3dtiler"
+repo_name: "tum-gis/citydb-3dtiler"
 repo_url: "https://github.com/tum-gis/citydb-3dtiler"
 site_url: "https://tum-gis.github.io/citydb-3dtiler"
-#edit_uri: "tree/main/docs"
+edit_uri: "tree/main/docs"
 # exclude_docs: |
 #   /html_documents/
 #   /notebooks/
@@ -15,7 +16,8 @@ nav:
   - "Documentation for Developers" : developer_docs.md
 theme: 
   name: material
-  icon:
+  logo: ./images/citydb_logo.png
+  favicon: ./images/citydb_logo.png
   admonition:
     note: octicons/tag-16
     abstract: octicons/checklist-16
@@ -32,13 +34,19 @@ theme:
   palette: 
     # Palette toggle for light mode
     - scheme: default
+      primary: green
+      accent: cyan
+      media: "(prefers-color-scheme: light)"
       toggle:
-        icon: material/brightness-7 
+        icon: material/weather-night
         name: Switch to dark mode
     # Palette toggle for dark mode
     - scheme: slate
+      primary: green
+      accent: cyan
+      media: "(prefers-color-scheme: dark)"
       toggle:
-        icon: material/brightness-4
+        icon: material/weather-sunny
         name: Switch to light mode
   features:
     - content.tabs.link

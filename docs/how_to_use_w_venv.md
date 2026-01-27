@@ -6,6 +6,8 @@ If you are familiar with common Python application workflows, you can use the fo
 
 - [ ] Download the latest release or the main branch in the github repository.
 
+- [ ] Extract the compressed ZIP file and navigate into the folder "citydb-3dtiler-main".
+
 - [ ] Create a Virtual Environment using following command:
 
 === "on Windows"
@@ -30,6 +32,9 @@ If you are familiar with common Python application workflows, you can use the fo
     ```bash
     source env/bin/activate
     ```
+
+??? tip "How to Fixx Security Issue on Windows machines"
+    If the virtual environment activation fails on Windows machine, try to type first ```Set-ExecutionPolicy Unrestricted -Scope Process```. Then try to run the Activate command again. 
 
 - [ ] Ensure that the PIP package is updated (optional).
 

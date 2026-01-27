@@ -106,17 +106,19 @@ def tile(args):
                 oc_name = oc["name"]
                 oc_mfpt = oc["objectclass_recommendations"]
                 if args.output_folder == "shared":
-                    new_folder = create_folder(get_shared_folder_path(), oc_name)
-                    oc_path = os.path.join(new_folder, oc_name)
+                    # print("ok ok ok , here we are : ", new)
+                    oc_path = create_folder(get_shared_folder_path(), oc_name)
+                    #oc_path = os.path.join(new_folder, oc_name)
                 else:
                     custom_path = os.path.join(get_shared_folder_path(), args.output_folder)
-                    new_folder = create_folder(custom_path, oc_name)
-                    oc_path = os.path.join(custom_path, oc_name)
+                    oc_path = create_folder(custom_path, oc_name)
+                    #oc_path = os.path.join(custom_path, oc_name)
                 
                 # Set a Where condition for each calculator query that filters objectclasses
                 cndtn = f"oc.classname = '{oc_name}'"
                 whrs_oc = WhereElements(
                     WhereElement(condition = cndtn))
+                # print("HERE IS THE PATH:", oc_path)
                 create_tileset(args, output_path=oc_path, max_features_per_tile=oc_mfpt, whrs=whrs_oc)
     else:
         if args.output_folder == "shared":

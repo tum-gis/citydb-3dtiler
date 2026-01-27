@@ -11,6 +11,7 @@
 
 ```puml
 @startmindmap
+!include https://raw.githubusercontent.com/tum-gis/citydb-3dtiler/main/docs/card-style.puml
 title Folder & File Structure
 right header
 <font color=red size=10> Last Check : 22.01.2026</font>
@@ -62,6 +63,7 @@ endheader
 **[#ghostwhite] <&calculator> citydb-3dtiler
 **[#ghostwhite] <&calculator> advise_main
 **[#ghostwhite] <&calculator> tile_main
+**[#ghostwhite] <&calculator> default_paths
 legend left
     Icons:
         Main File <&home>
@@ -85,6 +87,7 @@ endlegend
 
 ```puml
 @startuml
+!include https://raw.githubusercontent.com/tum-gis/citydb-3dtiler/main/docs/card-style.puml
 title UML Class Diagram for the SQL-Blocks
 header
 <font color=red size=10>Last Check : 22.01.2026</font>

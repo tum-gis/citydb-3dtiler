@@ -17,7 +17,7 @@ skinparam {
     RoundCorner 14
     Shadowing false
 
-    BackgroundColor transparent
+    BackgroundColor white
 
     ' Title Styling
     TitleFontSize 36
