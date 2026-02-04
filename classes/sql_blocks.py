@@ -152,38 +152,76 @@ class QueryBlocks:
         #     series_of_query_blocks = series_of_query_blocks + str(qb) + "\n"
         # return series_of_query_blocks
 
+class CaseElement:
+    '''
+    A CaseElement can represent a CASE WHEN condition on its own.
+    '''
+    def __init__(self, condition, result, else_result=None):
+        if else_result == None:
+            self.condition = condition
+            self.result = result
+            self.else_result = None
+        elif else_result != None:
+            self.condition = None
+            self.result = None
+            self.else_result = else_result
+        else:
+            raise ValueError("Case element must be one of the WHEN or ELSE conditions.")
+
+    def __repr__(self):
+        if self.else_result == None:
+            repr = f"WHEN {self.condition} THEN {self.result} "
+        elif self.else_result != None:
+            repr = f"ELSE {self.else_result} "
+        return repr
+
+class CaseElements:
+    '''
+    CaseElements are a serie of the CaseElement.
+    '''
+    def __init__(self, *case_elements):
+        self.case_elements = []
+        for case in case_elements:
+            self.case_elements.append(case)
+    def __repr__(self):
+        repr = ''
+        for case in self.case_elements:
+            if case.else_result == None:
+                repr += f"{case} \n"
+        for case in self.case_elements:
+            if case.else_result != None:
+                repr += f"{case} \n"
+                break
+        return repr
+
+
 class SelectElement:
     '''
     A SelectElement can be a CASE-WHEN statement or a simple field.
     '''
-    def __init__(self, select_type, field=None, case=None, domain_alias=None, range_alias=None):
+    def __init__(self, select_type, field=None, case=[], domain_alias=None, range_alias=None):
         self.select_type = select_type
         if self.select_type == "field":
             self.field = field
             self.domain_alias = domain_alias
             self.range_alias = range_alias
-            self.case = None
+            self.case = []
         elif self.select_type == "case":
             self.case = case
-            self.domain_alias = domain_alias
+            self.domain_alias = None
             self.range_alias = range_alias
             self.field = None
         else:
             raise ValueError("Select Type must be a field or case.")
     def __repr__(self):
+        rng_als = f" as {self.range_alias}" or ""
         if self.select_type == "field":
             if self.domain_alias is None:
-                if self.range_alias is None:
-                    return str(self.field)
-                else:
-                    return str(self.field+" as "+ self.range_alias)
+                return str(self.field+rng_als)
             elif self.domain_alias is not None:
-                if self.range_alias is None:
-                    return str(self.domain_alias+"."+self.field)
-                else:
-                    return str(self.domain_alias+"."+self.field+" as " + self.range_alias)
+                return str(self.domain_alias+"."+self.field+rng_als)
         elif self.select_type == "case":
-            return "case_text"
+            return f"{self.case_elements} {rng_als}"
 
 class SelectElements:
     '''

@@ -99,3 +99,4 @@ recommended_max_features_per_tile = QueryBlock(
     select_elements = rcm_mxm_ftr_pr_tl_selects,
     from_elements = rcm_mxm_ftr_pr_tl_selects_froms
     )
+

@@ -241,6 +241,11 @@ namespace sqlb <<SQL Blocks>> {
     Inner
     Full
   }
+  enum Operator {
+    AND
+    OR
+    XOR
+  }
 }
 @enduml
 ```

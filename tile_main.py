@@ -109,7 +109,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     mv_name = "mv_geometries"
     mfpt = max_features_per_tile
     #Test
-    print(str(query))
+    # print(str(query))
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, geom_col)
     # print(crt_mv)
@@ -118,7 +118,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     generate_tiles(args, mv_name, geom_col, shaders_col, output_path, mfpt)
 
 def tile(args):
-    print(args.separate_tilesets)
+    # print(args.separate_tilesets)
     if args.separate_tilesets is not None:
         if args.separate_tilesets == "objectclass":
             advises = read_yaml(get_shared_folder_path(), "advise.yml")

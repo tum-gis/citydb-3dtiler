@@ -49,8 +49,10 @@ def advise(args):
         rmf = oc_statistics[3]
         # Add the existing objectclasses to the advisement document
         ocs= []
+        # print(result_oc)
         for oc in result_oc[0]:
-            oc_new = dict(ObjectClass(oc))
+            # print(result_oc[0][oc]["properties"])
+            oc_new = dict(ObjectClass(oc, properties = result_oc[0][oc]["properties"]))
             ocs.append(oc_new)
         # Set the advisement class
         adv = Advisement(commandset, max_features=int(rmf), objectclasses = ocs)
