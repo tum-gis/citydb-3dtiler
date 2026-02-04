@@ -90,7 +90,7 @@ endlegend
 !include https://raw.githubusercontent.com/tum-gis/citydb-3dtiler/main/docs/card-style.puml
 title UML Class Diagram for the SQL-Blocks
 header
-<font color=red size=10>Last Check : 22.01.2026</font>
+<font color=red size=10>Last Check : 04.02.2026</font>
 endheader
 namespace advs <<Advise>> {
   abstract class MutableMapping {
@@ -148,6 +148,14 @@ namespace sqlb <<SQL Blocks>> {
   QueryBlocks -right-|> AbstractQueryBlock
   QueryBlocks *-down-> QueryBlock
   AbstractQueryBlock : inner_query_blocks
+  class CaseElement {
+    condition : String
+    result : String
+    else_result: String
+  }
+  class CaseElements {
+  }
+  CaseElements -down-> CaseElement
   class SelectElement {
     select_type : SelectionType
     field : String
@@ -156,7 +164,7 @@ namespace sqlb <<SQL Blocks>> {
     ---
     __repr__()
   }
-  SelectElement "*" o-down-> "0..1" CaseWhen : case
+  SelectElement "*" o-down-> "0..1" CaseElements : case
   class SelectElements{
     ---
     __repr__()
@@ -214,11 +222,6 @@ namespace sqlb <<SQL Blocks>> {
     __repr__()
   }
   GroupElements *-down-> GroupElement
-  class CaseWhen {
-    when : String
-    then : String
-    else: String
-  }
   enum DbType {
     postgresql
     oracledb
@@ -242,9 +245,12 @@ namespace sqlb <<SQL Blocks>> {
     Full
   }
   enum Operator {
-    AND
-    OR
-    XOR
+    And
+    Or
+    In
+    Like
+    Between
+    NotEqual
   }
 }
 @enduml
