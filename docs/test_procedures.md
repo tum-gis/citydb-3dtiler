@@ -11,6 +11,7 @@
 **** "(4) style-mode : property-based"
 **** "(5) transparency : blend"
 **** "(6) to custom folder"
+**** "(13) style-mode : no-style"
 *** "(3) my_materials.csv | Tile"
 ** "for Separate Tilesets (objectclass)"
 *** "(7) No material is given | Advise & Tile"

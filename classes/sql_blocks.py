@@ -6,47 +6,47 @@ db_types = ("postgresql", "oracledb")
 
 type_of_effects = ("Ontological", "Spatial", "Semantic", "Temporal", "Visual", "Topological")
 
-class CompositeQueryBlock:
-    '''
-    A "Combined Query Block" is designed to combine the query blocks in a correct order,
-    and the result must be an executable SQL query.
-    '''
-    def __init__(self, name, db_type, query_blocks):
-        self.name = name
-        self.db_type = db_type
-        self.query_blocks = query_blocks
-    def __repr__(self):
-        qbs = self.query_blocks
-        slct_part = "SELECT"
-        frm_part = "FROM"
-        join_part = ""
-        where_part = "WHERE"
-        group_part = ""
-        for qb in qbs.query_blocks:
-            if qb.select_elements != None:
-                slct_part += f" {str(qb.select_elements)},"
-            else:
-                pass
-            if qb.from_elements != None:
-                frm_part += f" {str(qb.from_elements)},"
-            else:
-                pass
-            if qb.join_elements != None:
-                join_part += f" {str(qb.join_elements)}"
-            else:
-                pass
-            if qb.where_elements != None:
-                where_part += f" {str(qb.where_elements)}"
-            else:
-                where_part = ""
-            if qb.group_elements != None:
-                group_part += f" {str(qb.group_elements)}"
-            else:
-                pass
-        slct_part = slct_part[:-1]
-        frm_part = frm_part[:-1]
+# class CompositeQueryBlock:
+#     '''
+#     A "Combined Query Block" is designed to combine the query blocks in a correct order,
+#     and the result must be an executable SQL query.
+#     '''
+#     def __init__(self, name, db_type, query_blocks):
+#         self.name = name
+#         self.db_type = db_type
+#         self.query_blocks = query_blocks
+#     def __repr__(self):
+#         qbs = self.query_blocks
+#         slct_part = "SELECT"
+#         frm_part = "FROM"
+#         join_part = ""
+#         where_part = "WHERE"
+#         group_part = ""
+#         for qb in qbs.query_blocks:
+#             if qb.select_elements != None:
+#                 slct_part += f" {str(qb.select_elements)},"
+#             else:
+#                 pass
+#             if qb.from_elements != None:
+#                 frm_part += f" {str(qb.from_elements)},"
+#             else:
+#                 pass
+#             if qb.join_elements != None:
+#                 join_part += f" {str(qb.join_elements)}"
+#             else:
+#                 pass
+#             if qb.where_elements != None:
+#                 where_part += f" {str(qb.where_elements)}"
+#             else:
+#                 where_part = ""
+#             if qb.group_elements != None:
+#                 group_part += f" {str(qb.group_elements)}"
+#             else:
+#                 pass
+#         slct_part = slct_part[:-1]
+#         frm_part = frm_part[:-1]
 
-        return f"{slct_part} {frm_part} {join_part} {where_part}"
+#         return f"{slct_part} {frm_part} {join_part} {where_part}"
 
 
 class QueryBlock:
@@ -296,24 +296,31 @@ class JoinElements:
         self.join_elements.append(join_element)
 
 class WhereElement:
-    def __init__(self, condition, operator=""):
+    def __init__(self, condition=None, operator="", inner_where_elements=[]):
         self.condition = condition
         self.operator = operator
+        self.inner_where_elements = inner_where_elements
     def __repr__(self):
-        return f"{self.condition} {self.operator}"
+        if self.inner_where_elements == []:
+            whrs = f"{self.condition} {self.operator} "
+        elif self.inner_where_elements != None:
+            if self.operator != "":
+                whrs = "(" + f"{self.inner_where_elements}" + ") " + self.operator
+            else:
+                whrs = "(" + f"{self.inner_where_elements}" + ") "
+        return whrs
 
 class WhereElements:
     def __init__(self, *where_elements):
         self.where_elements = []
         for whr in where_elements:
             self.where_elements.append(whr)
-        self.operator = operator
     def __repr__(self):
         where_part = ""
         if len(self.where_elements) >= 1:
             where_part = ""
             for whr in self.where_elements:
-                where_part += f"{str(whr)} "
+                where_part += f"{whr} "
             where_part = where_part[:-1]
         else:
             where_part = ""

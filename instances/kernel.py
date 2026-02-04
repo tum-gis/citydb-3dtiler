@@ -53,6 +53,19 @@ krnl_joins = JoinElements(
         range_alias="ns",
         condition="oc.namespace_id = ns.id")
     )
+krnl_whrs_in = WhereElements(
+    WhereElement(
+        condition="st_geometrytype(gmdt.geometry) != 'ST_MultiLineString'",
+        operator="OR"
+        ),
+    WhereElement(
+        condition="st_geometrytype(gmdt.geometry) != 'ST_MultiLineString'")
+    )
+krnl_whrs = WhereElements(
+    WhereElement(
+        inner_where_elements = krnl_whrs_in
+        )
+    )
 krnl_query = QueryBlock(
     name = "kernel", 
     type_of_effect = "Spatial",
@@ -60,4 +73,5 @@ krnl_query = QueryBlock(
     range_alias = "gmdt",
     select_elements=krnl_selects, 
     from_elements=krnl_froms, 
-    join_elements=krnl_joins)
+    join_elements=krnl_joins,
+    where_elements=krnl_whrs)

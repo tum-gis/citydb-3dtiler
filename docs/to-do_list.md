@@ -51,13 +51,20 @@
 - 16.12.2025
 - [✔] No need for the CompositeQueryBlock (QueryBlock supports nested queries by self)
 - [✔] Create a docker image !
-- [😴] Fix the advise command to calculate a "max feature per tile" value, even if it is executed for separated tilesets.
+- [✔] Fix the advise command to calculate a "max feature per tile" value, even if it is executed for separated tilesets.
 - [😴] Fix the typo : Advise --> Advice
 - 20.01.2026
 - [✔] Activate the custom-style argument
 - [✔] Add a controller for the absence of advise document
 - 21.01.2026
-- [ ] Check the documentation pages and test the commands
-- [ ] Add the Test Procedure to Docs
-- [ ] Update the graphics regarding to the new argument names
-- [ ] Publish the repo as public
+- [✔] Check the documentation pages and test the commands
+- [✔] Add the Test Procedure to Docs
+- [✔] Update the graphics regarding to the new argument names
+- [✔] Publish the repo as public
+- 27.01.2026
+- [ ] When an overlayed object is opaque while other is transparent, transparent mode is not working. Ask it to Bert Temme.
+- [ ] Implement the Web Map Client to the docker image as an instant viewer
+- [✔] Check the emissive color option. (not urgent, Thomas said the object are a bit dark.)
+- [ ] Test with FZKHaus LOD3 building model.
+- [ ] Filter out the linestring objects.
+- [ ] Vertical polygon-parts of the multipolygons are causing an issue. Check if you can tesselate them as TIN.

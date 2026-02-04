@@ -17,5 +17,6 @@ citydb-3dtiler.sublime-workspace
 !.gitignore
 !shared/.gitkeep
 !.github/workflows/build-docker-image.yml
+!.github/workflows/release.yml
 
 
