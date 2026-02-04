@@ -198,6 +198,7 @@ namespace sqlb <<SQL Blocks>> {
     condition : String
     operator : Operator
   }
+  WhereElement "1" --> WhereElements : inner_where_elements
   class WhereElements {
     ---
     __repr__()

@@ -1,4 +1,4 @@
-name: Release Docker images
+name: Release Docker images on GHCR
 
 on:
   release:
@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: tum-gis/citydb-3dtiler
 
 jobs:
   build-and-push-images:
@@ -32,16 +32,16 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
-      with:
-        platforms: linux/amd64,linux/arm64
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: linux/amd64,linux/arm64
 
       - name: Extract metadata (tags, labels) for docker image
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ env.REGISTRY }}/tum-gis/ckan-${{ matrix.context }}
+            ${{ env.REGISTRY }}/tum-gis/citydb-${{ matrix.context }}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
