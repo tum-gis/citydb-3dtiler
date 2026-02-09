@@ -12,7 +12,7 @@ Links for relevant libraries :
 
 ## Documentation
 
-Please check the documantation page available here:
+Please check the documentation page available here:
 [citydb-3dtiler Docs](https://tum-gis.github.io/citydb-3dtiler/)
 
 ## Special Thanks:
