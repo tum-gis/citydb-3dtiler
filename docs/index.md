@@ -10,17 +10,20 @@ This application can create 3DTiles (v 1.0 and 1.1) by reading features (aka. ci
 - It can create separate 3DTiles based on object classes.
 - Tilesets can be customized with a simple CSV file listing materials.
 
-<blockquote>
-Links for relevant libraries :
-<ul>
-  <li>3DCityDB: <a href="https://docs.3dcitydb.org/edge/" target="_blank">docs.3dcitydb.org/edge</a> </li>
-  <li>pg2b3dm: <a href="https://github.com/Geodan/pg2b3dm" target="_blank">github.com/Geodan/pg2b3dm</a> </li>
-</ul>
-</blockquote>
+!!! info "Links for relevant libraries"
+
+    - 3DCityDB: [docs.3dcitydb.org/edge](https://docs.3dcitydb.org/edge/){:target="_blank"}
+    - pg2b3dm: [github.com/Geodan/pg2b3dm](https://github.com/Geodan/pg2b3dm){:target="_blank"}
+
+
+!!!+ note "Features Not Yet Supported"
+
+    - Feature Textures
+    - Implicit Features (Features represented within local coordinate systems)
 
 <figure style="width:%100;text-align: center;">
-  <img src="../images/sample_3dtiles_leipzig.jpg" alt="Sample 3DTiles from Leipzig" style="border:3px solid #005293">
-  <figcaption>A set of tilesets represents the city objects of Leipzig city</figcaption>
+  <img src="images/sample_3dtiles_leipzig.jpg" alt="Sample 3DTiles from Leipzig" style="border:3px solid #4CAE4F">
+  <figcaption>A 3DTiles sample represents the city objects of Leipzig city</figcaption>
 </figure>
  
 ## Documentation

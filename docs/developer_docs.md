@@ -85,10 +85,12 @@ endlegend
 </figure>
 -->
 
+### Advice Classes (The Classes Used to Generate the Summarized Report)
+
 ```puml
 @startuml
 !include https://raw.githubusercontent.com/tum-gis/citydb-3dtiler/main/docs/card-style.puml
-title UML Class Diagram for the SQL-Blocks
+title UML Class Diagram for the Advicement
 header
 <font color=red size=10>Last Check : 04.02.2026</font>
 endheader
@@ -125,6 +127,18 @@ namespace advs <<Advise>> {
   }
   ObjectClassRecommendations -up-|> TransformedDict
 }
+@enduml
+```
+
+### SQL Blocks (The Classes Used to Generate Dynamic SQL Queries)
+
+```puml
+@startuml
+!include https://raw.githubusercontent.com/tum-gis/citydb-3dtiler/main/docs/card-style.puml
+title UML Class Diagram for the SQL-Blocks
+header
+<font color=red size=10>Last Check : 04.02.2026</font>
+endheader
 namespace sqlb <<SQL Blocks>> {
   abstract class AbstractQueryBlock {
     name : String

@@ -6,6 +6,11 @@ This application can create 3DTiles (v 1.0 and 1.1) by reading features (aka. ci
 - It can create separate 3DTiles based on object classes.
 - Tilesets can be customized with a simple CSV file listing materials.
 
+<figure style="width:%100;text-align: center;">
+  <img src="docs/images/sample_3dtiles_leipzig.jpg" alt="Sample 3DTiles from Leipzig" style="border:3px solid #4CAE4F">
+  <figcaption>A set of tilesets represents the city objects of Leipzig city</figcaption>
+</figure>
+
 <blockquote>
 Links for relevant libraries :
 <ul>
@@ -18,6 +23,10 @@ Links for relevant libraries :
 
 Please check the documentation page available here:
 [citydb-3dtiler Docs](https://tum-gis.github.io/citydb-3dtiler/)
+
+Docker image of the application is available. Check the following pages for more information:
+- [How to use the application within Docker](https://tum-gis.github.io/citydb-3dtiler/how_to_use_w_docker/)
+- [Tips for Docker Usage](https://tum-gis.github.io/citydb-3dtiler/tips_for_docker_usage/)
 
 ## Special Thanks:
 
