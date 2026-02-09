@@ -8,7 +8,8 @@ Download and customize the "materials_for_features" file with one of office soft
 > If you do not want to customize the feature colors (materials), proceed to Step 4. Otherwise, follow the next instructions.
 
 ??? info "Alternatively ..."
-    Open the document in LRZ Sync & Share: <a href="https://syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_features.ods" target="_blank">syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_features.ods</a>
+    Open the document in LRZ Sync & Share and copy the document for yourself so you can create your own CSV file: <a href="https://syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_features.ods" target="_blank">syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_features.ods</a> </br>
+    If you customized the colors in the first sheet ("materials") using RGBA hex color codes, then you can check the colors and transparency colors with internal JS Macro. Go to View > Macros and Click to Run to update all the colors avaialble in the 3th sheet ("Colors").
 
 
 ## 2. Save the ODS file as CSV

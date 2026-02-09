@@ -16,7 +16,7 @@ This application can create 3DTiles (v 1.0 and 1.1) by reading features (aka. ci
     - pg2b3dm: [github.com/Geodan/pg2b3dm](https://github.com/Geodan/pg2b3dm){:target="_blank"}
 
 
-!!!+ note "Features Not Yet Supported"
+!!! note "Features Not Yet Supported"
 
     - Feature Textures
     - Implicit Features (Features represented within local coordinate systems)
