@@ -35,7 +35,7 @@ skinparam {
         'hide circle
         FontSize 16
         FontStyle Bold
-        FontColor "#000000"
+        FontColor black
         BackgroundColor $secondaryColor
         BorderThickness 0.5
         BorderColor Gray
