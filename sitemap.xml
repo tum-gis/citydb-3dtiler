@@ -2,34 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://tum-gis.github.io/citydb-3dtiler/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://tum-gis.github.io/citydb-3dtiler/all_commands_samples/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://tum-gis.github.io/citydb-3dtiler/developer_docs/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://tum-gis.github.io/citydb-3dtiler/how_to_use_w_docker/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://tum-gis.github.io/citydb-3dtiler/how_to_use_w_venv/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://tum-gis.github.io/citydb-3dtiler/test_procedures/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://tum-gis.github.io/citydb-3dtiler/tips_for_docker_usage/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://tum-gis.github.io/citydb-3dtiler/to-do_list/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
 </urlset>
