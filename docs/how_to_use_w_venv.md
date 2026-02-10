@@ -1,6 +1,6 @@
 # How to use citydb-3dtiler independently?
 
-If you are familiar with common Python application workflows, you can use the following instructions to run the software independently.
+If you are familiar with common Python application workflows, you can run the software independently of any repository using the instructions below.
 
 ## Running Software using Virtual Environment (VEnv)
 
@@ -33,10 +33,10 @@ If you are familiar with common Python application workflows, you can use the fo
     source env/bin/activate
     ```
 
-??? tip "How to Fixx Security Issue on Windows machines"
+??? tip "How to Fix the Security Issue on Windows machines"
     If the virtual environment activation fails on Windows machine, try to type first ```Set-ExecutionPolicy Unrestricted -Scope Process```. Then try to run the Activate command again. 
 
-- [ ] Ensure that the PIP package is updated (optional).
+- [ ] Ensure that the PIP package is updated.
 
 === "on Windows"
     ```powershell

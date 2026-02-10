@@ -1,9 +1,10 @@
 # citydb-3dtiler
 
-This application can create 3DTiles (v 1.0 and 1.1) by reading features (aka. city objects) from 3DCityDB (v5.x), a database application that can import CityGML 2.0 or 3.0-based datasets. The application's key features are as follows:
-- It can generate summary reports by reading the database or calculate the most efficient configuration parameters for creating 3D Tiles.
-- It can assign colors or (PBR) materials based on object classes or the current property values of features.
-- It can create separate 3DTiles based on object classes.
+**citydb-3dtiler** can generate 3DTiles (v 1.0 and 1.1) by reading features (aka. city objects) from 3DCityDB (v5.x), a database application that can import CityGML 2.0 or 3.0-based datasets. The application's key features are as follows:
+
+- It can generate reports about the current data in the database or calculate the most efficient configuration parameters for creating 3D Tiles.
+- It can assign colors or PBR materials based on object classes or the current property values of features.
+- It can create separate 3DTiles based on object classes (other options planned).
 - Tilesets can be customized with a simple CSV file listing materials.
 
 <figure style="width:%100;text-align: center;">

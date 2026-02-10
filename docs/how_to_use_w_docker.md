@@ -1,24 +1,32 @@
 # How to use with Docker?
 
-## 1. Set the Feature Colors (Optional)
+## 1. Set the Feature Materials/Colors (Optional)
 
-Download and customize the "materials_for_features" file with one of office software by changing the color values in the first sheet (sheet name : "materials").
-    - [materials_for_features.ods](https://github.com/tum-gis/citydb-3dtiler/blob/main/materials_for_features/materials_for_features.ods){:target="_blank"}
+Download and customize the "materials_for_features" file with one of office software (LibreOffice, OpenOffice or OnlyOffice) by changing the color values in the first sheet (sheet name: "materials").
 
-> If you do not want to customize the feature colors (materials), proceed to Step 4. Otherwise, follow the next instructions.
+- [materials_for_features.ods](https://github.com/tum-gis/citydb-3dtiler/blob/main/materials_for_features/materials_for_features.ods){:target="_blank"}
+
+??? tip "If you do not want to customize"
+
+    If you do not want to customize the feature colors (materials), proceed to Step 4. Otherwise, follow the next instructions.
 
 ??? info "Alternatively ..."
-    Open the document in LRZ Sync & Share and copy the document for yourself so you can create your own CSV file: <a href="https://syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_features.ods" target="_blank">syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_features.ods</a> </br>
+    Open the document in LRZ Sync & Share and copy the document for yourself so you can create your own CSV file: <a href="https://syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_features.ods" target="_blank">syncandshare.lrz.de/getlink/fiWEn4L2VBQwFyVeqqFmRH/materials_for_features.ods</a> </br> </br>
     If you customized the colors in the first sheet ("materials") using RGBA hex color codes, then you can check the colors and transparency colors with internal JS Macro. Go to View > Macros and Click to Run to update all the colors avaialble in the 3th sheet ("Colors").
 
 
 ## 2. Save the ODS file as CSV
 
-??? warning "Pay attention to the following"
+Save only the first sheet (materials) as a CSV file. 
+
+???+ warning "Pay attention to the following"
     While exporting the table as CSV file : </br>
     - Field delimiters must be commas (,) </br>
     - Do not force text to be quoted with apostrophes (")
 
+??? tip "You can save multiple CSV files with custom names"
+
+    If you prefer to create multiple CSV files with custom names, you can still use one of them using "--custom-style" argument with the "tile" command.
 
 ## 3. Start the Terminal/Shell
 
@@ -93,7 +101,7 @@ Using your preferred CLI tool (Terminal/Shell), navigate to the same folder with
 
 Generate 3DTiles using the default configuration by typing the following command: 
 
-??? warning "The 'materials_for_features.csv' file"
+??? info "How the application checks the material file?"
     The program automatically checks whether the “materials_for_features.csv” file is present in the current folder. If the file is not present in the current folder, it uses the predefined materials stored internally (in the Docker image). If you have renamed the file, you can use the “--custom-style” argument after the ‘tile’ command.
 
 
@@ -154,7 +162,6 @@ Generate 3DTiles using the default configuration by typing the following command
     ```
 
 
-If you need to use specify arguments see the page [All Commands & Samples](all_commands_samples.md)
 
 ## All available Commands, Arguments & Options
 
@@ -183,6 +190,7 @@ If you need to use specify arguments see the page [All Commands & Samples](all_c
     tile
     ??? example "Tile Arguments"
         --help </br>
+        --custom-style (default: materials_for_features.csv) </br>
         --style-mode
         ??? info "Style Mode Options"
             property-based </br>
@@ -200,6 +208,12 @@ If you need to use specify arguments see the page [All Commands & Samples](all_c
 
 ## Remove the Docker Images (Optional)
 
+If you want to delete all of the downloaded Docker images, you can use the following command:
+
 ```bash
-docker rmi --force $(docker image list --quiet --filter label=composition=citydb-3dtiler)
+docker rmi --force $(docker image ls -q -f label=composition=citydb-3dtiler)
 ```
+
+??? tip "How to update the docker image on my machine?"
+
+    To update the docker image to latest version, delete all the existing docker images using the command given above and run the docker run command again.

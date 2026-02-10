@@ -27,6 +27,7 @@
     tile
     ??? example "Tile Arguments"
         --help </br>
+        --custom-style (default: materials_for_features.csv) </br>
         --style-mode
         ??? info "Style Mode Options"
             property-based </br>
@@ -62,9 +63,9 @@
 
 ## Sample Commands
 
-### Take **advise** for the existing dataset to generate a single tileset
+### Take report (advice document) for the existing dataset to generate a single tileset
 
-=== "Take advice (using Python)"
+=== "Take report within Python setup"
     ```bash
     python3 citydb-3dtiler.py \
     --db-host localhost --db-port 9876 \
@@ -74,7 +75,7 @@
     advise
     ```
 
-=== "Take advice (using Docker)"
+=== "Take report using Docker"
     ```bash
     docker run `
     --rm --interactive --tty `
@@ -87,9 +88,9 @@
     advise
     ```
 
-### Take **advise** for the existing dataset to generate separate tilesets
+### Take report (advice document) for the existing dataset to generate separate tilesets
 
-=== "Take advice for separate tilesets (using Python)"
+=== "Take report for separate tilesets within Python setup"
     ```bash
     python3 citydb-3dtiler.py \
     --db-host localhost --db-port 9876 \
@@ -100,7 +101,7 @@
     advise
     ```
 
-=== "Take advice for separate tilesets (using Docker)"
+=== "Take report for separate tilesets using Docker"
     ```bash
     docker run `
     --rm --interactive --tty `
@@ -116,10 +117,21 @@
 
 ### Generate 3DTiles using property-based styling
 
+#### "How to assign custom property values to set the materials/colors?"
+
+To set such a color/material set, you have to check the existing properties in your dataset. To see the available properties, you can also check the advice document created by the advise command. However, you still need to find the value sets for the existing dataset. After that you can add the property names and the values to the materials document like below:
+
+ namespace_of_classname | classname | namespace_of_property | property_name | column_name_of_property_value | property_value | emmisive_color | pbr_metallic_roughness_base_color 
+---|---|---|---|---|---|---|---
+ bldg | Building |  |  |  |  |  | #00E5EE80 
+ bldg | Building | bldg | roofType | val_string | flat |  | #66DEF3FC 
+ bldg | Building | bldg | roofType | val_string | gabled |  | #F35FCBFC 
+
+
 ??? info "Style-Modes"
     Default style-mode is objectclass-based. Check the materials_for_features.csv table to view existing objectclasses.
 
-=== "Generate 3DTiles (using Python)"
+=== "Generate 3DTiles within Python setup"
     ```bash
     python3 citydb-3dtiler.py \
     --db-host localhost --db-port 9876 \
@@ -130,7 +142,7 @@
     --style-mode property-based
     ```
 
-=== "Generate 3DTiles (using Docker)"
+=== "Generate 3DTiles using Docker"
     ```bash
     docker run `
     --rm --interactive --tty `
@@ -146,7 +158,7 @@
 
 ### Generate separated 3DTiles using objectclass-based separation and property-based styling
 
-=== "Generate separated 3DTiles (using Python)"
+=== "Generate separated 3DTiles within Python setup"
     ```bash
     python3 citydb-3dtiler.py \
     --db-host localhost --db-port 9876 \
@@ -158,7 +170,7 @@
     --style-mode property-based
     ```
 
-=== "Generate separated 3DTiles (using Docker)"
+=== "Generate separated 3DTiles using Docker"
     ```bash
     docker run `
     --rm --interactive --tty `

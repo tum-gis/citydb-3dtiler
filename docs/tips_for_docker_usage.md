@@ -131,7 +131,7 @@ docker rm --force $(docker ps --all --quiet --filter label=composition=citydb-3d
 <summary>Remove only images:</summary>
 
 ```bash
-docker rmi --force $(docker image list --quiet --filter label=composition=citydb-visualizer)
+docker rmi --force $(docker image list --quiet --filter label=composition=citydb-3dtiler)
 ```
 
 </details>
