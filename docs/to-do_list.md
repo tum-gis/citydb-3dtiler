@@ -66,5 +66,5 @@
 - [ ] Implement the Web Map Client to the docker image as an instant viewer
 - [✔] Check the emissive color option. (not urgent, Thomas said the object are a bit dark.)
 - [ ] Test with FZKHaus LOD3 building model.
-- [ ] Filter out the linestring objects.
+- [✔] Filter out the linestring objects.
 - [ ] Vertical polygon-parts of the multipolygons are causing an issue. Check if you can tesselate them as TIN.

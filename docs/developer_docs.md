@@ -7,24 +7,18 @@
   <figcaption>Using the Application (Semi-transparent sketched boxes indicate features that have not yet been implemented.)</figcaption>
 </figure>
 
-## Class Diagram of the SQLBlocks Concept
+## UML Class Diagrams
 
 <!--
-<figure style="width:%100;text-align: center;">
-  <img src="../images/classes.svg" alt="UML Class Diagram" style="border:3px solid #005293">
-  <figcaption>UML Class Diagram of the app</figcaption>
-</figure>
 !include https://raw.githubusercontent.com/tum-gis/citydb-3dtiler/main/docs/card-style.puml
 -->
 
-### Advice Classes (The Classes Used to Generate the Summarized Report)
+### Advisement Classes (The Classes Used to Generate the Report)
 
 ```puml
 @startuml
-title UML Class Diagram for the Advicement
-header
-<font color=red size=10>Last Check : 04.02.2026</font>
-endheader
+title UML Class Diagram for the Advisement
+footer Last Check : 04.02.2026
 namespace advs <<Advise>> {
   abstract class MutableMapping {
   }
@@ -66,9 +60,7 @@ namespace advs <<Advise>> {
 ```puml
 @startuml
 title UML Class Diagram for the SQL-Blocks
-header
-<font color=red size=10>Last Check : 04.02.2026</font>
-endheader
+footer Last Check : 10.02.2026
 namespace sqlb <<SQL Blocks>> {
   abstract class AbstractQueryBlock {
     name : String
@@ -76,22 +68,22 @@ namespace sqlb <<SQL Blocks>> {
     type_of_effect : TypeOfEffect
     order_number : Integer
     domain_aliases : String[]
+    inner_query_blocks : QueryBlocks
     ---
     __repr__()
   }
-  AbstractQueryBlock "0..1" o-down-> "1" SelectElements : select_elements
-  AbstractQueryBlock "0..1" o-down-> "1" FromElements : from_elements
-  AbstractQueryBlock "0..1" o-down-> "1" JoinElements : join_elements
-  AbstractQueryBlock "0..1" o-down-> "1" WhereElements : where_elements
-  AbstractQueryBlock "0..1" o-down-> "1" GroupElements : group_elements
   class QueryBlock {
   }
-  QueryBlock -right-|> AbstractQueryBlock
+  QueryBlock -up-|> AbstractQueryBlock
+  QueryBlock "0..1" o--> "1" SelectElements : select_elements
+  QueryBlock "0..1" o--> "1" FromElements : from_elements
+  QueryBlock "0..1" o--> "1" JoinElements : join_elements
+  QueryBlock "0..1" o--> "1" WhereElements : where_elements
+  QueryBlock "0..1" o--> "1" GroupElements : group_elements
   class QueryBlocks {
   }
-  QueryBlocks -right-|> AbstractQueryBlock
-  QueryBlocks *-down-> QueryBlock
-  AbstractQueryBlock : inner_query_blocks
+  QueryBlocks -up-|> AbstractQueryBlock
+  QueryBlocks *-right-> QueryBlock
   class CaseElement {
     condition : String
     result : String
@@ -99,7 +91,7 @@ namespace sqlb <<SQL Blocks>> {
   }
   class CaseElements {
   }
-  CaseElements -down-> CaseElement
+  CaseElements --> CaseElement
   class SelectElement {
     select_type : SelectionType
     field : String
@@ -108,7 +100,7 @@ namespace sqlb <<SQL Blocks>> {
     ---
     __repr__()
   }
-  SelectElement "*" o-down-> "0..1" CaseElements : case
+  SelectElement "*" o--> "0..1" CaseElements : case
   class SelectElements{
     ---
     __repr__()
@@ -117,19 +109,19 @@ namespace sqlb <<SQL Blocks>> {
     __getitem__()
     add()
   }
-  SelectElements *-down-> SelectElement
+  SelectElements *--> SelectElement
   class FromElement {
     table : String
     alias : String
     ---
     __repr__()
   }
-  FromElement "1" --up-> "*" AbstractQueryBlock : inner_query_blocks
+  FromElement "1" ---> "*" QueryBlocks : inner_query_blocks
   class FromElements {
     ---
     __repr__()
   }
-  FromElements *-down-> FromElement
+  FromElements *--> FromElement
   class JoinElement {
     type : JoinType
     table : String
@@ -139,13 +131,14 @@ namespace sqlb <<SQL Blocks>> {
     ---
     __repr__()
   }
-  JoinElement "1" --up-> "*" AbstractQueryBlock : inner_query_block
+  JoinElement "1" --> "*" QueryBlock : inner_query_block
   class JoinElements {
     ---
     __repr__()
     add()
   }
-  JoinElements *-down-> JoinElement 
+  JoinElements *--> JoinElement 
+  
   class WhereElement {
     condition : String
     operator : Operator
@@ -155,7 +148,7 @@ namespace sqlb <<SQL Blocks>> {
     ---
     __repr__()
   }
-  WhereElements *-down-> WhereElement
+  WhereElements *--> WhereElement
   class GroupElement {
     field : String
     ---
@@ -165,7 +158,7 @@ namespace sqlb <<SQL Blocks>> {
     ---
     __repr__()
   }
-  GroupElements *-down-> GroupElement
+  GroupElements *--> GroupElement
   enum DbType {
     postgresql
     oracledb
