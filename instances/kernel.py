@@ -7,7 +7,7 @@ from classes.sql_blocks import *
 krnl_selects = SelectElements(
     SelectElement(
         select_type = "field", 
-        field = "st_transform(gmdt.geometry,4979)", 
+        field = "gmdt.geometry", 
         range_alias="geom"),
     SelectElement(
         select_type = "field", 

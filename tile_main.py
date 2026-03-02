@@ -12,12 +12,32 @@ from io_tools.pg_sql import read_sql_file
 from database.pg_connection import run_sql
 from classes.sql_blocks import *
 from instances.kernel import krnl_query
-from instances.material import no_style_query, objectclass_falldown_query, custom_property_falldown_query
+from instances.material import (no_style_query, objectclass_falldown_query, custom_property_falldown_query,
+                                existing_app_falldown_query, objectclass_riseup_query, custom_property_riseup_query)
 from database.pg_connection import create_materialized_view, index_materialized_view, get_query_results, run_sql
 from default_paths import get_base_path, get_shared_folder_path
 
 # Set the default path of the shared folder
 shared_folders_path = os.path.join(os.getcwd(), "shared")
+
+# No need for the following code
+# All the Queries must have a "geom" and "material_data" columns,
+# so there will be no need for searching these by listing the QueryBlocks
+# def find_geom_in_queries(query):
+#     # Find the geom column in the Select Elements
+#     for sl in query.select_elements:
+#         if sl.range_alias == 'geom':
+#             geom_col_idx = list(query.select_elements).index(sl)
+#     geom_col = str(query.select_elements[geom_col_idx].range_alias)
+#     return geom_col
+#
+# def find_material_in_queries(query):
+#     # Find the shaders column in the Select Elements
+#     for sl in query.select_elements:
+#         if sl.range_alias == 'material_data':
+#             shaders_col_idx = list(query.select_elements).index(sl)
+#     shaders_col = str(query.select_elements[shaders_col_idx].range_alias)
+#     return shaders_col
 
 def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None):
     # Drop the materials table if it is existing in DB
@@ -47,75 +67,58 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     run_sql(args, crt_vw_mat_pro, name= crt_vw_mat_pro_fl_nm)
     crt_vw_mat_pro_mtchs, crt_vw_mat_pro_mtchs_fl_nm = read_sql_file("standalone_queries", "vw_material_by_properties_matches.sql")
     run_sql(args, crt_vw_mat_pro_mtchs, name=crt_vw_mat_pro_mtchs_fl_nm)
+    crt_vw_mat_exstng, crt_vw_mat_exstng_fl_nm = read_sql_file("standalone_queries",
+                                                                     "vw_material_as_existing_app.sql")
+    run_sql(args, crt_vw_mat_exstng, name=crt_vw_mat_exstng_fl_nm)
 
-    # !Refactor the following code blcok!
+    # No
     # Set the controller for the materials
     if args.style_mode == "no-style" and args.style_absence_behavior == 'fall-down':
         # If any filter is given, add the filter to the query
         if whrs != None:
             no_style_query[0].where_elements = whrs
         query = str(no_style_query)
-
-        # Find the geom column in the Select Elements
-        for sl in no_style_query.select_elements:
-            if sl.range_alias == 'geom':
-                geom_col_idx = list(no_style_query.select_elements).index(sl)
-        geom_col = str(no_style_query.select_elements[geom_col_idx].range_alias)
-
-        # Find the shaders column in the Select Elements
-        for sl in no_style_query.select_elements:
-            if sl.range_alias == 'material_data':
-                shaders_col_idx = list(no_style_query.select_elements).index(sl)
-        shaders_col = str(no_style_query.select_elements[shaders_col_idx].range_alias)
-
+    elif args.style_mode == "no-style" and args.style_absence_behavior == 'rise-up':
+        raise ValueError('"No-Style" mode can not be used with the "rise-up" option.')
     elif args.style_mode == 'objectclass-based' and args.style_absence_behavior == 'fall-down':
         # If any filter is given, add the filter to the query
         if whrs != None:
             objectclass_falldown_query[0].where_elements = whrs
         query = str(objectclass_falldown_query)
-
-        # Find the geom column in the Select Elements
-        for sl in objectclass_falldown_query.select_elements:
-            if sl.range_alias == 'geom':
-                geom_col_idx = list(objectclass_falldown_query.select_elements).index(sl)
-        geom_col = str(objectclass_falldown_query.select_elements[geom_col_idx].range_alias)
-
-        # Find the shaders column in the Select Elements
-        for sl in objectclass_falldown_query.select_elements:
-            if sl.range_alias == 'material_data':
-                shaders_col_idx = list(objectclass_falldown_query.select_elements).index(sl)
-        shaders_col = str(objectclass_falldown_query.select_elements[shaders_col_idx].range_alias)
-        
     elif args.style_mode == 'property-based' and args.style_absence_behavior == 'fall-down':
-        
         # If any filter is given, add the filter to the query
         if whrs != None:
             custom_property_falldown_query[0].where_elements = whrs
         query = str(custom_property_falldown_query)
-        
-        # Find the geom column in the Select Elements
-        for sl in custom_property_falldown_query.select_elements:
-            if sl.range_alias == 'geom':
-                geom_col_idx = list(custom_property_falldown_query.select_elements).index(sl)
-        geom_col = str(custom_property_falldown_query.select_elements[geom_col_idx].range_alias)
-        
-        # Find the shaders column in the Select Elements
-        for sl in custom_property_falldown_query.select_elements:
-            if sl.range_alias == 'material_data':
-                shaders_col_idx = list(custom_property_falldown_query.select_elements).index(sl)
-        shaders_col = str(custom_property_falldown_query.select_elements[shaders_col_idx].range_alias)
+    elif args.style_mode == 'existing-appearances' and args.style_absence_behavior == 'fall-down':
+        # If any filter is given, add the filter to the query
+        if whrs != None:
+            existing_app_falldown_query[0].where_elements = whrs
+        query = str(existing_app_falldown_query)
+    elif args.style_mode == 'existing-appearances' and args.style_absence_behavior == 'rise-up':
+        raise Exception('"Existing-appearances" mode can not be used with the "rise-up" option.')
+    elif args.style_mode == 'objectclass-based' and args.style_absence_behavior == 'rise-up':
+        # If any filter is given, add the filter to the query
+        if whrs != None:
+            objectclass_riseup_query[0].where_elements = whrs
+        query = str(objectclass_riseup_query)
+    elif args.style_mode == 'property-based' and args.style_absence_behavior == 'rise-up':
+        # If any filter is given, add the filter to the query
+        if whrs != None:
+            custom_property_riseup_query[0].where_elements = whrs
+        query = str(custom_property_riseup_query)
 
     # Set the name of materialized view that would be used for tiling
     mv_name = "mv_geometries"
     mfpt = max_features_per_tile
     #Test
-    # print(str(query))
+    print(str(query))
     crt_mv = create_materialized_view(mv_name, str(query))
-    ind_mv = index_materialized_view(mv_name, geom_col)
+    ind_mv = index_materialized_view(mv_name, 'geom')
     # print(crt_mv)
     run_sql(args, crt_mv, name=f"create_materialized_view (function) for {mv_name}")
     run_sql(args, ind_mv, name=f"index_materialized_view (function) for {mv_name}")
-    generate_tiles(args, mv_name, geom_col, shaders_col, output_path, mfpt)
+    generate_tiles(args, mv_name, 'geom', 'material_data', output_path, mfpt)
 
 def tile(args):
     # print(args.separate_tilesets)

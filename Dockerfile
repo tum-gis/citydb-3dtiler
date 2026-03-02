@@ -20,7 +20,7 @@ RUN apt-get update && \
 
 # Donwload and unzip pg23dm version 2.25.0
 
-RUN wget --directory-prefix /home/tester/downloads --quiet https://github.com/Geodan/pg2b3dm/releases/download/v2.25.0/pg2b3dm-linux-x64.zip
+RUN wget --directory-prefix /home/tester/downloads --quiet https://github.com/Geodan/pg2b3dm/releases/download/v2.25.1/pg2b3dm-linux-x64.zip
 
 RUN unzip -d /home/tester/citydb-3dtiler/tiler_app /home/tester/downloads/pg2b3dm-linux-x64.zip
 

@@ -38,6 +38,10 @@ FROM
             pro2.id = pro.parent_id
         LEFT JOIN namespace as ns2 ON
             ns2.id = pro2.namespace_id
+        -- Added here because some of the features don't have a direct reprentation, but only thematic surfaces
+        LEFT JOIN geometry_data as gd ON
+            gd.feature_id = ftr.id
+        WHERE gd.id is not NULL
         ) pros
     GROUP BY pros.classname, pros.key
     ORDER BY pros.classname ASC
