@@ -5,6 +5,10 @@ def generate_tiles(args, table, geom_column, shaders_column, output_folder=None,
     tiler_path = os.path.join(f"{args.tilers_path}", f"{args.tiler_app}")
     if output_folder is None:
         output_folder = args.output.strip()
+    # This part must be removed after md5_implementation would merged on pg2b3dm
+    if max_features_per_tile is not None:
+        max_features_per_tile = int(max_features_per_tile)*4
+    # This part must be removed after md5_implementation would merged on pg2b3dm
     mypass = os.environ.copy()
     mypass['PGPASSWORD']=args.db_password
     # print(args.style_mode)
