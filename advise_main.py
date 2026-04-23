@@ -37,7 +37,7 @@ def advise(args):
 
                 rmf = oc_statistics[3] # Statistics Order: 0:min, 1:max, 2:avg, 3:mxm_ftr_pr_tl
                 # Add to the list of the ObjectClasses
-                oc_new = dict(ObjectClass(oc, objectclass_recommendations = int(rmf)))
+                oc_new = dict(ObjectClass(oc, objectclass_recommendations = int(rmf), properties = result_oc[0][oc]["properties"]))
                 ocs.append(oc_new)
             # Set the Advisement class by considering every objectclasses separately
             adv = Advisement(commandset, max_features=None, objectclasses=ocs)
