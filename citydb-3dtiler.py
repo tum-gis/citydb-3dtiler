@@ -41,6 +41,9 @@ def main():
     parser_tile.add_argument("-o", "--output-folder", help="Set the folder for the 3DTiles. Default value is the 'shared' folder.", metavar="Output Folder", nargs="?", default="shared")
     parser_tile.add_argument("--transparency", help="Choose of the possible options. Please consider that transparency values might vary regarding to the selected tiler application.", choices=["blend", "mask", "opaque"], default="opaque")
     parser_tile.add_argument("--custom-style", help="If you want to provide a custom style file (any CSV file not named 'materials_for_features'), you can specify the file name (inc. file extension : CSV) using this argument.", metavar="Name of the custom style file", nargs="?", default="materials_for_features.csv")
+    parser_tile.add_argument("-a", "--attributes", help="Select which attributes should be represented in the 3D Tiles.", choices=["none", "selected", "all"], default="none")
+    parser_tile.add_argument("--selected_attributes", help="Specify the selected attributes using the ‘namespace__propertyName’ naming pattern and separate them with commas without spaces (for exp: con__height). You can also check the advise document to see available attributes.", metavar="Comma separated list of the selected attributes", nargs="?", default="none")
+    parser_tile.add_argument("--attribute_structure", help="If you want to view the attributes as a flat/tabular data structure, select the “flat” option (default). If you want to view them as a nested structure, just as they are (in a JSON-like stucture), select the “nested” option.", choices=["flat", "nested"], default="flat")
     
     # Database authorization information gathered as a group,
     # so the group arguments can be used both of the commands.

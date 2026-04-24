@@ -12,32 +12,17 @@ from io_tools.pg_sql import read_sql_file
 from database.pg_connection import run_sql
 from classes.sql_blocks import *
 from instances.kernel import krnl_query
-from instances.material import (no_style_query, objectclass_falldown_query, custom_property_falldown_query,
-                                existing_app_falldown_query, objectclass_riseup_query, custom_property_riseup_query)
+from instances.material import *
+from instances.attributes import qry_blck_pro_shll, pro_prnt_selects, qry_blck_pro_prnt # QueryBlock of the Shell query of Joins
 from database.pg_connection import create_materialized_view, index_materialized_view, get_query_results, run_sql
 from default_paths import get_base_path, get_shared_folder_path
 
 # Set the default path of the shared folder
 shared_folders_path = os.path.join(os.getcwd(), "shared")
 
-# No need for the following code
-# All the Queries must have a "geom" and "material_data" columns,
-# so there will be no need for searching these by listing the QueryBlocks
-# def find_geom_in_queries(query):
-#     # Find the geom column in the Select Elements
-#     for sl in query.select_elements:
-#         if sl.range_alias == 'geom':
-#             geom_col_idx = list(query.select_elements).index(sl)
-#     geom_col = str(query.select_elements[geom_col_idx].range_alias)
-#     return geom_col
-#
-# def find_material_in_queries(query):
-#     # Find the shaders column in the Select Elements
-#     for sl in query.select_elements:
-#         if sl.range_alias == 'material_data':
-#             shaders_col_idx = list(query.select_elements).index(sl)
-#     shaders_col = str(query.select_elements[shaders_col_idx].range_alias)
-#     return shaders_col
+def selected_attributes_to_list(selected_attributes):
+    attributes_list = selected_attributes.split(",")
+    return attributes_list
 
 def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None):
     # Drop the materials table if it is existing in DB
@@ -52,6 +37,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
         custom_material = check_custom_materials()
     else:
         custom_material = check_custom_materials(args.custom_style)
+    
     # If the custom_material exists in the shared folder,
     #  then consider this file,
     #  otherwise use the default materials_for_features file in repository.
@@ -76,43 +62,79 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     if args.style_mode == "no-style" and args.style_absence_behavior == 'fall-down':
         # If any filter is given, add the filter to the query
         if whrs != None:
-            no_style_query[0].where_elements = whrs
-        query = str(no_style_query)
+            no_styling_addition.where_elements = whrs
+        selected_styling_addition = no_styling_addition
     elif args.style_mode == "no-style" and args.style_absence_behavior == 'rise-up':
         raise ValueError('"No-Style" mode can not be used with the "rise-up" option.')
     elif args.style_mode == 'objectclass-based' and args.style_absence_behavior == 'fall-down':
         # If any filter is given, add the filter to the query
         if whrs != None:
-            objectclass_falldown_query[0].where_elements = whrs
-        query = str(objectclass_falldown_query)
+            objectclass_falldown_addition.where_elements = whrs
+        selected_styling_addition = objectclass_falldown_addition
     elif args.style_mode == 'property-based' and args.style_absence_behavior == 'fall-down':
         # If any filter is given, add the filter to the query
         if whrs != None:
-            custom_property_falldown_query[0].where_elements = whrs
-        query = str(custom_property_falldown_query)
+            properties_falldown_addition.where_elements = whrs
+        selected_styling_addition = properties_falldown_addition
     elif args.style_mode == 'existing-appearances' and args.style_absence_behavior == 'fall-down':
         # If any filter is given, add the filter to the query
         if whrs != None:
-            existing_app_falldown_query[0].where_elements = whrs
-        query = str(existing_app_falldown_query)
+            existing_app_falldown_addition.where_elements = whrs
+        selected_styling_addition = existing_app_falldown_addition
     elif args.style_mode == 'existing-appearances' and args.style_absence_behavior == 'rise-up':
         raise Exception('"Existing-appearances" mode can not be used with the "rise-up" option.')
     elif args.style_mode == 'objectclass-based' and args.style_absence_behavior == 'rise-up':
         # If any filter is given, add the filter to the query
         if whrs != None:
-            objectclass_riseup_query[0].where_elements = whrs
-        query = str(objectclass_riseup_query)
+            objectclass_riseup_addition.where_elements = whrs
+        selected_styling_addition = objectclass_riseup_addition
     elif args.style_mode == 'property-based' and args.style_absence_behavior == 'rise-up':
         # If any filter is given, add the filter to the query
         if whrs != None:
-            custom_property_riseup_query[0].where_elements = whrs
-        query = str(custom_property_riseup_query)
+            properties_riseup_addition.where_elements = whrs
+        selected_styling_addition = properties_riseup_addition
+
+    # Set the attributes in the following parts considering the relevant arguments.
+    if args.attributes == 'none':
+        print("Info: None of the attributes selected.")
+    elif args.attributes == 'selected':
+        attribute_list = selected_attributes_to_list(args.selected_attributes)
+        attr_joins = JoinElements()
+        for attr in attribute_list:
+            slct_attrs = SelectElements(
+            SelectElement(
+                field = "pro_value",
+                domain_alias = attr,
+                range_alias = attr
+                )
+            )
+            attr_join = JoinElement(
+                inner_query_block = qry_blck_pro_shll,
+                range_alias = attr,
+                condition = attr + ".feature_id = ftr.id AND "+attr+".pro_name = '"+ attr +"'"
+                )
+            attr_joins.add(attr_join)
+            # print("HERE--->:\n", attr_joins)
+        selected_attribute_addition = QueryBlock(
+            name = "selected attribute joins",
+            type_of_effect = "semantic",
+            order_number = 3,
+            select_elements = slct_attrs,
+            join_elements = attr_joins
+            )
+    elif args.attributes == 'all':
+        print("all")
+
+    # print(str(selected_attribute_addition))
+    query = QueryBlocks(krnl_query, selected_styling_addition, selected_attribute_addition)
 
     # Set the name of materialized view that would be used for tiling
     mv_name = "mv_geometries"
     mfpt = max_features_per_tile
+
     #Test
-    # print(str(query))
+    print(str(query))
+    
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, 'geom')
     # print(crt_mv)

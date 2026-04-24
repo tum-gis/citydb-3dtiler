@@ -6,48 +6,6 @@ db_types = ("postgresql", "oracledb")
 
 type_of_effects = ("Ontological", "Spatial", "Semantic", "Temporal", "Visual", "Topological")
 
-# class CompositeQueryBlock:
-#     '''
-#     A "Combined Query Block" is designed to combine the query blocks in a correct order,
-#     and the result must be an executable SQL query.
-#     '''
-#     def __init__(self, name, db_type, query_blocks):
-#         self.name = name
-#         self.db_type = db_type
-#         self.query_blocks = query_blocks
-#     def __repr__(self):
-#         qbs = self.query_blocks
-#         slct_part = "SELECT"
-#         frm_part = "FROM"
-#         join_part = ""
-#         where_part = "WHERE"
-#         group_part = ""
-#         for qb in qbs.query_blocks:
-#             if qb.select_elements != None:
-#                 slct_part += f" {str(qb.select_elements)},"
-#             else:
-#                 pass
-#             if qb.from_elements != None:
-#                 frm_part += f" {str(qb.from_elements)},"
-#             else:
-#                 pass
-#             if qb.join_elements != None:
-#                 join_part += f" {str(qb.join_elements)}"
-#             else:
-#                 pass
-#             if qb.where_elements != None:
-#                 where_part += f" {str(qb.where_elements)}"
-#             else:
-#                 where_part = ""
-#             if qb.group_elements != None:
-#                 group_part += f" {str(qb.group_elements)}"
-#             else:
-#                 pass
-#         slct_part = slct_part[:-1]
-#         frm_part = frm_part[:-1]
-
-#         return f"{slct_part} {frm_part} {join_part} {where_part}"
-
 
 class QueryBlock:
     '''
@@ -110,6 +68,8 @@ class QueryBlocks:
             if qb.select_elements != None:
                 for sl in qb.select_elements:
                     self.select_elements.append(sl)
+    def __add__(self, qb):
+        self.query_blocks.append(qb)
     def __iter__(self):
         return iter(self.query_blocks)
     def __len__(self):
@@ -156,7 +116,7 @@ class CaseElement:
     '''
     A CaseElement can represent a CASE WHEN condition on its own.
     '''
-    def __init__(self, condition, result, else_result=None):
+    def __init__(self, condition=None, result=None, else_result=None):
         if else_result == None:
             self.condition = condition
             self.result = result
@@ -184,7 +144,7 @@ class CaseElements:
         for case in case_elements:
             self.case_elements.append(case)
     def __repr__(self):
-        repr = ''
+        repr = 'CASE  '
         for case in self.case_elements:
             if case.else_result == None:
                 repr += f"{case} \n"
@@ -192,6 +152,7 @@ class CaseElements:
             if case.else_result != None:
                 repr += f"{case} \n"
                 break
+        repr += "  END"
         return repr
 
 
@@ -199,7 +160,7 @@ class SelectElement:
     '''
     A SelectElement can be a CASE-WHEN statement or a simple field.
     '''
-    def __init__(self, select_type, field=None, case=[], domain_alias=None, range_alias=None):
+    def __init__(self, select_type="field", field=None, case=[], domain_alias=None, range_alias=None):
         self.select_type = select_type
         if self.select_type == "field":
             self.field = field
@@ -214,14 +175,17 @@ class SelectElement:
         else:
             raise ValueError("Select Type must be a field or case.")
     def __repr__(self):
-        rng_als = f" as {self.range_alias}" or ""
+        if self.range_alias is None:
+            rng_als = ""
+        else: 
+            rng_als = f" as {self.range_alias}"
         if self.select_type == "field":
             if self.domain_alias is None:
                 return str(self.field+rng_als)
             elif self.domain_alias is not None:
                 return str(self.domain_alias+"."+self.field+rng_als)
         elif self.select_type == "case":
-            return f"{self.case_elements} {rng_als}"
+            return f"{self.case} {rng_als}"
 
 class SelectElements:
     '''
@@ -299,7 +263,7 @@ class JoinElement:
     '''
     A JoinElement may have another inner query or a simple join.
     '''
-    def __init__(self, join_type, table=None, inner_query_block=None, domain_alias=None, range_alias=None, condition=None):
+    def __init__(self, join_type="left", table=None, inner_query_block=None, domain_alias=None, range_alias=None, condition=None):
         self.join_type = join_type
         self.range_alias = range_alias
         self.condition = condition
@@ -313,9 +277,9 @@ class JoinElement:
             raise ValueError("Join Type can only accept inner query block or table.")
     def __repr__(self):
         if self.inner_query_block == []:
-            return f"{str(self.join_type).upper()}  JOIN {self.table} as {self.range_alias} ON {self.condition} "
+            return f"{str(self.join_type).upper()} JOIN {self.table} as {self.range_alias} ON {self.condition} "
         elif self.inner_query_block is not None:
-            return f"{str(self.join_type).upper()}  JOIN ({str(self.inner_query_block)}) as {self.range_alias} ON {self.condition} "
+            return f"{str(self.join_type).upper()} JOIN ({str(self.inner_query_block)}) as {self.range_alias} ON {self.condition} "
 
 class JoinElements:
     '''

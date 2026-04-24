@@ -20,7 +20,7 @@ jn_no_material = JoinElement(
 no_styling_select_elements = SelectElements(sl_material_w_no_styling)
 no_styling_join_elements = JoinElements(jn_no_material)
 
-not_styling_addition = QueryBlock(
+no_styling_addition = QueryBlock(
     name = "material_w_no_style", 
     type_of_effect = "Visual",
     order_number =  2, 
@@ -28,7 +28,8 @@ not_styling_addition = QueryBlock(
     join_elements=no_styling_join_elements
     )
 
-no_style_query = QueryBlocks(krnl_query, not_styling_addition)
+# Removed du to the compllexity:
+# no_style_query = QueryBlocks(krnl_query, no_styling_addition)
 
 # Necessary Selects and Joins for the Objectclass-based Styling with Fall-Down option
 
@@ -58,7 +59,8 @@ objectclass_falldown_addition = QueryBlock(
     join_elements=objectclass_falldown_join_elements
     )
 
-objectclass_falldown_query = QueryBlocks(krnl_query, objectclass_falldown_addition)
+# Removed due to the complexity
+# objectclass_falldown_query = QueryBlocks(krnl_query, objectclass_falldown_addition)
 
 
 # Necessary Selects, Joins and QueryBlocks for the PROPERTY-BASED Styling with Fall-Down option
@@ -88,7 +90,8 @@ properties_falldown_addition = QueryBlock(
     join_elements=properties_falldown_join_elements
     )
 
-custom_property_falldown_query = QueryBlocks(krnl_query, properties_falldown_addition)
+# Removed due to the complexity:
+# custom_property_falldown_query = QueryBlocks(krnl_query, properties_falldown_addition)
 
 # Necessary Selects, Joins and QueryBlocks for the EXISTING-APPEARANCES Styling with FALL-DOWN option
 
@@ -116,7 +119,8 @@ existing_app_falldown_addition = QueryBlock(
     join_elements=existing_app_falldown_join_elements
 )
 
-existing_app_falldown_query = QueryBlocks(krnl_query, existing_app_falldown_addition)
+#Removed due to the complexity
+#existing_app_falldown_query = QueryBlocks(krnl_query, existing_app_falldown_addition)
 
 # Necessary Selects, Joins and QueryBlocks for the OBJECTCLASS-BASED Styling with RISE-UP option
 
@@ -138,7 +142,8 @@ objectclass_riseup_addition = QueryBlock(
     join_elements=objectclass_riseup_join_elements
     )
 
-objectclass_riseup_query = QueryBlocks(krnl_query, objectclass_riseup_addition)
+# Removed due to the complexity:
+# objectclass_riseup_query = QueryBlocks(krnl_query, objectclass_riseup_addition)
 
 # Necessary Selects, Joins and QueryBlocks for the PROPERTY-BASED Styling with RISE-UP option
 
@@ -160,4 +165,5 @@ properties_riseup_addition = QueryBlock(
     join_elements=properties_riseup_join_elements
     )
 
-custom_property_riseup_query = QueryBlocks(krnl_query, properties_riseup_addition)
+# Removed due to the complexity
+# custom_property_riseup_query = QueryBlocks(krnl_query, properties_riseup_addition)

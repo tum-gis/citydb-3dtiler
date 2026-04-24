@@ -1,6 +1,10 @@
 import subprocess
 import os
 
+def selected_attributes_to_list(selected_attributes):
+    attributes_list = selected_attributes.split(",")
+    return attributes_list
+
 def generate_tiles(args, table, geom_column, shaders_column, output_folder=None, max_features_per_tile=None):
     tiler_path = os.path.join(f"{args.tilers_path}", f"{args.tiler_app}")
     if output_folder is None:
@@ -12,6 +16,13 @@ def generate_tiles(args, table, geom_column, shaders_column, output_folder=None,
     mypass = os.environ.copy()
     mypass['PGPASSWORD']=args.db_password
     # print(args.style_mode)
+    attribute_columns = "id,class"
+    if args.attributes == "selected":
+        attr_list = selected_attributes_to_list(args.selected_attributes)
+        addition = ","
+        for attr in attr_list:
+            addition += attr
+        attribute_columns += addition
     command = [
         f"{tiler_path}", 
         "--host", f"{args.db_host}", 
@@ -21,7 +32,7 @@ def generate_tiles(args, table, geom_column, shaders_column, output_folder=None,
         "--shaderscolumn", f"{shaders_column}", 
         "--table", f"{table}",
         "--column", f"{geom_column}", 
-        "--attributecolumns", "id,class", 
+        "--attributecolumns", f"{attribute_columns}", 
         "--output", f"{output_folder}", 
         "--default_alpha_mode", f"{args.transparency}".upper(), 
         "--max_features_per_tile", f"{max_features_per_tile}"
