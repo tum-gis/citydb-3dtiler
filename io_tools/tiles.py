@@ -19,9 +19,9 @@ def generate_tiles(args, table, geom_column, shaders_column, output_folder=None,
     attribute_columns = "id,class"
     if args.attributes == "selected":
         attr_list = selected_attributes_to_list(args.selected_attributes)
-        addition = ","
+        addition = ""
         for attr in attr_list:
-            addition += attr
+            addition += "," + attr
         attribute_columns += addition
     command = [
         f"{tiler_path}", 

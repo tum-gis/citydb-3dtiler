@@ -99,27 +99,27 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
         print("Info: None of the attributes selected.")
     elif args.attributes == 'selected':
         attribute_list = selected_attributes_to_list(args.selected_attributes)
+        attr_slcts = SelectElements()
         attr_joins = JoinElements()
         for attr in attribute_list:
-            slct_attrs = SelectElements(
-            SelectElement(
+            attr_slct = SelectElement(
                 field = "pro_value",
                 domain_alias = attr,
                 range_alias = attr
                 )
-            )
             attr_join = JoinElement(
                 inner_query_block = qry_blck_pro_shll,
                 range_alias = attr,
                 condition = attr + ".feature_id = ftr.id AND "+attr+".pro_name = '"+ attr +"'"
                 )
+            attr_slcts.add(attr_slct)
             attr_joins.add(attr_join)
             # print("HERE--->:\n", attr_joins)
         selected_attribute_addition = QueryBlock(
             name = "selected attribute joins",
             type_of_effect = "semantic",
             order_number = 3,
-            select_elements = slct_attrs,
+            select_elements = attr_slcts,
             join_elements = attr_joins
             )
     elif args.attributes == 'all':

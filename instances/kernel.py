@@ -28,7 +28,7 @@ krnl_selects = SelectElements(
     # Concatenated alternative for the classname and the namespace alias
     # SelectElement(
     #     select_type = "field",
-    #     field = "CONCAT(ns.alias,'__',oc.classname)",
+    #     field = "CONCAT(ns.alias,'_',oc.classname)",
     #     range_alias = "class2")
     )
 krnl_froms = FromElements(

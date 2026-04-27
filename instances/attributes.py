@@ -6,7 +6,7 @@ from classes.sql_blocks import *
 
 # The kernel query that requests the PARENT properties
 # This query will be joined to the outer query to create the exact name
-#   of the property like con__height.con_value (con__height is from parent)
+#   of the property like con_height__con_value (con_height is from parent)
 
 # pro_prnt Selects:
 # pro_krnl.id, pro_krnl.name, ns_krnl.alias
@@ -77,10 +77,10 @@ qry_blck_pro_prnt = QueryBlock(
 pro_shll_fll_nam_case = CaseElements(
         CaseElement(
             condition = "pro.parent_id is NULL",
-            result = "CONCAT(ns_shll.alias, '__', pro.name)"
+            result = "CONCAT(ns_shll.alias, '_', pro.name)"
             ),
         CaseElement(
-            else_result = "CONCAT(pro_prnt.alias, '__', pro_prnt.name, '.', ns_shll.alias, '__', pro.name)"
+            else_result = "CONCAT(pro_prnt.alias, '_', pro_prnt.name, '__', ns_shll.alias, '_', pro.name)"
             )
     )
 
@@ -114,6 +114,10 @@ pro_shll_rlvnt_val_case = CaseElements(
     CaseElement(
         condition = "pro.datatype_id = 14", # Code
         result = "pro.val_string::text"
+        ),
+    CaseElement(
+        condition = "pro.datatype_id = 17", # Measure
+        result = "pro.val_double::text"
         ),
     CaseElement(
         condition = "pro.datatype_id = 701", # Elevation
@@ -175,7 +179,7 @@ pro_shll_jns = JoinElements(
 #   to filter the results.
 pro_shll_whrs = WhereElements(
     WhereElement(
-        condition = "pro.datatype_id in (2,3,4,5,6,7,14,701,702)"
+        condition = "pro.datatype_id in (2,3,4,5,6,7,14,17,701,702)"
         )
     )
 
