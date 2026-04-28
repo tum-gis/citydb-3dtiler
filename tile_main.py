@@ -9,7 +9,7 @@ from io_tools.yaml import read_yaml
 from io_tools.tiles import generate_tiles
 from io_tools.pg_plpgsql import copy_materials, drop_cascade_if_exists
 from io_tools.pg_sql import read_sql_file
-from database.pg_connection import run_sql
+from database.pg_connection import run_sql, get_query_results
 from classes.sql_blocks import *
 from instances.kernel import krnl_query
 from instances.material import *
@@ -98,6 +98,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     if args.attributes == 'none':
         print("Info: None of the attributes selected.")
         query = QueryBlocks(krnl_query, selected_styling_addition)
+        attribute_as_string = None
     elif args.attributes == 'selected':
         attribute_list = selected_attributes_to_list(args.selected_attributes)
         attr_slcts = SelectElements()
@@ -125,11 +126,51 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
             )
         # print(str(selected_attribute_addition))
         query = QueryBlocks(krnl_query, selected_styling_addition, selected_attribute_addition)
+        attribute_as_string = args.selected_attributes
+        attribute_as_string = attribute_as_string.lower()
     elif args.attributes == 'all':
-        print(qry_blck_pro_shll)
+        # print(qry_blck_pro_shll)
         # print(str(selected_attribute_addition))
-        query = QueryBlocks(krnl_query, selected_styling_addition)
-
+        oc_list, oc_sql_fil = read_sql_file("standalone_queries", "get_all_available_objectclasses.sql")
+        result_oc = get_query_results(args, oc_list, name=oc_sql_fil)
+        # print(type(result_oc), '\n --> \n',result_oc)
+        attribute_list = []
+        attr_slcts = SelectElements()
+        attr_joins = JoinElements()
+        for oc in result_oc[0]:
+            pro_set = result_oc[0].get(oc)
+            for pro in pro_set["properties"]:
+                if pro != None:
+                    attribute_list.append(pro)
+        # Remove the redundant values (such as core_name) from the list:
+        print(attribute_list)
+        attribute_list = list(set(attribute_list))
+        # print(attribute_list)
+        for attr in attribute_list:
+            attr_slct = SelectElement(
+                field = "pro_value",
+                domain_alias = attr,
+                range_alias = attr
+                )
+            attr_join = JoinElement(
+                inner_query_block = qry_blck_pro_shll,
+                range_alias = attr,
+                condition = attr + ".feature_id = ftr.id AND "+attr+".pro_name = '"+ attr +"'"
+                )
+            attr_slcts.add(attr_slct)
+            attr_joins.add(attr_join)
+            # print("HERE--->:\n", attr_joins)
+        selected_attribute_addition = QueryBlock(
+            name = "selected attribute joins",
+            type_of_effect = "semantic",
+            order_number = 3,
+            select_elements = attr_slcts,
+            join_elements = attr_joins
+            )
+        # print(str(selected_attribute_addition))
+        query = QueryBlocks(krnl_query, selected_styling_addition, selected_attribute_addition)
+        attribute_as_string = ",".join(attribute_list)
+        attribute_as_string = attribute_as_string.lower()
     
 
     # Set the name of materialized view that would be used for tiling
@@ -144,7 +185,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     # print(crt_mv)
     run_sql(args, crt_mv, name=f"create_materialized_view (function) for {mv_name}")
     run_sql(args, ind_mv, name=f"index_materialized_view (function) for {mv_name}")
-    generate_tiles(args, mv_name, 'geom', 'material_data', output_path, mfpt)
+    generate_tiles(args, mv_name, 'geom', 'material_data', output_path, mfpt, attribute_as_string)
 
 def tile(args):
     # print(args.separate_tilesets)

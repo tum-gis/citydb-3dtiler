@@ -5,7 +5,7 @@ def selected_attributes_to_list(selected_attributes):
     attributes_list = selected_attributes.split(",")
     return attributes_list
 
-def generate_tiles(args, table, geom_column, shaders_column, output_folder=None, max_features_per_tile=None):
+def generate_tiles(args, table, geom_column, shaders_column, output_folder=None, max_features_per_tile=None, attributes=None):
     tiler_path = os.path.join(f"{args.tilers_path}", f"{args.tiler_app}")
     if output_folder is None:
         output_folder = args.output.strip()
@@ -17,12 +17,11 @@ def generate_tiles(args, table, geom_column, shaders_column, output_folder=None,
     mypass['PGPASSWORD']=args.db_password
     # print(args.style_mode)
     attribute_columns = "id,class"
-    if args.attributes == "selected":
-        attr_list = selected_attributes_to_list(args.selected_attributes)
-        addition = ""
-        for attr in attr_list:
-            addition += "," + attr
-        attribute_columns += addition
+
+    # Check if the attributes argument specified or not:
+    if attributes is not None:
+        attribute_columns += ',' + attributes
+
     command = [
         f"{tiler_path}", 
         "--host", f"{args.db_host}", 

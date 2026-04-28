@@ -70,4 +70,6 @@
 - [ ] Vertical polygon-parts of the multipolygons are causing an issue. Check if you can tesselate them as TIN.
 - 24.04.2026
 - [✔] "attributes" branch created
-- [ ] Check th generate_tiles function (not seaparating multiple attributes)
+- [✔] Check th generate_tiles function (not seaparating multiple attributes)
+- 28.04.2026
+- [ ] Check the fetchone command and compare with fetchall. Why it returns still a tuple? Get rid off the result_oc\[0\] variables.
