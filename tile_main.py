@@ -97,6 +97,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     # Set the attributes in the following parts considering the relevant arguments.
     if args.attributes == 'none':
         print("Info: None of the attributes selected.")
+        query = QueryBlocks(krnl_query, selected_styling_addition)
     elif args.attributes == 'selected':
         attribute_list = selected_attributes_to_list(args.selected_attributes)
         attr_slcts = SelectElements()
@@ -122,18 +123,21 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
             select_elements = attr_slcts,
             join_elements = attr_joins
             )
+        # print(str(selected_attribute_addition))
+        query = QueryBlocks(krnl_query, selected_styling_addition, selected_attribute_addition)
     elif args.attributes == 'all':
-        print("all")
+        print(qry_blck_pro_shll)
+        # print(str(selected_attribute_addition))
+        query = QueryBlocks(krnl_query, selected_styling_addition)
 
-    # print(str(selected_attribute_addition))
-    query = QueryBlocks(krnl_query, selected_styling_addition, selected_attribute_addition)
+    
 
     # Set the name of materialized view that would be used for tiling
     mv_name = "mv_geometries"
     mfpt = max_features_per_tile
 
     #Test
-    print(str(query))
+    # print(str(query))
     
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, 'geom')
