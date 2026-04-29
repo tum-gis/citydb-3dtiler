@@ -86,7 +86,7 @@ class QueryBlocks:
         group_part = ""
         count_group_elements = 0
         for qb in self.query_blocks:
-            if qb.select_elements != None:
+            if qb.select_elements != None or qb.select_elements != "":
                 selection_part += str(qb.select_elements) + ", "
             if qb.from_elements != None:
                 from_part += str(qb.from_elements) + ", "
@@ -94,14 +94,14 @@ class QueryBlocks:
                 join_part += str(qb.join_elements) + " \n"
             if qb.where_elements != None:
                 count_where_elements += 1
-                where_part += str(qb.where_elements) + ", "
+                where_part += str(qb.where_elements) + " AND "
             if qb.group_elements != None:
                 count_group_elements += 1
                 group_part += str(qb.group_elements) + ", "
         selection_part = selection_part[:-2]
         from_part = from_part[:-2]
         if count_where_elements > 0:
-            where_part = "WHERE " + where_part[:-2]
+            where_part = "WHERE " + where_part[:-4]
         if count_group_elements > 0:
             group_part = "GROUP BY " + group_part[:-2]
         return (selection_part + " " + from_part + join_part + where_part + group_part)
@@ -202,7 +202,7 @@ class SelectElements:
         else:
             selection_part = ""
         for slct in self.select_elements:
-            selection_part = selection_part + str(slct) + ", "
+            selection_part += str(slct) + ", "
         selection_part = selection_part[:-2]
         return selection_part
     def __iter__(self):
@@ -298,18 +298,15 @@ class JoinElements:
         self.join_elements.append(join_element)
 
 class WhereElement:
-    def __init__(self, condition=None, operator="", inner_where_elements=[]):
+    def __init__(self, condition=None, operator="and", inner_where_elements=None):
         self.condition = condition
         self.operator = operator
         self.inner_where_elements = inner_where_elements
     def __repr__(self):
-        if self.inner_where_elements == []:
-            whrs = f"{self.condition} {self.operator} "
-        elif self.inner_where_elements != None:
-            if self.operator != "":
-                whrs = "(" + f"{self.inner_where_elements}" + ") " + self.operator
-            else:
-                whrs = "(" + f"{self.inner_where_elements}" + ") "
+        if self.inner_where_elements is None:
+            whrs = f"{self.condition}  {self.operator} "
+        elif self.inner_where_elements is not None:
+            whrs = "(" + f"{self.inner_where_elements}" + ")  " + self.operator + " "
         return whrs
 
 class WhereElements:
@@ -317,13 +314,19 @@ class WhereElements:
         self.where_elements = []
         for whr in where_elements:
             self.where_elements.append(whr)
+    def __iter__(self):
+        return iter(self.where_elements)
     def __repr__(self):
         where_part = ""
         if len(self.where_elements) >= 1:
-            where_part = ""
             for whr in self.where_elements:
-                where_part += f"{whr} "
-            where_part = where_part[:-1]
+                # if whr.inner_where_elements is None:
+                #     where_part += f"{whr.condition}  {whr.operator} "
+                # else:
+                #     where_part += f"{whr.inner_where_elements}  {whr.operator} "
+                where_part += str(whr)
+            # Remove the last operator
+            where_part = where_part[:-4]
         else:
             where_part = ""
         return where_part

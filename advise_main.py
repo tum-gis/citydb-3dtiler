@@ -36,8 +36,10 @@ def advise(args):
                 oc_statistics = get_query_results(args, str(recommended_max_features_per_tile), name=qry_name)
 
                 rmf = oc_statistics[3] # Statistics Order: 0:min, 1:max, 2:avg, 3:mxm_ftr_pr_tl
+                # Remove the null/none values
+                properties_list = [prop for prop in result_oc[0][oc]["properties"] if prop is not None]
                 # Add to the list of the ObjectClasses
-                oc_new = dict(ObjectClass(oc, objectclass_recommendations = int(rmf), properties = result_oc[0][oc]["properties"]))
+                oc_new = dict(ObjectClass(oc, objectclass_recommendations = int(rmf), properties = properties_list))
                 ocs.append(oc_new)
             # Set the Advisement class by considering every objectclasses separately
             adv = Advisement(commandset, max_features=None, objectclasses=ocs)

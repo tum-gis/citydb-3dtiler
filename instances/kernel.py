@@ -59,11 +59,12 @@ krnl_whrs_in = WhereElements(
         operator="OR"
         ),
     WhereElement(
-        condition="st_geometrytype(gmdt.geometry) != 'ST_MultiLineString'")
+        condition="st_geometrytype(gmdt.geometry) != 'ST_GeometryCollection'")
     )
 krnl_whrs = WhereElements(
     WhereElement(
-        inner_where_elements = krnl_whrs_in
+        inner_where_elements = krnl_whrs_in,
+        operator="AND"
         )
     )
 krnl_query = QueryBlock(
