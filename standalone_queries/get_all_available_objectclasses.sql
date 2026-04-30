@@ -19,10 +19,10 @@ FROM
         SELECT 
             oc.classname,
             CASE
-                WHEN NULLIF(CONCAT(ns2.alias, '_', pro2.name), '_') IS NULL
-                    THEN NULLIF(CONCAT(ns.alias, '_', pro.name), '_')
+                WHEN NULLIF(LOWER(CONCAT(ns2.alias, '_', pro2.name)), '_') IS NULL
+                    THEN NULLIF(LOWER(CONCAT(ns.alias, '_', pro.name)), '_')
                 ELSE
-                    CONCAT(ns2.alias, '_', pro2.name, '__', ns.alias, '_', pro.name) 
+                    LOWER(CONCAT(ns2.alias, '_', pro2.name, '__', ns.alias, '_', pro.name))
             END as key
         FROM feature as ftr
         LEFT JOIN objectclass as oc ON

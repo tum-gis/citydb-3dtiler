@@ -56,7 +56,11 @@ krnl_joins = JoinElements(
 krnl_whrs_in = WhereElements(
     WhereElement(
         condition="st_geometrytype(gmdt.geometry) != 'ST_MultiLineString'",
-        operator="OR"
+        operator="AND"
+        ),
+    WhereElement(
+        condition="st_geometrytype(gmdt.geometry) != 'ST_Linestring'",
+        operator="AND"
         ),
     WhereElement(
         condition="st_geometrytype(gmdt.geometry) != 'ST_GeometryCollection'")

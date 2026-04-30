@@ -114,7 +114,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
             attr_join = JoinElement(
                 inner_query_block = qry_blck_pro_shll,
                 range_alias = attr,
-                condition = attr + ".feature_id = ftr.id AND "+attr+".pro_name = '"+ attr +"'"
+                condition = attr + ".feature_id = ftr.id AND LOWER("+attr+".pro_name) = '"+ attr +"'"
                 )
             attr_slcts.add(attr_slct)
             attr_joins.add(attr_join)
@@ -148,7 +148,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
         attr_list = list(set(attribute_list))
         # Remove the None values from the list
         attr_list = list(filter(lambda x: x is not None, attr_list))
-        print("oooo>>>>", attr_list)
+        # print("oooo>>>>", attr_list)
         if len(attr_list) > 0:
             for attr in attr_list:
                 attr_slct = SelectElement(
@@ -159,7 +159,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
                 attr_join = JoinElement(
                     inner_query_block = qry_blck_pro_shll,
                     range_alias = attr,
-                    condition = attr + ".feature_id = ftr.id AND "+attr+".pro_name = '"+ attr +"'"
+                    condition = attr + ".feature_id = ftr.id AND LOWER("+attr+".pro_name) = '"+ attr +"'"
                     )
                 attr_slcts.add(attr_slct)
                 attr_joins.add(attr_join)
