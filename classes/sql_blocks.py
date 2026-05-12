@@ -6,48 +6,6 @@ db_types = ("postgresql", "oracledb")
 
 type_of_effects = ("Ontological", "Spatial", "Semantic", "Temporal", "Visual", "Topological")
 
-# class CompositeQueryBlock:
-#     '''
-#     A "Combined Query Block" is designed to combine the query blocks in a correct order,
-#     and the result must be an executable SQL query.
-#     '''
-#     def __init__(self, name, db_type, query_blocks):
-#         self.name = name
-#         self.db_type = db_type
-#         self.query_blocks = query_blocks
-#     def __repr__(self):
-#         qbs = self.query_blocks
-#         slct_part = "SELECT"
-#         frm_part = "FROM"
-#         join_part = ""
-#         where_part = "WHERE"
-#         group_part = ""
-#         for qb in qbs.query_blocks:
-#             if qb.select_elements != None:
-#                 slct_part += f" {str(qb.select_elements)},"
-#             else:
-#                 pass
-#             if qb.from_elements != None:
-#                 frm_part += f" {str(qb.from_elements)},"
-#             else:
-#                 pass
-#             if qb.join_elements != None:
-#                 join_part += f" {str(qb.join_elements)}"
-#             else:
-#                 pass
-#             if qb.where_elements != None:
-#                 where_part += f" {str(qb.where_elements)}"
-#             else:
-#                 where_part = ""
-#             if qb.group_elements != None:
-#                 group_part += f" {str(qb.group_elements)}"
-#             else:
-#                 pass
-#         slct_part = slct_part[:-1]
-#         frm_part = frm_part[:-1]
-
-#         return f"{slct_part} {frm_part} {join_part} {where_part}"
-
 
 class QueryBlock:
     '''
@@ -110,6 +68,8 @@ class QueryBlocks:
             if qb.select_elements != None:
                 for sl in qb.select_elements:
                     self.select_elements.append(sl)
+    def __add__(self, qb):
+        self.query_blocks.append(qb)
     def __iter__(self):
         return iter(self.query_blocks)
     def __len__(self):
@@ -126,7 +86,7 @@ class QueryBlocks:
         group_part = ""
         count_group_elements = 0
         for qb in self.query_blocks:
-            if qb.select_elements != None:
+            if qb.select_elements != None or qb.select_elements != "":
                 selection_part += str(qb.select_elements) + ", "
             if qb.from_elements != None:
                 from_part += str(qb.from_elements) + ", "
@@ -134,14 +94,14 @@ class QueryBlocks:
                 join_part += str(qb.join_elements) + " \n"
             if qb.where_elements != None:
                 count_where_elements += 1
-                where_part += str(qb.where_elements) + ", "
+                where_part += str(qb.where_elements) + " AND "
             if qb.group_elements != None:
                 count_group_elements += 1
                 group_part += str(qb.group_elements) + ", "
         selection_part = selection_part[:-2]
         from_part = from_part[:-2]
         if count_where_elements > 0:
-            where_part = "WHERE " + where_part[:-2]
+            where_part = "WHERE " + where_part[:-4]
         if count_group_elements > 0:
             group_part = "GROUP BY " + group_part[:-2]
         return (selection_part + " " + from_part + join_part + where_part + group_part)
@@ -156,7 +116,7 @@ class CaseElement:
     '''
     A CaseElement can represent a CASE WHEN condition on its own.
     '''
-    def __init__(self, condition, result, else_result=None):
+    def __init__(self, condition=None, result=None, else_result=None):
         if else_result == None:
             self.condition = condition
             self.result = result
@@ -184,7 +144,7 @@ class CaseElements:
         for case in case_elements:
             self.case_elements.append(case)
     def __repr__(self):
-        repr = ''
+        repr = 'CASE  '
         for case in self.case_elements:
             if case.else_result == None:
                 repr += f"{case} \n"
@@ -192,6 +152,7 @@ class CaseElements:
             if case.else_result != None:
                 repr += f"{case} \n"
                 break
+        repr += "  END"
         return repr
 
 
@@ -199,29 +160,40 @@ class SelectElement:
     '''
     A SelectElement can be a CASE-WHEN statement or a simple field.
     '''
-    def __init__(self, select_type, field=None, case=[], domain_alias=None, range_alias=None):
+    def __init__(self, select_type="field", field=None, case=[], domain_alias=None, range_alias=None, coalesce=None):
         self.select_type = select_type
         if self.select_type == "field":
             self.field = field
             self.domain_alias = domain_alias
             self.range_alias = range_alias
+            self.coalesce = coalesce
             self.case = []
         elif self.select_type == "case":
             self.case = case
             self.domain_alias = None
             self.range_alias = range_alias
             self.field = None
+            self.coalesce = None
         else:
             raise ValueError("Select Type must be a field or case.")
     def __repr__(self):
-        rng_als = f" as {self.range_alias}" or ""
+        if self.range_alias is None:
+            rng_als = ""
+        else: 
+            rng_als = f" as {self.range_alias}"
         if self.select_type == "field":
             if self.domain_alias is None:
-                return str(self.field+rng_als)
+                if self.coalesce is not None:
+                    return str("COALESCE("+self.field+", '"+self.coalesce+"')"+rng_als)
+                else:
+                    return str(self.field+rng_als)
             elif self.domain_alias is not None:
-                return str(self.domain_alias+"."+self.field+rng_als)
+                if self.coalesce is not None:
+                    return str("COALESCE("+self.domain_alias+"."+self.field+", '"+self.coalesce+"')"+rng_als)
+                else:
+                    return str(self.domain_alias+"."+self.field+rng_als)
         elif self.select_type == "case":
-            return f"{self.case_elements} {rng_als}"
+            return f"{self.case} {rng_als}"
 
 class SelectElements:
     '''
@@ -238,7 +210,7 @@ class SelectElements:
         else:
             selection_part = ""
         for slct in self.select_elements:
-            selection_part = selection_part + str(slct) + ", "
+            selection_part += str(slct) + ", "
         selection_part = selection_part[:-2]
         return selection_part
     def __iter__(self):
@@ -299,7 +271,7 @@ class JoinElement:
     '''
     A JoinElement may have another inner query or a simple join.
     '''
-    def __init__(self, join_type, table=None, inner_query_block=None, domain_alias=None, range_alias=None, condition=None):
+    def __init__(self, join_type="left", table=None, inner_query_block=None, domain_alias=None, range_alias=None, condition=None):
         self.join_type = join_type
         self.range_alias = range_alias
         self.condition = condition
@@ -313,9 +285,9 @@ class JoinElement:
             raise ValueError("Join Type can only accept inner query block or table.")
     def __repr__(self):
         if self.inner_query_block == []:
-            return f"{str(self.join_type).upper()}  JOIN {self.table} as {self.range_alias} ON {self.condition} "
+            return f"{str(self.join_type).upper()} JOIN {self.table} as {self.range_alias} ON {self.condition} "
         elif self.inner_query_block is not None:
-            return f"{str(self.join_type).upper()}  JOIN ({str(self.inner_query_block)}) as {self.range_alias} ON {self.condition} "
+            return f"{str(self.join_type).upper()} JOIN ({str(self.inner_query_block)}) as {self.range_alias} ON {self.condition} "
 
 class JoinElements:
     '''
@@ -334,18 +306,15 @@ class JoinElements:
         self.join_elements.append(join_element)
 
 class WhereElement:
-    def __init__(self, condition=None, operator="", inner_where_elements=[]):
+    def __init__(self, condition=None, operator="and", inner_where_elements=None):
         self.condition = condition
         self.operator = operator
         self.inner_where_elements = inner_where_elements
     def __repr__(self):
-        if self.inner_where_elements == []:
-            whrs = f"{self.condition} {self.operator} "
-        elif self.inner_where_elements != None:
-            if self.operator != "":
-                whrs = "(" + f"{self.inner_where_elements}" + ") " + self.operator
-            else:
-                whrs = "(" + f"{self.inner_where_elements}" + ") "
+        if self.inner_where_elements is None:
+            whrs = f"{self.condition}  {self.operator} "
+        elif self.inner_where_elements is not None:
+            whrs = "(" + f"{self.inner_where_elements}" + ")  " + self.operator + " "
         return whrs
 
 class WhereElements:
@@ -353,13 +322,19 @@ class WhereElements:
         self.where_elements = []
         for whr in where_elements:
             self.where_elements.append(whr)
+    def __iter__(self):
+        return iter(self.where_elements)
     def __repr__(self):
         where_part = ""
         if len(self.where_elements) >= 1:
-            where_part = ""
             for whr in self.where_elements:
-                where_part += f"{whr} "
-            where_part = where_part[:-1]
+                # if whr.inner_where_elements is None:
+                #     where_part += f"{whr.condition}  {whr.operator} "
+                # else:
+                #     where_part += f"{whr.inner_where_elements}  {whr.operator} "
+                where_part += str(whr)
+            # Remove the last operator
+            where_part = where_part[:-4]
         else:
             where_part = ""
         return where_part

@@ -28,7 +28,7 @@ krnl_selects = SelectElements(
     # Concatenated alternative for the classname and the namespace alias
     # SelectElement(
     #     select_type = "field",
-    #     field = "CONCAT(ns.alias,'__',oc.classname)",
+    #     field = "CONCAT(ns.alias,'_',oc.classname)",
     #     range_alias = "class2")
     )
 krnl_froms = FromElements(
@@ -56,14 +56,19 @@ krnl_joins = JoinElements(
 krnl_whrs_in = WhereElements(
     WhereElement(
         condition="st_geometrytype(gmdt.geometry) != 'ST_MultiLineString'",
-        operator="OR"
+        operator="AND"
         ),
     WhereElement(
-        condition="st_geometrytype(gmdt.geometry) != 'ST_MultiLineString'")
+        condition="st_geometrytype(gmdt.geometry) != 'ST_Linestring'",
+        operator="AND"
+        ),
+    WhereElement(
+        condition="st_geometrytype(gmdt.geometry) != 'ST_GeometryCollection'")
     )
 krnl_whrs = WhereElements(
     WhereElement(
-        inner_where_elements = krnl_whrs_in
+        inner_where_elements = krnl_whrs_in,
+        operator="AND"
         )
     )
 krnl_query = QueryBlock(
