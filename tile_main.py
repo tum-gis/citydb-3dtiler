@@ -109,7 +109,8 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
             attr_slct = SelectElement(
                 field = "pro_value",
                 domain_alias = attr,
-                range_alias = attr
+                range_alias = attr,
+                coalesce = '-NA-'
                 )
             attr_join = JoinElement(
                 inner_query_block = qry_blck_pro_shll,
@@ -154,7 +155,8 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
                 attr_slct = SelectElement(
                     field = "pro_value",
                     domain_alias = attr,
-                    range_alias = attr
+                    range_alias = attr,
+                    coalesce = '-NA-'
                     )
                 attr_join = JoinElement(
                     inner_query_block = qry_blck_pro_shll,

@@ -160,18 +160,20 @@ class SelectElement:
     '''
     A SelectElement can be a CASE-WHEN statement or a simple field.
     '''
-    def __init__(self, select_type="field", field=None, case=[], domain_alias=None, range_alias=None):
+    def __init__(self, select_type="field", field=None, case=[], domain_alias=None, range_alias=None, coalesce=None):
         self.select_type = select_type
         if self.select_type == "field":
             self.field = field
             self.domain_alias = domain_alias
             self.range_alias = range_alias
+            self.coalesce = coalesce
             self.case = []
         elif self.select_type == "case":
             self.case = case
             self.domain_alias = None
             self.range_alias = range_alias
             self.field = None
+            self.coalesce = None
         else:
             raise ValueError("Select Type must be a field or case.")
     def __repr__(self):
@@ -181,9 +183,15 @@ class SelectElement:
             rng_als = f" as {self.range_alias}"
         if self.select_type == "field":
             if self.domain_alias is None:
-                return str(self.field+rng_als)
+                if self.coalesce is not None:
+                    return str("COALESCE("+self.field+", '"+self.coalesce+"')"+rng_als)
+                else:
+                    return str(self.field+rng_als)
             elif self.domain_alias is not None:
-                return str(self.domain_alias+"."+self.field+rng_als)
+                if self.coalesce is not None:
+                    return str("COALESCE("+self.domain_alias+"."+self.field+", '"+self.coalesce+"')"+rng_als)
+                else:
+                    return str(self.domain_alias+"."+self.field+rng_als)
         elif self.select_type == "case":
             return f"{self.case} {rng_als}"
 
