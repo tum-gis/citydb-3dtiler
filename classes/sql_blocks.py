@@ -105,12 +105,6 @@ class QueryBlocks:
         if count_group_elements > 0:
             group_part = "GROUP BY " + group_part[:-2]
         return (selection_part + " " + from_part + join_part + where_part + group_part)
-        # First sort the query blocks by using the order_number attribute
-        # sorted_query_blocks = sorted(self.query_blocks, key=operator.attrgetter('order_number'))
-        # series_of_query_blocks = ""
-        # for qb in sorted_query_blocks:
-        #     series_of_query_blocks = series_of_query_blocks + str(qb) + "\n"
-        # return series_of_query_blocks
 
 class CaseElement:
     '''
@@ -160,7 +154,7 @@ class SelectElement:
     '''
     A SelectElement can be a CASE-WHEN statement or a simple field.
     '''
-    def __init__(self, select_type="field", field=None, case=[], domain_alias=None, range_alias=None, coalesce=None):
+    def __init__(self, select_type="field", field=None, case=[], domain_alias=None, range_alias=None, coalesce=None, converter=None):
         self.select_type = select_type
         if self.select_type == "field":
             self.field = field
@@ -168,12 +162,14 @@ class SelectElement:
             self.range_alias = range_alias
             self.coalesce = coalesce
             self.case = []
+            self.converter = converter
         elif self.select_type == "case":
             self.case = case
             self.domain_alias = None
             self.range_alias = range_alias
             self.field = None
             self.coalesce = None
+            self.converter = converter
         else:
             raise ValueError("Select Type must be a field or case.")
     def __repr__(self):
@@ -184,16 +180,26 @@ class SelectElement:
         if self.select_type == "field":
             if self.domain_alias is None:
                 if self.coalesce is not None:
-                    return str("COALESCE("+self.field+", '"+self.coalesce+"')"+rng_als)
+                    # mid_slct = str("COALESCE("+self.field+", '"+self.coalesce+"')")
+                    mid_slct = f"COALESCE({self.field}, '{self.coalesce}')"
                 else:
-                    return str(self.field+rng_als)
+                    # return str(self.field+rng_als)
+                    mid_slct = f"{self.field}"
             elif self.domain_alias is not None:
                 if self.coalesce is not None:
-                    return str("COALESCE("+self.domain_alias+"."+self.field+", '"+self.coalesce+"')"+rng_als)
+                    # return str("COALESCE("+self.domain_alias+"."+self.field+", '"+self.coalesce+"')"+rng_als)
+                    mid_slct = f"COALESCE({self.domain_alias}.{self.field}, '{self.coalesce}')"
                 else:
-                    return str(self.domain_alias+"."+self.field+rng_als)
+                    # return str(self.domain_alias+"."+self.field+rng_als)
+                    mid_slct = f"{self.domain_alias}.{self.field}"
         elif self.select_type == "case":
-            return f"{self.case} {rng_als}"
+            # return f"{self.case} {rng_als}"
+            mid_slct = f"{self.case}"
+        if self.converter is None:
+            slct = mid_slct + rng_als
+        else:
+            slct = f"{self.converter}({mid_slct}) {rng_als}"
+        return slct
 
 class SelectElements:
     '''
@@ -245,7 +251,7 @@ class FromElement:
                 return str(self.table+" as "+self.alias+" \n")
         elif self.inner_query_blocks is not None:
             for qry in self.inner_query_blocks:
-                inners = "("+str(qry)+"),\n"
+                inners = f"( {qry} ) AS {qry.range_alias},\n"
             inners = inners[:-2]
             return inners
 
@@ -360,3 +366,22 @@ class GroupElements:
         else:
             group_part = ""
         return group_part
+
+# Creates an instance 
+class CombinationElement:
+    def __init__(self, name, range_alias, type_of_effect, order_number, domain_query, range_query, type="UNION", is_all=None):
+        self.name = name
+        self.range_alias = range_alias
+        self.type_of_effect = type_of_effect
+        self.order_number = order_number
+        self.domain_query = domain_query
+        self.range_query = range_query
+        self.type = type
+        self.is_all = is_all
+    def __repr__(self):
+        if self.is_all is None or self.is_all is False:
+            cmbntn_trm = f"{self.type}"
+        else:
+            cmbntn_trm = f"{self.type} ALL"
+        
+        return f"{self.domain_query}\n{cmbntn_trm}\n{self.range_query}"

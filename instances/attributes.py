@@ -12,20 +12,21 @@ from classes.sql_blocks import *
 # pro_krnl.id, pro_krnl.name, ns_krnl.alias
 pro_prnt_selects = SelectElements(
     SelectElement(
-        select_type = "field",
         field = "id",
         domain_alias = "pro_krnl"
     ),
     SelectElement(
-        select_type = "field",
         field = "name",
         domain_alias = "pro_krnl"
     ),
     SelectElement(
-        select_type = "field",
         field = "alias",
         domain_alias = "ns_krnl"
-    )
+    ),
+    SelectElement(
+        field = "feature_id",
+        domain_alias = "pro_krnl"
+        )
 )
 
 # property as pro_krnl
