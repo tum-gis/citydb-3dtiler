@@ -103,9 +103,14 @@ pro_shll1_jns = JoinElements(
 
 # Only the interested datatypes (see lines 90-127) have been used 
 #   to filter the results.
+# 2:Boolean, 3:Integer, 4:Double, 5:String, 6:URI, 7:TimeStamp, 
+# 12:Reference, 14:Code, 15:ExternalReference, 17:Measure, 
+# 20:QualifiedArea, 21:QualifiedVolume
+# 19:Occupancy, 102:SensorConnection, 200:GenericAttributeSet, 
+# 700:ConstructionEvent, 701:Elevation, 702:Height, 900:RoomHeight
 pro_shll1_whrs = WhereElements(
     WhereElement(
-        condition = "pro.datatype_id IN (2,3,4,5,6,7,14,17,701,702) AND pro.parent_id IS NOT NULL"
+        condition = "pro.datatype_id IN (2,3,4,5,6,7,12,14,15,17,20,21) AND pro.parent_id IS NOT NULL"
         )
     )
 
@@ -220,7 +225,7 @@ pro_add_jns = JoinElements(
 
 pro_add_whrs = WhereElements(
     WhereElement(
-        condition = "pro.datatype_id IN (2,3,4,5,6,7,14,17,701,702) AND pro.parent_id IS NULL"
+        condition = "pro.datatype_id IN (2,3,4,5,6,7,12,14,15,17,20,21) AND pro.parent_id IS NULL"
         )
     )
 

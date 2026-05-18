@@ -369,6 +369,11 @@ class GroupElements:
 
 # Creates an instance 
 class CombinationElement:
+    '''
+    This class gives the opportunity to combine multiple QueryBlocks as
+    a combination using UNION, INTERSECT and EXCEPT options. To add "ALL" term
+    after the combination method set "is_all" atrribute as true.
+    '''
     def __init__(self, name, range_alias, type_of_effect, order_number, domain_query, range_query, type="UNION", is_all=None):
         self.name = name
         self.range_alias = range_alias

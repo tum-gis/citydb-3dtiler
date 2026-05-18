@@ -15,10 +15,12 @@
 
 ### Advisement Classes (The Classes Used to Generate the Report)
 
+> Original File : "sources/plantuml/classes.puml"
+
 ```puml
 @startuml
 title UML Class Diagram for the Advisement
-footer Last Check : 04.02.2026
+footer Last Check : 18.05.2026
 namespace advs <<Advise>> {
   abstract class MutableMapping {
   }
@@ -57,10 +59,12 @@ namespace advs <<Advise>> {
 
 ### SQL Blocks (The Classes Used to Generate Dynamic SQL Queries)
 
+> Original File : "sources/plantuml/classes.puml"
+
 ```puml
 @startuml
 title UML Class Diagram for the SQL-Blocks
-footer Last Check : 10.02.2026
+footer Last Check : 18.05.2026
 namespace sqlb <<SQL Blocks>> {
   abstract class AbstractQueryBlock {
     name : String
@@ -72,6 +76,18 @@ namespace sqlb <<SQL Blocks>> {
     ---
     __repr__()
   }
+  class CombinationElement {
+  name : String
+  range_alias : String
+  type_of_effect : String
+  order_number : Integer
+  type : CombinationType
+  is_all : Boolean
+  ---
+  __repr__()
+  }
+  CombinationElement -right-> QueryBlock : range_query
+  CombinationElement <-right- QueryBlock : domain_query
   class QueryBlock {
   }
   QueryBlock -up-|> AbstractQueryBlock
@@ -82,7 +98,6 @@ namespace sqlb <<SQL Blocks>> {
   QueryBlock "0..1" o--> "1" GroupElements : group_elements
   class QueryBlocks {
   }
-  QueryBlocks -up-|> AbstractQueryBlock
   QueryBlocks *-right-> QueryBlock
   class CaseElement {
     condition : String
@@ -97,6 +112,7 @@ namespace sqlb <<SQL Blocks>> {
     field : String
     domain_alias : String
     range_alias : String
+    converter : SelectConverterType
     ---
     __repr__()
   }
@@ -188,6 +204,13 @@ namespace sqlb <<SQL Blocks>> {
     Like
     Between
     NotEqual
+  }
+  enum SelectConverterType {
+    to_json
+    to_jsonb
+    to_ascii
+    to_hex
+    to_timestamp
   }
 }
 @enduml
