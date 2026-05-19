@@ -17,10 +17,10 @@ skinparam {
     RoundCorner 14
     Shadowing false
 
-    BackgroundColor white
+    BackgroundColor transparent
 
     ' Title Styling
-    TitleFontSize 36
+    TitleFontSize 24
     TitleFontStyle Bold
 
     ' Class Diagrams
@@ -35,7 +35,6 @@ skinparam {
         'hide circle
         FontSize 16
         FontStyle Bold
-        FontColor black
         BackgroundColor $secondaryColor
         BorderThickness 0.5
         BorderColor Gray
