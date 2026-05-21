@@ -4,26 +4,35 @@ import sys
 # Internal Libraries
 from classes.sql_blocks import *
 
-krnl_selects = SelectElements(
-    SelectElement(
+krnl_slct_gmtr_clmn = SelectElement(
         select_type = "field", 
         field = "gmdt.geometry", 
-        range_alias="geom"),
-    SelectElement(
+        range_alias="geom")
+
+krnl_slct_objc_clmn = SelectElement(
         select_type = "field", 
         field = "objectid", 
         domain_alias="ftr", 
-        range_alias="id"),
-    SelectElement(
+        range_alias="id")
+
+krnl_slct_clss_clmn = SelectElement(
         select_type = "field", 
         field = "classname", 
         domain_alias="oc", 
-        range_alias="class"),
-    SelectElement(
+        range_alias="class")
+
+krnl_slct_nmsp_clmn = SelectElement(
         select_type = "field", 
         field = "alias",
         domain_alias = "ns",
-        range_alias = "ns"),
+        range_alias = "ns")
+
+
+krnl_selects = SelectElements(
+    krnl_slct_gmtr_clmn,
+    krnl_slct_objc_clmn,
+    krnl_slct_clss_clmn,
+    krnl_slct_nmsp_clmn,
     distinct_on = "gmdt.id" #,
     # Concatenated alternative for the classname and the namespace alias
     # SelectElement(

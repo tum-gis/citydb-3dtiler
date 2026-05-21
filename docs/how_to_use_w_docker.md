@@ -186,7 +186,7 @@ Generate 3DTiles using the default configuration by typing the following command
     ??? example "Advise Arguments"
         --help </br>
         --consider-thematic-features (default: False) </br>
-        --output-file (default: advise.yml)
+        --output-file (default: advice.yml)
     tile
     ??? example "Tile Arguments"
         --help </br>

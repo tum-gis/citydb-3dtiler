@@ -1,11 +1,143 @@
 # Documents for the Developers
 
-## Development Process (Available Commands and Planned Commands)
+## Functionality Matrix
 
-<figure style="width:%100;text-align: center;">
+Following Diagram show the implemented and planned functionality of the citydb3dtiler application.
+
+<!-- <figure style="width:%100;text-align: center;">
   <img src="../images/cli_command_options_and_arguments_design_for_docs.drawio.svg" alt="Usage" style="border:3px solid #005293">
   <figcaption>Using the Application (Semi-transparent sketched boxes indicate features that have not yet been implemented.)</figcaption>
-</figure>
+</figure> -->
+
+<!--
+!include https://raw.githubusercontent.com/tum-gis/citydb-3dtiler/main/docs/card-style.puml
+-->
+
+```puml
+@startmindmap
+
+title citydb-3dtiler Functionality Matrix
+
+right header
+<font color=indianred size=12><b>Last Edit : 19.05.2026</b></font>
+endheader
+
+*[#lightgray] <&terminal> citydb-3dtiler
+
+**[#darkseagreen] <&medical-cross> --help / -h
+
+**_ database connection arguments group ---->
+***[#lightyellow] <&spreadsheet> --db-host / -H
+***[#lightyellow] <&spreadsheet> --db-port / -P
+***[#lightyellow] <&spreadsheet> --db-name / -d
+***[#lightyellow] <&spreadsheet> --db-schema / -S
+***[#lightyellow] <&spreadsheet> --db-username / -u
+***[#lightyellow] <&spreadsheet> --db-password / -p
+
+**_ <font color=gray><s>filter arguments</s></font>
+***[#navajowhite] <font color=gray><s>--type-name / -t</s></font>
+***[#navajowhite] <font color=gray><s>--bbox / -b</s></font>
+***[#navajowhite] <font color=gray><s>--id / -i</s></font>
+***[#navajowhite] <font color=gray><s>--bbox-mode</s></font>
+***[#navajowhite] <font color=gray><s>--limit</s></font>
+***[#navajowhite] <font color=gray><s>--start-index</s></font>
+
+**[#burlywood] <&cog> --tiler-app
+***_ <&star> pg2b3dm
+***_ <font color=gray><s>i3dmExport, py3dtiles</s></font>
+
+**[#burlywood] <&cog> --tilers-path
+***_ default: tiler_app
+***_ any-other-directory
+
+**[#salmon] <&layers> separate-tilesets
+***_ <&star> objectclass
+***_ <font color=gray><s>namespace</s></font>
+
+**[#skyblue] <&magnifying-glass> advise
+***[#darkseagreen] <&medical-cross> --help / -h
+***[#burlywood] <&cog> --output-file / -o
+****_ <&star> advice.yml
+****_ any-other-file-name
+
+**[#skyblue] <&grid-two-up> tile
+***[#darkseagreen] <&medical-cross> --help / -h
+***[#burlywood] <&cog> --style-mode
+****_ existing-appearances
+****_ property-based
+****_ <&star> objectclass-based
+****_ no-style
+
+***[#burlywood] <&cog> --style-absence-behavior
+****_ <&star> fall-down
+****_ rise-up
+
+***[#burlywood] <&cog> --transparency
+****_ blend
+****_ mask
+****_ <&star> opaque
+
+***[#burlywood] <&cog> --output-folder / -o
+****_ <&star> /shared
+****_ any-other-directory
+
+***[#burlywood] <&cog> --custom-style
+****_ <&star> materials_for_features.csv
+****_ any-other-copy-of-csv-file
+
+***[#darkturquoise] <&list> --attributes
+****_ <&star> none
+****_ selected
+****_ all
+
+***[#darkturquoise] <&list> --selected-attributes
+****_ <&info> comma,separated,list,of,attributes
+****_ <&info> check the <b>advice.yml</b> file
+
+***[#darkturquoise] <&list> --attribute-structure
+****_ <&star> flat
+****_ nested
+
+***[#application] <&elevator> <font color=gray><s>--vertical-offset</s></font>
+****_ <&star> <font color=gray><s>0</s></font>
+****_ <font color=gray><s>any-metric-value</s></font>
+
+***[#khaki] <&beaker> <font color=gray><s>--3dtiles-version</s></font>
+****_ <font color=gray><s>2.0</s></font>
+****_ <&star> <font color=gray><s>1.1</s></font>
+****_ <font color=gray><s>1.0</s></font>
+
+***[#thistle] <&eyedropper> <font color=gray><s>--lod</s></font>
+****_ <font color=gray><s>lod0</s></font>
+****_ <font color=gray><s>lod1</s></font>
+****_ <font color=gray><s>lod2</s></font>
+****_ <&star> <font color=gray><s>lod3</s></font>
+****_ <font color=gray><s>all-available</s></font>
+
+***[#thistle] <&eyedropper> <font color=gray><s>--lod-absence-behavior</s></font>
+****_ <&star> <font color=gray><s>fall-down</s></font>
+****_ <font color=gray><s>rise-up</s></font>
+
+***[#lightsteelblue] <&share-boxed> <font color=gray><s>--ignore-thematic-surfaces</s></font>
+****_ <&star> <font color=gray><s>false</s></font>
+****_ <font color=gray><s>true</s></font>
+
+***[#lightsteelblue] <&puzzle-piece> <font color=gray><s>--aggregate-thematic-surfaces</s></font>
+****_ <&star> <font color=gray><s>false</s></font>
+****_ <font color=gray><s>true</s></font>
+
+***[#lightsteelblue] <&chevron-right> <font color=gray><s>--join-thematic-surface-properties</s></font>
+****_ <&star> <font color=gray><s>false</s></font>
+****_ <font color=gray><s>true</s></font>
+
+
+legend left
+Legend:
+  <&star> : Default Option/Entry
+  <font color=gray><s>Striked Out</s></font> : Not implemented yet
+endlegend
+@endmindmap
+```
 
 ## UML Class Diagrams
 
@@ -15,10 +147,11 @@
 
 ### Advisement Classes (The Classes Used to Generate the Report)
 
+
 ```puml
 @startuml
 title UML Class Diagram for the Advisement
-footer Last Check : 04.02.2026
+footer Last Check : 18.05.2026
 namespace advs <<Advise>> {
   abstract class MutableMapping {
   }
@@ -57,10 +190,20 @@ namespace advs <<Advise>> {
 
 ### SQL Blocks (The Classes Used to Generate Dynamic SQL Queries)
 
+<!-- Original File : "sources/plantuml/classes.puml" -->
+
 ```puml
 @startuml
-title UML Class Diagram for the SQL-Blocks
-footer Last Check : 10.02.2026
+title UML Class Diagram 
+header
+<font color=indianred size=12><b>Last Check : 18.05.2026</b></font>
+endheader
+'footer
+'<font color=blue size=9>24.11.2025</font>
+'endfooter
+
+'!include card-style.puml
+
 namespace sqlb <<SQL Blocks>> {
   abstract class AbstractQueryBlock {
     name : String
@@ -72,6 +215,18 @@ namespace sqlb <<SQL Blocks>> {
     ---
     __repr__()
   }
+  class CombinationElement {
+  name : String
+  range_alias : String
+  type_of_effect : String
+  order_number : Integer
+  type : CombinationType
+  is_all : Boolean
+  ---
+  __repr__()
+  }
+  CombinationElement -right-> QueryBlock : range_query
+  CombinationElement <-right- QueryBlock : domain_query
   class QueryBlock {
   }
   QueryBlock -up-|> AbstractQueryBlock
@@ -82,7 +237,6 @@ namespace sqlb <<SQL Blocks>> {
   QueryBlock "0..1" o--> "1" GroupElements : group_elements
   class QueryBlocks {
   }
-  QueryBlocks -up-|> AbstractQueryBlock
   QueryBlocks *-right-> QueryBlock
   class CaseElement {
     condition : String
@@ -97,11 +251,13 @@ namespace sqlb <<SQL Blocks>> {
     field : String
     domain_alias : String
     range_alias : String
+    converter : SelectConverterType
     ---
     __repr__()
   }
   SelectElement "*" o--> "0..1" CaseElements : case
   class SelectElements{
+    distinct_on : String
     ---
     __repr__()
     __iter__()
@@ -188,6 +344,13 @@ namespace sqlb <<SQL Blocks>> {
     Like
     Between
     NotEqual
+  }
+  enum SelectConverterType {
+    to_json
+    to_jsonb
+    to_ascii
+    to_hex
+    to_timestamp
   }
 }
 @enduml

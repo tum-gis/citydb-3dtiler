@@ -14,6 +14,7 @@ from classes.sql_blocks import *
 from instances.kernel import krnl_query
 from instances.material import *
 from instances.attributes import qry_blck_pro_shll, pro_prnt_selects, qry_blck_pro_prnt # QueryBlock of the Shell query of Joins
+from instances.nested_attributes import qry_blck_pro_nstd_shll1, qry_blck_pro_nstd_shll2, qry_blck_pro_nstd_add, cmb_pro_nstd
 from database.pg_connection import create_materialized_view, index_materialized_view, get_query_results, run_sql
 from default_paths import get_base_path, get_shared_folder_path
 
@@ -54,8 +55,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     run_sql(args, crt_vw_mat_pro, name= crt_vw_mat_pro_fl_nm)
     crt_vw_mat_pro_mtchs, crt_vw_mat_pro_mtchs_fl_nm = read_sql_file("standalone_queries", "vw_material_by_properties_matches.sql")
     run_sql(args, crt_vw_mat_pro_mtchs, name=crt_vw_mat_pro_mtchs_fl_nm)
-    crt_vw_mat_exstng, crt_vw_mat_exstng_fl_nm = read_sql_file("standalone_queries",
-                                                                     "vw_material_as_existing_app.sql")
+    crt_vw_mat_exstng, crt_vw_mat_exstng_fl_nm = read_sql_file("standalone_queries", "vw_material_as_existing_app.sql")
     run_sql(args, crt_vw_mat_exstng, name=crt_vw_mat_exstng_fl_nm)
 
     # No
@@ -96,6 +96,11 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
             properties_riseup_addition.where_elements = whrs
         selected_styling_addition = properties_riseup_addition
 
+    if args.vertical_offset != "0.0":
+        offs = float(args.vertical_offset)
+        # The first element in the SelectElements is geometry col. in kernel query.
+        krnl_query.select_elements[0].field = f"st_translate(gmdt.geometry, 0, 0, {offs})"
+
     # Set the attributes in the following parts considering the relevant arguments.
     if args.attributes == 'none':
         print("(info): None of the attributes selected.")
@@ -103,55 +108,11 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
         attribute_as_string = None
     elif args.attributes == 'selected':
         attribute_list = selected_attributes_to_list(args.selected_attributes)
-        attr_slcts = SelectElements()
-        attr_joins = JoinElements()
-        for attr in attribute_list:
-            attr_slct = SelectElement(
-                field = "pro_value",
-                domain_alias = attr,
-                range_alias = attr,
-                coalesce = '-NA-'
-                )
-            attr_join = JoinElement(
-                inner_query_block = qry_blck_pro_shll,
-                range_alias = attr,
-                condition = attr + ".feature_id = ftr.id AND LOWER("+attr+".pro_name) = '"+ attr +"'"
-                )
-            attr_slcts.add(attr_slct)
-            attr_joins.add(attr_join)
-            # print("HERE--->:\n", attr_joins)
-        selected_attribute_addition = QueryBlock(
-            name = "selected attribute joins",
-            type_of_effect = "semantic",
-            order_number = 3,
-            select_elements = attr_slcts,
-            join_elements = attr_joins
-            )
-        # print(str(selected_attribute_addition))
-        query = QueryBlocks(krnl_query, selected_styling_addition, selected_attribute_addition)
-        attribute_as_string = args.selected_attributes
-        attribute_as_string = attribute_as_string.lower()
-    elif args.attributes == 'all':
-        # print(qry_blck_pro_shll)
-        # print(str(selected_attribute_addition))
-        # oc_list, oc_sql_fil = read_sql_file("standalone_queries", "get_all_available_objectclasses.sql")
-        # result_oc = get_query_results(args, oc_list, name=oc_sql_fil)
-        # print(type(result_oc), '\n --> \n',result_oc)
-        # attribute_list = []
-        attr_slcts = SelectElements()
-        attr_joins = JoinElements()
-        # for oc in result_oc[0]:
-        #     pro_set = result_oc[0].get(oc)
-        #     for pro in pro_set["properties"]:
-        #         if pro != None:
-        #             attribute_list.append(pro)
-        # Remove the redundant values (such as core_name) from the list:
-        attr_list = list(set(attribute_list))
-        # Remove the None values from the list
-        attr_list = list(filter(lambda x: x is not None, attr_list))
-        # print("oooo>>>>", attr_list)
-        if len(attr_list) > 0:
-            for attr in attr_list:
+        # Following Queries will be used for the flat structure option
+        if args.attribute_structure == 'flat':
+            attr_slcts = SelectElements()
+            attr_joins = JoinElements()
+            for attr in attribute_list:
                 attr_slct = SelectElement(
                     field = "pro_value",
                     domain_alias = attr,
@@ -173,10 +134,97 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
                 select_elements = attr_slcts,
                 join_elements = attr_joins
                 )
-            # print(krnl_query.where_elements)
             query = QueryBlocks(krnl_query, selected_styling_addition, selected_attribute_addition)
-            attribute_as_string = ",".join(attr_list)
+            attribute_as_string = args.selected_attributes
             attribute_as_string = attribute_as_string.lower()
+        elif args.attribute_structure == 'nested':
+            attr_slcts = SelectElements()
+            attr_joins = JoinElements()
+            for attr in attribute_list:
+                attr_slct = SelectElement(
+                    field = "pro_value",
+                    domain_alias = attr,
+                    range_alias = attr,
+                    coalesce = "{}"
+                    )
+                attr_join = JoinElement(
+                    inner_query_block = cmb_pro_nstd,
+                    range_alias = attr,
+                    condition = attr + ".feature_id = ftr.id AND LOWER("+attr+".pro_name) = '"+ attr +"'"
+                    )
+                attr_slcts.add(attr_slct)
+                attr_joins.add(attr_join)
+                # print("HERE--->:\n", attr_joins)
+            selected_attribute_addition_as_nested = QueryBlock(
+                name = "selected attribute joins as nested",
+                type_of_effect = "semantic",
+                order_number = 3,
+                select_elements = attr_slcts,
+                join_elements = attr_joins
+                )
+            query = QueryBlocks(krnl_query, selected_styling_addition, selected_attribute_addition_as_nested)
+            attribute_as_string = args.selected_attributes
+            attribute_as_string = attribute_as_string.lower()
+            # print(cmb_pro_nstd)
+
+    elif args.attributes == 'all':
+        attr_slcts = SelectElements()
+        attr_joins = JoinElements()
+        # Remove the redundant values (such as core_name) from the list:
+        attr_list = list(set(attribute_list))
+        # Remove the None values from the list
+        attr_list = list(filter(lambda x: x is not None, attr_list))
+        if len(attr_list) > 0:
+            if args.attribute_structure == 'flat':
+                for attr in attr_list:
+                    attr_slct = SelectElement(
+                        field = "pro_value",
+                        domain_alias = attr,
+                        range_alias = attr,
+                        coalesce = '-NA-'
+                        )
+                    attr_join = JoinElement(
+                        inner_query_block = qry_blck_pro_shll,
+                        range_alias = attr,
+                        condition = attr + ".feature_id = ftr.id AND LOWER("+attr+".pro_name) = '"+ attr +"'"
+                        )
+                    attr_slcts.add(attr_slct)
+                    attr_joins.add(attr_join)
+                all_attribute_addition = QueryBlock(
+                    name = "all attribute joins",
+                    type_of_effect = "semantic",
+                    order_number = 3,
+                    select_elements = attr_slcts,
+                    join_elements = attr_joins
+                    )
+                query = QueryBlocks(krnl_query, selected_styling_addition, all_attribute_addition)
+                attribute_as_string = ",".join(attr_list)
+                attribute_as_string = attribute_as_string.lower()
+            elif args.attribute_structure == 'nested':
+                for attr in attr_list:
+                    attr_slct = SelectElement(
+                        field = "pro_value",
+                        domain_alias = attr,
+                        range_alias = attr,
+                        coalesce = '{}'
+                        )
+                    attr_join = JoinElement(
+                        inner_query_block = cmb_pro_nstd,
+                        range_alias = attr,
+                        condition = attr + ".feature_id = ftr.id AND LOWER("+attr+".pro_name) = '"+ attr +"'"
+                        )
+                    attr_slcts.add(attr_slct)
+                    attr_joins.add(attr_join)
+                all_attribute_addition_as_nested = QueryBlock(
+                    name = "all attribute joins",
+                    type_of_effect = "semantic",
+                    order_number = 3,
+                    select_elements = attr_slcts,
+                    join_elements = attr_joins
+                    )
+                query = QueryBlocks(krnl_query, selected_styling_addition, all_attribute_addition_as_nested)
+                attribute_as_string = ",".join(attr_list)
+                attribute_as_string = attribute_as_string.lower()
         else:
             query = QueryBlocks(krnl_query, selected_styling_addition)
             attribute_as_string = None
@@ -187,7 +235,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     mfpt = max_features_per_tile
 
     #Test
-    print("--->", query)
+    # print("--->", query)
     
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, 'geom')
@@ -197,7 +245,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     generate_tiles(args, mv_name, 'geom', 'material_data', output_path, mfpt, attribute_as_string)
 
 def summarize_advice(args):
-    advices = read_yaml(get_shared_folder_path(), "advise.yml")
+    advices = read_yaml(get_shared_folder_path(), "advice.yml")
     objectclasses = advices["objectclasses"]
     mx_ftr_pr_tl = advices["max_features"]
     oc_attrs = []
@@ -211,7 +259,7 @@ def tile(args):
     # print(args.separate_tilesets)
     if args.separate_tilesets is not None:
         if args.separate_tilesets == "objectclass":
-            # advises = read_yaml(get_shared_folder_path(), "advise.yml")
+            # advises = read_yaml(get_shared_folder_path(), "advice.yml")
             # objectclasses = advises["objectclasses"]
             advice_summary = summarize_advice(args)
             objectclasses = advice_summary["objectclasses"]

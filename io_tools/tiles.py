@@ -22,6 +22,11 @@ def generate_tiles(args, table, geom_column, shaders_column, output_folder=None,
     if attributes is not None:
         attribute_columns += ',' + attributes
 
+    if args.tiles_version == "1.0":
+        implicit_tiling_option = "false"
+    else:
+        implicit_tiling_option = "true"
+
     command = [
         f"{tiler_path}", 
         "--host", f"{args.db_host}", 
@@ -34,7 +39,8 @@ def generate_tiles(args, table, geom_column, shaders_column, output_folder=None,
         "--attributecolumns", f"{attribute_columns}", 
         "--output", f"{output_folder}", 
         "--default_alpha_mode", f"{args.transparency}".upper(), 
-        "--max_features_per_tile", f"{max_features_per_tile}"
+        "--max_features_per_tile", f"{max_features_per_tile}",
+        "--use_implicit_tiling", f"{implicit_tiling_option}"
     ]
     # print(command)
     # Run the command set above
