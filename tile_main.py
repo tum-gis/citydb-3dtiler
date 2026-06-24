@@ -229,6 +229,13 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
             query = QueryBlocks(krnl_query, selected_styling_addition)
             attribute_as_string = None
     
+    # Add the filtering options
+    if args.limit is not None or args.start_index is not None:
+        new_limit = LimOffElement(count=args.limit)
+        new_offset = LimOffElement(type="OFFSET", count=args.start_index)
+        new_limoff = LimOffElements(new_limit, new_offset)
+        krnl_query.limoff_elements = new_limoff
+        print(krnl_query)
 
     # Set the name of materialized view that would be used for tiling
     mv_name = "mv_geometries"
@@ -242,7 +249,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     # print(crt_mv)
     run_sql(args, crt_mv, name=f"create_materialized_view (function) for {mv_name}")
     run_sql(args, ind_mv, name=f"index_materialized_view (function) for {mv_name}")
-    generate_tiles(args, mv_name, 'geom', 'material_data', output_path, mfpt, attribute_as_string)
+    # generate_tiles(args, mv_name, 'geom', 'material_data', output_path, mfpt, attribute_as_string)
 
 def summarize_advice(args):
     advices = read_yaml(get_shared_folder_path(), "advice.yml")
