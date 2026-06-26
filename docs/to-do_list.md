@@ -73,3 +73,5 @@
 - [✔] Check th generate_tiles function (not seaparating multiple attributes)
 - 28.04.2026
 - [ ] Check the fetchone command and compare with fetchall. Why it returns still a tuple? Get rid off the result_oc\[0\] variables.
+- 26.06.2026
+- [ ] Objectclassnames must be stored with the namespaces. After adapting the namespace aliases, the "type-name" option in the filtering arguments must support the namespaces.
