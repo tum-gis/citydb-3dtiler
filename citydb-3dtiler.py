@@ -61,6 +61,8 @@ def main():
     fltr_group = parser.add_argument_group("filter-options")
     fltr_group.add_argument("--limit", metavar="Limit", help="Specify a limit number to reduce the selected features.", type=int)
     fltr_group.add_argument("--start-index", metavar="Start Index", help="Specify the starting index (Offset) of the selected features.", type=int, default=0)
+    fltr_group.add_argument("-i", "--id", metavar="ID Number(s)", help="ID number of a specific feature or ID numbers of a bunch of features. Use comma as id number separator for multiple inputs and do not add space character between the id numbers (i.e. --id 9876,1234,8765,2345).")
+    fltr_group.add_argument("-t", "--type-name", metavar="Type Name(s) / Objectclasses", help="Type name of the features or a set of type names (aka ObjectClass names). Use comma as TypeName sparator for multiple inputs and do not add pace character between the type names(i.e. --type-name WallSurface,RoofSurfaceSurface,GroundSurface).")
 
     # Time to parse the arguments
     args = parser.parse_args()

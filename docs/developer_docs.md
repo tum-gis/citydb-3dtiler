@@ -19,7 +19,7 @@ Following Diagram show the implemented and planned functionality of the citydb3d
 title citydb-3dtiler Functionality Matrix
 
 right header
-<font color=indianred size=12><b>Last Edit : 19.05.2026</b></font>
+<font color=indianred size=12><b>Last Edit : 26.06.2026</b></font>
 endheader
 
 *[#lightgray] <&terminal> citydb-3dtiler
@@ -34,13 +34,13 @@ endheader
 ***[#lightyellow] <&spreadsheet> --db-username / -u
 ***[#lightyellow] <&spreadsheet> --db-password / -p
 
-**_ <font color=gray><s>filter arguments</s></font>
-***[#navajowhite] <font color=gray><s>--type-name / -t</s></font>
+**_ filter arguments
+***[#navajowhite] --type-name / -t
 ***[#navajowhite] <font color=gray><s>--bbox / -b</s></font>
-***[#navajowhite] <font color=gray><s>--id / -i</s></font>
+***[#navajowhite] --id / -i
 ***[#navajowhite] <font color=gray><s>--bbox-mode</s></font>
-***[#navajowhite] <font color=gray><s>--limit</s></font>
-***[#navajowhite] <font color=gray><s>--start-index</s></font>
+***[#navajowhite] --limit
+***[#navajowhite] --start-index
 
 **[#burlywood] <&cog> --tiler-app
 ***_ <&star> pg2b3dm
@@ -98,14 +98,14 @@ endheader
 ****_ <&star> flat
 ****_ nested
 
-***[#application] <&elevator> <font color=gray><s>--vertical-offset</s></font>
-****_ <&star> <font color=gray><s>0</s></font>
-****_ <font color=gray><s>any-metric-value</s></font>
+***[#application] <&elevator> --vertical-offset
+****_ <&star> 0
+****_ any-metric-value
 
-***[#khaki] <&beaker> <font color=gray><s>--3dtiles-version</s></font>
+***[#khaki] <&beaker> --3dtiles-version
 ****_ <font color=gray><s>2.0</s></font>
-****_ <&star> <font color=gray><s>1.1</s></font>
-****_ <font color=gray><s>1.0</s></font>
+****_ <&star> 1.1
+****_ 1.0
 
 ***[#thistle] <&eyedropper> <font color=gray><s>--lod</s></font>
 ****_ <font color=gray><s>lod0</s></font>

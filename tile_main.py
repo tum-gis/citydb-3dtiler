@@ -230,12 +230,37 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
             attribute_as_string = None
     
     # Add the filtering options
+    # if limit & offset (start-index) 
     if args.limit is not None or args.start_index is not None:
         new_limit = LimOffElement(count=args.limit)
         new_offset = LimOffElement(type="OFFSET", count=args.start_index)
         new_limoff = LimOffElements(new_limit, new_offset)
         krnl_query.limoff_elements = new_limoff
-        print(krnl_query)
+        # print(krnl_query)
+
+    if args.id is not None:
+        if args.id.count(",")  == 0:
+            new_ids = WhereElement(condition=f"ftr.objectid = '{args.id}'")
+        elif args.id.count(",") >= 1:
+            setof_ids = []
+            for nid in args.id.split(","):
+                setof_ids.append(nid)
+            # print(setof_ids)
+            new_ids = WhereElement(condition=f"ftr.objectid IN {tuple(setof_ids)}")
+        krnl_query.where_elements.add(new_ids)
+        
+
+    if args.type_name is not None:
+        if args.type_name.count(",") == 0:
+            new_type_names = WhereElement(condition=f"oc.classname = '{args.type_name}'")
+        elif args.type_name.count(",") >= 1:
+            setof_type_names = []
+            for typ in args.type_name.split(","):
+                setof_type_names.append(typ.lower())
+            new_type_names = WhereElement(condition=f"LOWER(oc.classname) IN {tuple(setof_type_names)}")
+        krnl_query.where_elements.add(new_type_names)
+
+    # print(krnl_query)
 
     # Set the name of materialized view that would be used for tiling
     mv_name = "mv_geometries"
@@ -249,7 +274,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     # print(crt_mv)
     run_sql(args, crt_mv, name=f"create_materialized_view (function) for {mv_name}")
     run_sql(args, ind_mv, name=f"index_materialized_view (function) for {mv_name}")
-    # generate_tiles(args, mv_name, 'geom', 'material_data', output_path, mfpt, attribute_as_string)
+    generate_tiles(args, mv_name, 'geom', 'material_data', output_path, mfpt, attribute_as_string)
 
 def summarize_advice(args):
     advices = read_yaml(get_shared_folder_path(), "advice.yml")
