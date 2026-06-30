@@ -30,11 +30,12 @@ class TransformedDict(MutableMapping):
         return key
 
 class Advisement(TransformedDict):
-    def __init__(self, commandset, max_features=None, objectclasses=None):
+    def __init__(self, commandset, max_features=None, objectclasses=None, crs_code=None):
         super().__init__()
         self.store["commandset"] = commandset
         self.store["max_features"] = max_features
         self.store["objectclasses"] = objectclasses
+        self.store["used_crs_code"] = crs_code
     def _keytransform(self, key):
         return key.lower()
 

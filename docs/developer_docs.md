@@ -19,7 +19,7 @@ Following Diagram show the implemented and planned functionality of the citydb3d
 title citydb-3dtiler Functionality Matrix
 
 right header
-<font color=indianred size=12><b>Last Edit : 26.06.2026</b></font>
+<font color=indianred size=12><b>Last Edit : 30.06.2026</b></font>
 endheader
 
 *[#lightgray] <&terminal> citydb-3dtiler
@@ -36,9 +36,14 @@ endheader
 
 **_ filter arguments
 ***[#navajowhite] --type-name / -t
-***[#navajowhite] <font color=gray><s>--bbox / -b</s></font>
+***[#navajowhite] --bbox / -b
+****_ MinX,MinY,MaxX,MaxY[,SRID]
 ***[#navajowhite] --id / -i
-***[#navajowhite] <font color=gray><s>--bbox-mode</s></font>
+***[#navajowhite] --bbox-mode
+****_ <&star> intersects
+****_ intersects-precise
+****_ contains
+****_ contains-precise
 ***[#navajowhite] --limit
 ***[#navajowhite] --start-index
 
@@ -145,13 +150,21 @@ endlegend
 !include https://raw.githubusercontent.com/tum-gis/citydb-3dtiler/main/docs/card-style.puml
 -->
 
-### Advisement Classes (The Classes Used to Generate the Report)
+### Advisement Classes (The Classes Used to Generate the Advice.yml file)
 
 
 ```puml
 @startuml
-title UML Class Diagram for the Advisement
-footer Last Check : 18.05.2026
+title UML Class Diagram 
+header
+<font color=red size=10>Last Check : 30.06.2026</font>
+endheader
+'footer
+'<font color=blue size=9>30.06.2026</font>
+'endfooter
+
+!include card-style.puml
+
 namespace advs <<Advise>> {
   abstract class MutableMapping {
   }
@@ -171,6 +184,7 @@ namespace advs <<Advise>> {
     CommandSet : String
     MaximumFeatures : Integer
     ObjectClasses : List
+    CRSCode : Integer
     ---
     _keytransform()
   }
@@ -196,7 +210,7 @@ namespace advs <<Advise>> {
 @startuml
 title UML Class Diagram 
 header
-<font color=indianred size=12><b>Last Check : 18.05.2026</b></font>
+<font color=indianred size=12><b>Last Check : 30.06.2026</b></font>
 endheader
 'footer
 '<font color=blue size=9>24.11.2025</font>
@@ -235,6 +249,7 @@ namespace sqlb <<SQL Blocks>> {
   QueryBlock "0..1" o--> "1" JoinElements : join_elements
   QueryBlock "0..1" o--> "1" WhereElements : where_elements
   QueryBlock "0..1" o--> "1" GroupElements : group_elements
+  QueryBlock "0..1" o--> "1" LimOffElements : limoff_elements
   class QueryBlocks {
   }
   QueryBlocks *-right-> QueryBlock
@@ -303,6 +318,7 @@ namespace sqlb <<SQL Blocks>> {
   class WhereElements {
     ---
     __repr__()
+    add()
   }
   WhereElements *--> WhereElement
   class GroupElement {
@@ -315,6 +331,20 @@ namespace sqlb <<SQL Blocks>> {
     __repr__()
   }
   GroupElements *--> GroupElement
+
+  class LimOffElement {
+    count : Integer
+    type : LimOffType
+    ---
+    __repr__()
+  }
+  class LimOffElements {
+    ---
+    __repr__()
+  }
+  LimOffElements *--> LimOffElement
+
+  
   enum DbType {
     postgresql
     oracledb

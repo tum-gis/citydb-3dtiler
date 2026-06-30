@@ -238,6 +238,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
         krnl_query.limoff_elements = new_limoff
         # print(krnl_query)
 
+    # If the ID number specified as the Filtering option
     if args.id is not None:
         if args.id.count(",")  == 0:
             new_ids = WhereElement(condition=f"ftr.objectid = '{args.id}'")
@@ -250,6 +251,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
         krnl_query.where_elements.add(new_ids)
         
 
+    # If the Type name specified as the Filtering option
     if args.type_name is not None:
         if args.type_name.count(",") == 0:
             new_type_names = WhereElement(condition=f"oc.classname = '{args.type_name}'")
@@ -260,21 +262,47 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
             new_type_names = WhereElement(condition=f"LOWER(oc.classname) IN {tuple(setof_type_names)}")
         krnl_query.where_elements.add(new_type_names)
 
-    # print(krnl_query)
+    # If the Boundary-Box specified as the Filtering option
+    if args.bbox is not None:
+        # If only coordinates have been given
+        # Check the advise and add the used CRS at the end.
+        if len(args.bbox.split(",")) == 4:
+            advices = read_yaml(get_shared_folder_path(), "advice.yml")
+            crs_code = advices["used_crs_code"]
+            args.bbox += f",{crs_code}"
+        elif len(args.bbox.split(",")) != 5:
+            print("Error : Please check the Boundary Box parameter.")
+
+        if len(args.bbox.split(",")) == 5:
+            if args.bbox_mode == "intersects":
+                # Only use the Boundary Boxes of geometries (fastest intersects method)
+                new_bbox = WhereElement(condition=f"ST_MakeEnvelope({args.bbox}) && gmdt.geometry")
+            elif args.bbox_mode == "intersects-precise":
+                # First check if BBoxes are intersecting then check if actual geometry is intersecting.
+                new_bbox = WhereElement(condition=f"ST_MakeEnvelope({args.bbox}) && gmdt.geometry AND st_intersects(ST_MakeEnvelope({args.bbox}), ST_ForceCollection(st_force2d(gmdt.geometry)))")
+            elif args.bbox_mode == "contains":
+                # Only use the Boundary Boxes of geometries (fastest contains method)
+                # ! The Order is important here
+                new_bbox = WhereElement(condition=f"gmdt.geometry @ ST_MakeEnvelope({args.bbox})")
+            elif args.bbox_mode == "contains-precise":
+                # First check if the given BBox is containing the geometry's bbox then check if the actual geometry is contained by Bbox.
+                new_bbox = WhereElement(condition=f"gmdt.geometry @ ST_MakeEnvelope({args.bbox}) AND st_contains(ST_MakeEnvelope({args.bbox}), ST_ConcaveHull(st_forcecollection(st_force2d(gmdt.geometry)),0.5))")
+        krnl_query.where_elements.add(new_bbox)
+
 
     # Set the name of materialized view that would be used for tiling
     mv_name = "mv_geometries"
     mfpt = max_features_per_tile
 
-    #Test
-    # print("--->", query)
+    #Test the Query
+    # print("(i) Info : SQL Query : \n", query)
     
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, 'geom')
     # print(crt_mv)
     run_sql(args, crt_mv, name=f"create_materialized_view (function) for {mv_name}")
     run_sql(args, ind_mv, name=f"index_materialized_view (function) for {mv_name}")
-    generate_tiles(args, mv_name, 'geom', 'material_data', output_path, mfpt, attribute_as_string)
+    # generate_tiles(args, mv_name, 'geom', 'material_data', output_path, mfpt, attribute_as_string)
 
 def summarize_advice(args):
     advices = read_yaml(get_shared_folder_path(), "advice.yml")

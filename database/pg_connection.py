@@ -16,6 +16,7 @@ def pg_establish(args):
         #print(f"Autocommit: {conn.autocommit} and Isolation Level: {conn.isolation_level}")
         
     except psycopg2.Error as err:
+        print(f"(!Error) : Check the given database connection info : Hostname > {args.db_host}, DatabaseName > {args.db_name}, PortNumber > {args.db_port}, UserName > {args.db_username}, Password(Hidden) > ***** \n")
         print(f"Error:\n{err}")
     finally:
         return conn

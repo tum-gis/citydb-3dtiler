@@ -62,7 +62,9 @@ def main():
     fltr_group.add_argument("--limit", metavar="Limit", help="Specify a limit number to reduce the selected features.", type=int)
     fltr_group.add_argument("--start-index", metavar="Start Index", help="Specify the starting index (Offset) of the selected features.", type=int, default=0)
     fltr_group.add_argument("-i", "--id", metavar="ID Number(s)", help="ID number of a specific feature or ID numbers of a bunch of features. Use comma as id number separator for multiple inputs and do not add space character between the id numbers (i.e. --id 9876,1234,8765,2345).")
-    fltr_group.add_argument("-t", "--type-name", metavar="Type Name(s) / Objectclasses", help="Type name of the features or a set of type names (aka ObjectClass names). Use comma as TypeName sparator for multiple inputs and do not add pace character between the type names(i.e. --type-name WallSurface,RoofSurfaceSurface,GroundSurface).")
+    fltr_group.add_argument("-t", "--type-name", metavar="Type Name(s) / Objectclasses", help="Type name of the features or a set of type names (aka ObjectClass names). Use comma as TypeName separator for multiple inputs and do not add space character between the type names(i.e. --type-name WallSurface,RoofSurfaceSurface,GroundSurface).")
+    fltr_group.add_argument("-b", "--bbox", metavar="Boundary Box", help="A bounding box element containing the x_min, y_min, x_max, y_max, and SRID values, to be used as the filtering geometry. If the SRID value is not specified, than the current SRID (CRS/SRS Code Number) in the database will be assumed as the common CRS. Use comma as separator and do not add space character between the min/max values.")
+    fltr_group.add_argument("--bbox-mode", metavar="Boundary Box Mode", help="Specify the method of the boundary box usage as the filtering geometry.", choices=["intersects","intersects-precise","contains", "contains-precise"], default="intersects" )
 
     # Time to parse the arguments
     args = parser.parse_args()
