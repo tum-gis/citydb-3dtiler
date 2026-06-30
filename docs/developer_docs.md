@@ -163,7 +163,7 @@ endheader
 '<font color=blue size=9>30.06.2026</font>
 'endfooter
 
-!include card-style.puml
+'!include card-style.puml
 
 namespace advs <<Advise>> {
   abstract class MutableMapping {

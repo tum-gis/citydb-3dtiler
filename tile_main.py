@@ -1,6 +1,7 @@
 #External Libraries
 import sys
 import os
+from cql2 import Expr
 
 # Internal Libraries
 from io_tools.yaml import write_yaml
@@ -289,13 +290,16 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
                 new_bbox = WhereElement(condition=f"gmdt.geometry @ ST_MakeEnvelope({args.bbox}) AND st_contains(ST_MakeEnvelope({args.bbox}), ST_ConcaveHull(st_forcecollection(st_force2d(gmdt.geometry)),0.5))")
         krnl_query.where_elements.add(new_bbox)
 
+    if args.filter is not None:
+        cql2_filter = Expr(args.filter)
+        print(cql2_filter.to_sql())
 
     # Set the name of materialized view that would be used for tiling
     mv_name = "mv_geometries"
     mfpt = max_features_per_tile
 
     #Test the Query
-    # print("(i) Info : SQL Query : \n", query)
+    print("(i) Info : SQL Query : \n", query)
     
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, 'geom')
