@@ -35,6 +35,7 @@
 - [Tips for Docker Usage](tips_for_docker_usage.md)
 - [Test Procedures & Sample Tilesets](test_procedures.md)
 - [Documentation for the Developers](developer_docs.md)
+- [Example Commands for Advanced Users](samples_4_advanced.md)
 
 ## Special Thanks
 

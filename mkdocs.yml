@@ -14,6 +14,7 @@ nav:
   - "Tips for Docker usage" : tips_for_docker_usage.md
   - "Test Procedures & Tilesets" : test_procedures.md
   - "Documentation for Developers" : developer_docs.md
+  - "Example Commands for Advanced Users" : samples_4_advanced.md
 theme: 
   name: material
   logo: ./images/citydb_logo.png
