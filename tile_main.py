@@ -9,7 +9,7 @@ from io_tools.folder import create_folder, check_custom_materials
 from io_tools.yaml import read_yaml
 from io_tools.tiles import generate_tiles
 from io_tools.pg_plpgsql import copy_materials, drop_cascade_if_exists
-from io_tools.pg_sql import read_sql_file
+from io_tools.pg_sql import read_sql_file, append_pro_value
 from database.pg_connection import run_sql, get_query_results
 from classes.sql_blocks import *
 from instances.kernel import krnl_query
@@ -292,7 +292,14 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
 
     if args.filter is not None:
         cql2_filter = Expr(args.filter)
-        print(cql2_filter.to_sql())
+        edited_query = append_pro_value(cql2_filter.to_sql())
+        new_cql2 = WhereElement(condition=edited_query)
+        krnl_query.where_elements.add(new_cql2)
+
+    if args.sql_filter is not None:
+        edited_query = append_pro_value(args.sql_filter)
+        new_sql_filter = WhereElement(condition=edited_query)
+        krnl_query.where_elements.add(new_sql_filter)
 
     # Set the name of materialized view that would be used for tiling
     mv_name = "mv_geometries"

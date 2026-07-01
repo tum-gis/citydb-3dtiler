@@ -9,7 +9,8 @@ from advise_main import advise
 from tile_main import tile
 from io_tools.folder import check_file_in, create_folder
 from default_paths import get_base_path, get_shared_folder_path
-from validators.validate_filters import validate_cql2
+from validators.validate_cql2 import validate_cql2
+from validators.validate_sql import validate_sql
 # from custom_checks import check_arguments
 
 # Added as a future task : Customizing the main help document.
@@ -67,6 +68,7 @@ def main():
     fltr_group.add_argument("-b", "--bbox", metavar="Boundary Box", help="A bounding box element containing the x_min, y_min, x_max, y_max, and SRID values, to be used as the filtering geometry. If the SRID value is not specified, than the current SRID (CRS/SRS Code Number) in the database will be assumed as the common CRS. Use comma as separator and do not add space character between the min/max values.")
     fltr_group.add_argument("--bbox-mode", metavar="Boundary Box Mode", help="Specify the method of the boundary box usage as the filtering geometry.", choices=["intersects","intersects-precise","contains", "contains-precise"], default="intersects" )
     fltr_group.add_argument("-f", "--filter", metavar="CQL2 Filter", help="CQL2 filter expression. IMPORTANT: Must be wrapped in quotes! Example: --filter \"bldg_usage = '1100'\". Use the feature and attribute names described in the advise.yml file.", type=validate_cql2)
+    fltr_group.add_argument("--sql-filter", metavar="SQL Filter", help="The SQL Filter accepts WHERE conditions just as they are written in standard SQL queries. For example: bldg_usage = ‘residential’ AND bldg_height__measured_height > 12.5", type=validate_sql)
 
     # Time to parse the arguments
     args = parser.parse_args()
