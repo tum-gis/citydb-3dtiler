@@ -222,6 +222,21 @@ tile \
 --selected-attributes gen_grundhoehenn,gen_grundflaeche2d
 ```
 
+### use filter argument to use CQL2 Expressions 2
+```bash
+python3 citydb-3dtiler.py \
+--db-host 10.162.246.195 --db-port 9876 \
+--db-name citydb-visualizer \
+--db-schema citydb \
+--db-username tester --db-password 123456 \
+--type-name Building \
+--filter "s_overlaps(gmdt.geometry,BBOX(9.978199, 53.541309, 10.010294, 53.557241))" \
+tile \
+--tiles-version 1.0 \
+--attributes selected \
+--selected-attributes gen_grundhoehenn,gen_grundflaeche2d
+```
+
 ### use sql-filter
 ```bash
 python3 citydb-3dtiler.py \

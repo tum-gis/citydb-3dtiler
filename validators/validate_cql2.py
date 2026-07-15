@@ -3,16 +3,20 @@ import sys
 import re
 
 def has_unquoted_values(expr):
+    #pattern = r"\b\w+\b\s*(=|!=|>|<|>=|<=)\s*([^ ]+)"
     pattern = r"\b\w+\b\s*(=|!=|>|<|>=|<=)\s*([^ ]+)"
-
     for match in re.finditer(pattern, expr):
         value = match.group(2).strip()
-
         # If it doesn't start and end with single quotes, it's unquoted
         if not (value.startswith("'") and value.endswith("'")):
             return True
 
     return False
+
+def has_spatial_operator(expr):
+    pattern = r"(s_overlaps|s_within)"
+    if re.match(pattern, expr):
+        return True
 
 def quote_cql2_values(expr):
     pattern = r"(\b\w+\b)\s*(=|!=|>|<|>=|<=)\s*([^'\s][^ ]*)"
@@ -34,16 +38,19 @@ def quote_cql2_values(expr):
 def validate_cql2(value):
     # Check if it looks like a valid CQL2 expression
     # If it doesn't contain spaces or operators, it's probably missing quotes
-    if not any(op in value for op in ['=', '>', '<', 's_intersects', 't_intersects', '{', 'op']):
+    if not any(op in value for op in ['=', '>', '<', 's_intersects', 't_intersects', 's_overlaps', '{', 'op']):
         raise argparse.ArgumentTypeError(
             f"Invalid CQL2 filter: '{value}'\n"
             "Did you forget to wrap the filter in quotes?\n"
             "Correct usage: --filter \"bldg_usage = 'residential'\""
         )
-
-    if has_unquoted_values(value):
-        return_val = quote_cql2_values(value)
-    else:
+    if has_spatial_operator(value):
+        print("HALLO")
         return_val = value
-
+        print("RETURN_VAL", return_val)
+    else:
+        if has_unquoted_values(value):
+            return_val = quote_cql2_values(value)
+        else:
+            return_val = value
     return return_val

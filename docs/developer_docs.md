@@ -19,7 +19,7 @@ Following Diagram show the implemented and planned functionality of the citydb3d
 title citydb-3dtiler Functionality Matrix
 
 right header
-<font color=indianred size=12><b>Last Edit : 01.07.2026</b></font>
+<font color=indianred size=12><b>Last Edit : 30.06.2026</b></font>
 endheader
 
 *[#lightgray] <&terminal> citydb-3dtiler
@@ -46,10 +46,6 @@ endheader
 ****_ contains-precise
 ***[#navajowhite] --limit
 ***[#navajowhite] --start-index
-***[#navajowhite] --filter / -f
-****_ <CQL2 Filter Expression>
-***[#navajowhite] --sql-filter
-****_ <SQL WHERE Conditions>
 
 **[#burlywood] <&cog> --tiler-app
 ***_ <&star> pg2b3dm
