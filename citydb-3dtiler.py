@@ -9,6 +9,8 @@ from advise_main import advise
 from tile_main import tile
 from io_tools.folder import check_file_in, create_folder
 from default_paths import get_base_path, get_shared_folder_path
+# from validators.validate_cql2 import validate_cql2
+# from validators.validate_sql import validate_sql
 # from custom_checks import check_arguments
 
 # Added as a future task : Customizing the main help document.
@@ -56,6 +58,17 @@ def main():
     db_group.add_argument("-S", "--db-schema", metavar="Schema", help="Type the schema name on the database.", default="citydb")
     db_group.add_argument("-u", "--db-username", metavar="Username", help="Type the username for the database.")
     db_group.add_argument("-p", "--db-password", metavar="Password", help="Type the password for the database.")
+
+    # Filtering options that allow you to create subsets of the current dataset
+    fltr_group = parser.add_argument_group("filter-options")
+    fltr_group.add_argument("--limit", metavar="Limit", help="Specify a limit number to reduce the selected features.", type=int)
+    fltr_group.add_argument("--start-index", metavar="Start Index", help="Specify the starting index (Offset) of the selected features.", type=int, default=0)
+    fltr_group.add_argument("-i", "--id", metavar="ID Number(s)", help="ID number of a specific feature or ID numbers of a bunch of features. Use comma as id number separator for multiple inputs and do not add space character between the id numbers (i.e. --id 9876,1234,8765,2345).")
+    fltr_group.add_argument("-t", "--type-name", metavar="Type Name(s) / Objectclasses", help="Type name of the features or a set of type names (aka ObjectClass names). Use comma as TypeName separator for multiple inputs and do not add space character between the type names(i.e. --type-name WallSurface,RoofSurfaceSurface,GroundSurface).")
+    fltr_group.add_argument("-b", "--bbox", metavar="Boundary Box", help="A bounding box element containing the x_min, y_min, x_max, y_max, and SRID values, to be used as the filtering geometry. If the SRID value is not specified, than the current SRID (CRS/SRS Code Number) in the database will be assumed as the common CRS. Use comma as separator and do not add space character between the min/max values.")
+    fltr_group.add_argument("--bbox-mode", metavar="Boundary Box Mode", help="Specify the method of the boundary box usage as the filtering geometry.", choices=["intersects","intersects-precise","contains", "contains-precise"], default="intersects" )
+    fltr_group.add_argument("-f", "--filter", metavar="CQL2 Filter", help="CQL2 filter expression. IMPORTANT: Must be wrapped in quotes! Example: --filter \"bldg_usage = '1100'\". Use the feature and attribute names described in the advise.yml file. Note : Use '~geom' to refer to the geometry column. Tip : If the selected spatial operator does not work with the 3D geometries, try to use : 'st_envelope(~geom)'")
+    fltr_group.add_argument("--sql-filter", metavar="SQL Filter", help="The SQL Filter accepts WHERE conditions just as they are written in standard SQL queries. For example: bldg_usage = ‘residential’ AND bldg_height__measured_height > 12.5 . Note : Use '~geom' to refer to the geometry column.")
 
     # Time to parse the arguments
     args = parser.parse_args()

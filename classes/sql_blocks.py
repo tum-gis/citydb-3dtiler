@@ -14,7 +14,7 @@ class QueryBlock:
     In other words, a regular SQL Query atomized into pieces as fields or subqueries, and
     a query block is a category/bundle of these pieces. It is not a standalone SQL query.
     '''
-    def __init__(self, name, type_of_effect, order_number, range_alias=None, description=None, domain_aliases=[], inner_query_blocks=[], select_elements=None, from_elements=None, join_elements=None, where_elements=None, group_elements=None):
+    def __init__(self, name, type_of_effect, order_number, range_alias=None, description=None, domain_aliases=[], inner_query_blocks=[], select_elements=None, from_elements=None, join_elements=None, where_elements=None, group_elements=None, limoff_elements=None):
         self.name = name
         self.range_alias = range_alias
         self.type_of_effect = type_of_effect
@@ -26,6 +26,7 @@ class QueryBlock:
         self.join_elements = join_elements
         self.where_elements = where_elements
         self.group_elements = group_elements
+        self.limoff_elements = limoff_elements
     # Change this method KingMidas, it is too primitive...
     def __repr__(self):
         # Change here, it is too primitive
@@ -51,7 +52,11 @@ class QueryBlock:
             group_part = f"{self.group_elements} "
         else:
             group_part = ""
-        query = selection_part + from_part + join_part + where_part + group_part
+        if self.limoff_elements != None:
+            limoff_part = f"{self.limoff_elements} "
+        else:
+            limoff_part = ""
+        query = selection_part + from_part + join_part + where_part + group_part + limoff_part
         return query
 
 class QueryBlocks:
@@ -85,6 +90,8 @@ class QueryBlocks:
         count_where_elements = 0
         group_part = ""
         count_group_elements = 0
+        limoff_part = ""
+        count_limoff_elements = 0
         for qb in self.query_blocks:
             if qb.select_elements != None or qb.select_elements != "":
                 selection_part += str(qb.select_elements) + ", "
@@ -98,13 +105,17 @@ class QueryBlocks:
             if qb.group_elements != None:
                 count_group_elements += 1
                 group_part += str(qb.group_elements) + ", "
+            if qb.limoff_elements != None:
+                count_limoff_elements += 1
+                limoff_part += str(qb.limoff_elements) + " \n"
         selection_part = selection_part[:-2]
         from_part = from_part[:-2]
+        limoff_part = limoff_part[:-2]
         if count_where_elements > 0:
             where_part = "WHERE " + where_part[:-4]
         if count_group_elements > 0:
             group_part = "GROUP BY " + group_part[:-2]
-        return (selection_part + " " + from_part + join_part + where_part + group_part)
+        return (selection_part + " " + from_part + join_part + where_part + group_part + limoff_part)
 
 class CaseElement:
     '''
@@ -344,6 +355,8 @@ class WhereElements:
         else:
             where_part = ""
         return where_part
+    def add(self, where_element):
+        self.where_elements.append(where_element)
 
 class GroupElement:
         def __init__(self, field):
@@ -366,6 +379,32 @@ class GroupElements:
         else:
             group_part = ""
         return group_part
+
+class LimOffElement:
+    def __init__(self, count, type="LIMIT"):
+        self.count = count
+        self.type = type
+    def __repr__(self):
+        if self.count == 0 or self.count == None:
+            return ""
+        else:
+            return f"{self.type} {self.count}"
+
+class LimOffElements:
+    def __init__(self, *limoff_elements):
+        self.limoff_elements = []
+        # Order the array by considering type
+        if limoff_elements[0].type == "LIMIT":
+            self.limoff_elements.append(limoff_elements[0])
+            self.limoff_elements.append(limoff_elements[1])
+        else:
+            self.limoff_elements.append(limoff_elements[1])
+            self.limoff_elements.append(limoff_elements[0])
+    def __repr__(self):
+        limoff_part = ''
+        for limoff in self.limoff_elements:
+            limoff_part += f"{limoff} \n"
+        return limoff_part
 
 # Creates an instance 
 class CombinationElement:

@@ -16,6 +16,12 @@ def advise(args):
     # Take the existing objectclasses in the database instance
     oc_list, oc_sql_fil = read_sql_file("standalone_queries", "get_all_available_objectclasses.sql")
     result_oc = get_query_results(args, oc_list, name=oc_sql_fil)
+
+    # If the CRS is not specified when using BBox, 
+    # following query will expose the used CRS on database.
+    crs_code, crs_sql = read_sql_file("standalone_queries", "get_crs_code.sql")
+    result_crs = get_query_results(args, crs_code, name=crs_sql)
+    
     # Take the used command arguments and save as list 
     commandset = dict(args._get_kwargs())
 
@@ -27,22 +33,23 @@ def advise(args):
                 cndtn = f"oc.classname = '{oc}'"
                 whrs = WhereElements(
                     WhereElement(condition = cndtn))
-                #print(geometry_statistics)
                 geometry_statistics.where_elements = whrs
-                #print(geometry_statistics)
+
                 # Calculates Maximum Features per Tile for the specificied Objectclass
-                #print(recommended_max_features_per_tile)
                 qry_name = "recommended_max_features_per_tile for : " + f"{oc}" + " (instance)"
                 oc_statistics = get_query_results(args, str(recommended_max_features_per_tile), name=qry_name)
-
                 rmf = oc_statistics[3] # Statistics Order: 0:min, 1:max, 2:avg, 3:mxm_ftr_pr_tl
+                
                 # Remove the null/none values
                 properties_list = [prop for prop in result_oc[0][oc]["properties"] if prop is not None]
+                
                 # Add to the list of the ObjectClasses
                 oc_new = dict(ObjectClass(oc, objectclass_recommendations = int(rmf), properties = properties_list))
                 ocs.append(oc_new)
+
+            
             # Set the Advisement class by considering every objectclasses separately
-            adv = Advisement(commandset, max_features=None, objectclasses=ocs)
+            adv = Advisement(commandset, max_features=None, crs_code=result_crs[0], objectclasses=ocs)
 
             try:
                 write_yaml(get_shared_folder_path(), args.output_file, dict(adv))
@@ -60,7 +67,7 @@ def advise(args):
             oc_new = dict(ObjectClass(oc, properties = result_oc[0][oc]["properties"]))
             ocs.append(oc_new)
         # Set the advisement class
-        adv = Advisement(commandset, max_features=int(rmf), objectclasses = ocs)
+        adv = Advisement(commandset, max_features=int(rmf), crs_code=result_crs[0], objectclasses = ocs)
         # Write the Advisement as a YAML file
         try:
             write_yaml(get_shared_folder_path(), args.output_file, dict(adv))

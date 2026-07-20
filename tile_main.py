@@ -1,6 +1,8 @@
 #External Libraries
 import sys
 import os
+from cql2 import Expr
+import re
 
 # Internal Libraries
 from io_tools.yaml import write_yaml
@@ -8,7 +10,7 @@ from io_tools.folder import create_folder, check_custom_materials
 from io_tools.yaml import read_yaml
 from io_tools.tiles import generate_tiles
 from io_tools.pg_plpgsql import copy_materials, drop_cascade_if_exists
-from io_tools.pg_sql import read_sql_file
+from io_tools.pg_sql import read_sql_file, append_pro_value
 from database.pg_connection import run_sql, get_query_results
 from classes.sql_blocks import *
 from instances.kernel import krnl_query
@@ -17,6 +19,8 @@ from instances.attributes import qry_blck_pro_shll, pro_prnt_selects, qry_blck_p
 from instances.nested_attributes import qry_blck_pro_nstd_shll1, qry_blck_pro_nstd_shll2, qry_blck_pro_nstd_add, cmb_pro_nstd
 from database.pg_connection import create_materialized_view, index_materialized_view, get_query_results, run_sql
 from default_paths import get_base_path, get_shared_folder_path
+from validators.validate_cql2 import validate_cql2, has_spatial_operator, has_geometry_types, fix_geometries, add_crs_to_query
+from validators.validate_sql import validate_sql
 
 # Set the default path of the shared folder
 shared_folders_path = os.path.join(os.getcwd(), "shared")
@@ -229,13 +233,105 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
             query = QueryBlocks(krnl_query, selected_styling_addition)
             attribute_as_string = None
     
+    # Add the filtering options
+    # if limit & offset (start-index) 
+    if args.limit is not None or args.start_index is not None:
+        new_limit = LimOffElement(count=args.limit)
+        new_offset = LimOffElement(type="OFFSET", count=args.start_index)
+        new_limoff = LimOffElements(new_limit, new_offset)
+        krnl_query.limoff_elements = new_limoff
+        # print(krnl_query)
+
+    # If the ID number specified as the Filtering option
+    if args.id is not None:
+        if args.id.count(",")  == 0:
+            new_ids = WhereElement(condition=f"ftr.objectid = '{args.id}'")
+        elif args.id.count(",") >= 1:
+            setof_ids = []
+            for nid in args.id.split(","):
+                setof_ids.append(nid)
+            # print(setof_ids)
+            new_ids = WhereElement(condition=f"ftr.objectid IN {tuple(setof_ids)}")
+        krnl_query.where_elements.add(new_ids)
+        
+
+    # If the Type name specified as the Filtering option
+    if args.type_name is not None:
+        if args.type_name.count(",") == 0:
+            new_type_names = WhereElement(condition=f"oc.classname = '{args.type_name}'")
+        elif args.type_name.count(",") >= 1:
+            setof_type_names = []
+            for typ in args.type_name.split(","):
+                setof_type_names.append(typ.lower())
+            new_type_names = WhereElement(condition=f"LOWER(oc.classname) IN {tuple(setof_type_names)}")
+        krnl_query.where_elements.add(new_type_names)
+
+    # If the Boundary-Box specified as the Filtering option
+    if args.bbox is not None:
+        # If only coordinates have been given
+        # Check the advise and add the used CRS at the end.
+        if len(args.bbox.split(",")) == 4:
+            advices = read_yaml(get_shared_folder_path(), "advice.yml")
+            crs_code = advices["used_crs_code"]
+            args.bbox += f",{crs_code}"
+        elif len(args.bbox.split(",")) != 5:
+            print("Error : Please check the Boundary Box parameter.")
+
+        if len(args.bbox.split(",")) == 5:
+            if args.bbox_mode == "intersects":
+                # Only use the Boundary Boxes of geometries (fastest intersects method)
+                new_bbox = WhereElement(condition=f"ST_MakeEnvelope({args.bbox}) && gmdt.geometry")
+            elif args.bbox_mode == "intersects-precise":
+                # First check if BBoxes are intersecting then check if actual geometry is intersecting.
+                new_bbox = WhereElement(condition=f"ST_MakeEnvelope({args.bbox}) && gmdt.geometry AND st_intersects(ST_MakeEnvelope({args.bbox}), ST_ForceCollection(st_force2d(gmdt.geometry)))")
+            elif args.bbox_mode == "contains":
+                # Only use the Boundary Boxes of geometries (fastest contains method)
+                # ! The Order is important here
+                new_bbox = WhereElement(condition=f"gmdt.geometry @ ST_MakeEnvelope({args.bbox})")
+            elif args.bbox_mode == "contains-precise":
+                # First check if the given BBox is containing the geometry's bbox then check if the actual geometry is contained by Bbox.
+                new_bbox = WhereElement(condition=f"gmdt.geometry @ ST_MakeEnvelope({args.bbox}) AND st_contains(ST_MakeEnvelope({args.bbox}), ST_ConcaveHull(st_forcecollection(st_force2d(gmdt.geometry)),0.5))")
+        krnl_query.where_elements.add(new_bbox)
+
+    if args.filter is not None:
+        # print("FILTER : ", args.filter)
+        valid_filter = validate_cql2(args.filter)
+        # print(help(Expr))
+        cql2_filter = Expr(valid_filter)
+        # print("HAS SPATIAL", has_spatial_operator(args.filter))
+        print("CQL2 Filter : ", cql2_filter)
+
+        if has_spatial_operator(valid_filter): 
+            edited_query = cql2_filter.to_sql().replace('"gmdt.geometry"', 'gmdt.geometry')
+            # This part is added because of a missing feature of CQL' lib.
+            # Check the issue on github and remove this part, if it would be fixed.
+            if edited_query.find("bbox"):
+                edited_query = edited_query.replace("bbox", "ST_MakeEnvelope")
+            print("edited_query", edited_query)
+            if has_geometry_types(edited_query):
+                advices = read_yaml(get_shared_folder_path(), "advice.yml")
+                crs_code = advices["used_crs_code"]
+                # print("EDIIIITEEEED: ", edited_query)
+                edited_query = add_crs_to_query(edited_query, crs_code)
+            # print(edited_query)
+        else:
+            edited_query = append_pro_value(cql2_filter.to_sql())
+        # print(edited_query)
+        new_cql2 = WhereElement(condition=edited_query)
+        krnl_query.where_elements.add(new_cql2)
+
+    if args.sql_filter is not None:
+        valid_sql = validate_sql(args.sql_filter)
+        edited_query = append_pro_value(valid_sql)
+        new_sql_filter = WhereElement(condition=edited_query)
+        krnl_query.where_elements.add(new_sql_filter)
 
     # Set the name of materialized view that would be used for tiling
     mv_name = "mv_geometries"
     mfpt = max_features_per_tile
 
-    #Test
-    # print("--->", query)
+    #Test the Query
+    print("(i) Info : SQL Query : \n", query)
     
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, 'geom')
