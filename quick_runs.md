@@ -230,7 +230,22 @@ python3 citydb-3dtiler.py \
 --db-schema citydb \
 --db-username tester --db-password 123456 \
 --type-name Building \
---filter "s_overlaps(gmdt.geometry,BBOX(9.978199, 53.541309, 10.010294, 53.557241))" \
+--filter "s_within(st_envelope(~geom),BBOX(564573, 5933311, 565095, 5933739,25832))" \
+tile \
+--tiles-version 1.0 \
+--attributes selected \
+--selected-attributes gen_grundhoehenn,gen_grundflaeche2d
+```
+
+### use filter argument to use CQL2 Expressions 3
+```bash
+python3 citydb-3dtiler.py \
+--db-host 10.162.246.195 --db-port 9876 \
+--db-name citydb-visualizer \
+--db-schema citydb \
+--db-username tester --db-password 123456 \
+--type-name Building \
+--filter "s_crosses(st_envelope(~geom),LINESTRING(564919 5933223, 565387 5934847))" \
 tile \
 --tiles-version 1.0 \
 --attributes selected \
@@ -245,11 +260,24 @@ python3 citydb-3dtiler.py \
 --db-schema citydb \
 --db-username tester --db-password 123456 \
 --type-name Building \
---sql-filter "gen_citygrid_unitid.pro_value like '2021%' AND st_dwithin(st_geomfromtext('POINT(566924 5934737)',25832), gmdt.geometry, 2000)" \
+--sql-filter "gen_citygrid_unitid.pro_value like '2021%' AND st_dwithin(st_geomfromtext('POINT(566924 5934737)',25832), ~geom, 2000)" \
 tile \
 --tiles-version 1.0 \
 --attributes selected \
 --selected-attributes gen_citygrid_unitid
+```
+
+### use sql-filter 2
+```bash
+python3 citydb-3dtiler.py \
+--db-host 10.162.246.195 --db-port 9876 \
+--db-name citydb-visualizer \
+--db-schema citydb \
+--db-username tester --db-password 123456 \
+--type-name Building \
+--sql-filter "st_dwithin(st_geomfromtext('POINT(566924 5934737)',25832), ~geom, 2000)" \
+tile \
+--tiles-version 1.0 
 ```
 
 python3 citydb-3dtiler.py \

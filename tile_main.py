@@ -2,6 +2,7 @@
 import sys
 import os
 from cql2 import Expr
+import re
 
 # Internal Libraries
 from io_tools.yaml import write_yaml
@@ -18,7 +19,7 @@ from instances.attributes import qry_blck_pro_shll, pro_prnt_selects, qry_blck_p
 from instances.nested_attributes import qry_blck_pro_nstd_shll1, qry_blck_pro_nstd_shll2, qry_blck_pro_nstd_add, cmb_pro_nstd
 from database.pg_connection import create_materialized_view, index_materialized_view, get_query_results, run_sql
 from default_paths import get_base_path, get_shared_folder_path
-from validators.validate_cql2 import validate_cql2, has_spatial_operator
+from validators.validate_cql2 import validate_cql2, has_spatial_operator, has_geometry_types, fix_geometries, add_crs_to_query
 from validators.validate_sql import validate_sql
 
 # Set the default path of the shared folder
@@ -294,21 +295,34 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
 
     if args.filter is not None:
         # print("FILTER : ", args.filter)
-        validate_cql2(args.filter)
+        valid_filter = validate_cql2(args.filter)
         # print(help(Expr))
-        cql2_filter = Expr(args.filter)
+        cql2_filter = Expr(valid_filter)
         # print("HAS SPATIAL", has_spatial_operator(args.filter))
         print("CQL2 Filter : ", cql2_filter)
-        if has_spatial_operator(args.filter): 
+
+        if has_spatial_operator(valid_filter): 
             edited_query = cql2_filter.to_sql().replace('"gmdt.geometry"', 'gmdt.geometry')
+            # This part is added because of a missing feature of CQL' lib.
+            # Check the issue on github and remove this part, if it would be fixed.
+            if edited_query.find("bbox"):
+                edited_query = edited_query.replace("bbox", "ST_MakeEnvelope")
+            print("edited_query", edited_query)
+            if has_geometry_types(edited_query):
+                advices = read_yaml(get_shared_folder_path(), "advice.yml")
+                crs_code = advices["used_crs_code"]
+                # print("EDIIIITEEEED: ", edited_query)
+                edited_query = add_crs_to_query(edited_query, crs_code)
+            # print(edited_query)
         else:
             edited_query = append_pro_value(cql2_filter.to_sql())
-        print(edited_query)
+        # print(edited_query)
         new_cql2 = WhereElement(condition=edited_query)
         krnl_query.where_elements.add(new_cql2)
 
     if args.sql_filter is not None:
-        edited_query = append_pro_value(args.sql_filter)
+        valid_sql = validate_sql(args.sql_filter)
+        edited_query = append_pro_value(valid_sql)
         new_sql_filter = WhereElement(condition=edited_query)
         krnl_query.where_elements.add(new_sql_filter)
 
@@ -317,7 +331,7 @@ def create_tileset(args, output_path=None, max_features_per_tile=None, whrs=None
     mfpt = max_features_per_tile
 
     #Test the Query
-    # print("(i) Info : SQL Query : \n", query)
+    print("(i) Info : SQL Query : \n", query)
     
     crt_mv = create_materialized_view(mv_name, str(query))
     ind_mv = index_materialized_view(mv_name, 'geom')

@@ -34,6 +34,10 @@ def quote_sql_values(expr: str) -> str:
     return re.sub(pattern, replacer, expr)
 
 def validate_sql(value):
+    # Check if the geometry referred as ~geom
+    if value.find("~geom"):
+        new_value = value.replace("~geom", "gmdt.geometry")
+
     # Check if it looks like a valid CQL2 expression
     # If it doesn't contain spaces or operators, it's probably missing quotes
     if not any(op in value for op in ['=', '>', '<', 'st_intersect', 'st_intersects', '&&', '@', 'st_contains', 'st_dwithin']):
@@ -43,12 +47,12 @@ def validate_sql(value):
             "Correct usage: --sql-filter \"bldg_usage = 'residential'\""
         )
 
-    if has_unquoted_values(value):
+    if has_unquoted_values(new_value):
         # print("has unquoted values!!!")
-        return_val = quote_sql_values(value)
+        return_val = quote_sql_values(new_value)
         print(return_val)
     else:
         # print("all values are quoted.")
-        return_val = value
+        return_val = new_value
 
     return return_val
